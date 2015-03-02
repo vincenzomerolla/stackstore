@@ -12,7 +12,10 @@ var schema = mongoose.Schema({
 	content:{
 		type : String
 	},
-	user:[User],
+	user:[{
+		type : Schema.Types.ObjectId,
+		ref : 'User'
+	}],
 	time : {
 		type : Date,
 		default : Date.now
