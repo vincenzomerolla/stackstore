@@ -1,8 +1,8 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
-
-var schema = new mongoose.Schema({
+//change schema to userSchema here
+var userSchema = new mongoose.Schema({
     email: {
         type: String
     },
@@ -39,7 +39,7 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
 
     var user = this;
 
@@ -52,8 +52,8 @@ schema.pre('save', function (next) {
 
 });
 
-schema.method('correctPassword', function (candidatePassword) {
+userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
-mongoose.model('User', schema);
+mongoose.model('User', userSchema);
