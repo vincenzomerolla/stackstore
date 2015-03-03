@@ -81,6 +81,13 @@ describe('Database Models',function(){
 			});
 		});
 
+		// xit('should populate the products category', function(done) {
+		// 	var category = new Category({ name: 'Atari' });
+		// 	var product = new Product({ name: 'FFX', price: 10 });
+		// 	category.save();
+		// 	product.save();
+		// 	category.findOne({name: 'Atari'});
+		// })
 	})
 
 
