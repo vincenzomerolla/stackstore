@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-var 
-
 var Schema = mongoose.Schema;
 
 var productSchema = new Schema({
@@ -10,7 +8,7 @@ var productSchema = new Schema({
 	inventory: Number,
 	brand: String,
 	photoUrls: [String],
-	reviews: [{ type: Schema.Types.Objectid, ref: 'Review' }],
+	reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now }
 });

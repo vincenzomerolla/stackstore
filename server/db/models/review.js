@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+var Schema = mongoose.Schema;
+
 var schema = mongoose.Schema({
 	rating:{
 		type : Number,
