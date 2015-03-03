@@ -39,7 +39,7 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+userSchema.pre('save', function (next) {
 
     var user = this;
 
@@ -52,7 +52,7 @@ schema.pre('save', function (next) {
 
 });
 
-schema.method('correctPassword', function (candidatePassword) {
+userSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 

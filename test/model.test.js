@@ -37,4 +37,6 @@ describe('Database Models',function(){
 			done();
 		});
 	});
+
+	describe('')
 });
