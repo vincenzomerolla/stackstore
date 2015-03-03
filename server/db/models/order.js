@@ -7,4 +7,4 @@ var orderSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 
-mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('Order', orderSchema);
