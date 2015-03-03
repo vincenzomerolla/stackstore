@@ -8,6 +8,7 @@ var productSchema = new Schema({
 	inventory: Number,
 	brand: String,
 	photoUrls: [String],
+  categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
 	reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now }
