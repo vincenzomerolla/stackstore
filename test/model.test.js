@@ -70,25 +70,35 @@ describe('Database Models',function(){
 			});
 		});
 
+		// not working properly
 		it('should return an error if a category is not unique', function(done) {
 			var category1 = new Category({ name: 'Atari' });
 			var category2 = new Category({ name: 'Atari' });
 
-			category1.save();
-			category2.save(function (err) {
-				expect(err.err).to.have.string('dup key');
-				done();
+			category1.save(function (err) {
+				category2.save(function (err) {
+					expect(err.err).to.have.string('dup key');
+					done();
+				});
 			});
 		});
 
-		// xit('should populate the products category', function(done) {
-		// 	var category = new Category({ name: 'Atari' });
-		// 	var product = new Product({ name: 'FFX', price: 10 });
-		// 	category.save();
-		// 	product.save();
-		// 	category.findOne({name: 'Atari'});
-		// })
+		// not working properly
+		it('should populate the products category', function() {
+			var product = new Product({ title: 'FFX', price: 10 });
+			product.save(function(err, data) {
+				var category = new Category({ name: 'asdf', products: [product]});
+				category.save();
+			});
+
+			Category.findOne({name: 'Atari'})
+				.populate('_id')
+				.exec(function (err, data) {
+					console.log(data);
+				})
+		})
 	})
 
+//test for hooks, custom validators, methods
 
 });
