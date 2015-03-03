@@ -15,11 +15,11 @@ var reviewSchema = new mongoose.Schema({
 	content:{
 		type : String
 	},
-	user:[{
+	user: {
 		type : Schema.Types.ObjectId,
 		ref : 'User'
-	}],
-	time : {
+	},
+	createdAt : {
 		type : Date,
 		default : Date.now
 	}

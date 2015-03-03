@@ -12,12 +12,28 @@ var userSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    firstName: {
+      type: String
+    },
+    lastName: {
+      type: String
+    },
     address: {
-      type: String,
+      type: String
+    },
+    city: {
+      type: String
+    },
+    state: {
+      type: String
+    },
+    zipCode: {
+      type: String
     },
     photoUrl: {
       type: String
     },
+    orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
     salt: {
       type: String
     },
