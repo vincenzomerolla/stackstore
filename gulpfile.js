@@ -12,6 +12,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var jshint = require('gulp-jshint');
+var mocha = require('gulp-mocha');
 
 // Development tasks
 // --------------------------------------------------------------
@@ -54,6 +55,11 @@ gulp.task('default', function () {
     gulp.watch('./browser/js/**', ['lintJS', 'buildJS', 'reload']);
     gulp.watch('./browser/scss/**', ['buildCSS', 'reloadCSS']);
     gulp.watch(['./browser/**/*.html', './server/app/views/*.html'], ['reload']);
+    gulp.watch('./test/**',['reload']);
+
+    //test specs in mocha
+    // return gulp.src('./test/model.test.js',{read:false})
+    //     .pipe(mocha({reporter:'nyan'}));
 });
 
 // --------------------------------------------------------------

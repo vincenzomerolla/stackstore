@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+var Schema = mongoose.Schema;
+
 var orderSchema = new mongoose.Schema({
     //products not final, fix before pull request
     products: [{ type : Schema.Types.ObjectId, ref: 'Product'}],
