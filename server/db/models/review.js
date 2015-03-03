@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var schema = mongoose.Schema({
+
+var reviewSchema = new mongoose.Schema({
 	rating:{
 		type : Number,
 		min : 1,
@@ -24,4 +25,4 @@ var schema = mongoose.Schema({
 	}
 });
 
-mongoose.model('Review', schema);
+mongoose.model('Review', reviewSchema); 
