@@ -17,6 +17,7 @@ var productSchema = new Schema({
 
 productSchema.pre('save', function (next) {
   this.updatedAt = new Date();
+  this.price *= 100;
   next();
 });
 
