@@ -24,4 +24,4 @@ var reviewSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('Review', reviewSchema); 
+mongoose.model('Review', reviewSchema); 
