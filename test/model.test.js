@@ -11,9 +11,8 @@ var Category = mongoose.model("Category");
 var Product = mongoose.model("Product");
 var User = mongoose.model("User");
 var Order = mongoose.model("Order");
-console.log(Order)
 
-describe('Database Models',function(){
+describe('Database Models: ',function(){
 
 	describe('Product Model',function(){
 		xit('should create an entry', function(done){
@@ -33,32 +32,53 @@ describe('Database Models',function(){
 		});
 	});
 	
-	describe('Review Model',function(){
+	describe('Review Model: ',function(){
 		beforeEach(function(){
 			Review.remove().exec();
 		});
 
 
-		it('should create an entry',function(done){
+		xit('should create an entry',function(done){
 			Review.create({
 				rating : 3,
 				subject : "cool",
 				content : "really cool"
 			});
 			Review.findOne({rating:3},function(err,data){
-				console.log(data);
 				data.subject.should.equal("cool");
 				done();
 			});
 		});
 
-		it('should keep the value when it is saved',function(){
+		xit('should keep the value when it is saved',function(){
 
 		});
 
 
 	});
 
+	describe('Category Model: ', function() {
+
+		it('requires a name', function(done) {
+			var category = new Category();
+			category.validate(function (err) {
+				expect(err.errors).to.have.property('name');
+				done();
+			});
+		});
+
+		it('should return an error if a category is not unique', function(done) {
+			var category1 = new Category({ name: 'Atari' });
+			var category2 = new Category({ name: 'Atari' });
+
+			category1.save();
+			category2.save(function (err) {
+				expect(err.err).to.have.string('dup key');
+				done();
+			});
+		});
+
+	})
 
 
 });
