@@ -5,6 +5,8 @@
     <title>Fullstack Academy Generated Application</title>
     <!-- <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" /> -->
     <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/angular-motion/dist/angular-motion.min.css">
     <script src="/lodash/lodash.js"></script>
     <script src="/jquery/dist/jquery.js"></script>
     <!-- <script src="/bootstrap/dist/js/bootstrap.js"></script> -->
@@ -12,10 +14,24 @@
     <script src="/angular-cookies/angular-cookies.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/angular-strap/dist/angular-strap.min.js"></script>
     <script src="/main.js"></script>
 </head>
 <body ng-app="FullstackGeneratedApp" ng-controller="MainController">
-    <navbar items="menuItems"></navbar>
+    <div class="navbar navbar-default" role="navigation" bs-navbar>
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Brand</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li data-match-route="/?(navbar)?"><a href="#/">Home</a></li>
+            <li data-match-route="/page-one"><a href="#/page-one">Page One</a></li>
+            <li data-match-route="/page-two.*"><a href="#/page-two/sub-a">Page Two</a></li>
+          </ul>
+        </div>
+    </div>
+        
+
     <div ui-view></div>
 </body>
 </html>

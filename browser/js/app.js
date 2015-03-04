@@ -1,12 +1,15 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt']);
+var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap']);
 
 app.controller('MainController', function ($scope) {
 
     // Given to the <navbar> directive to show the menu.
-    $scope.menuItems = [
-        { label: 'Home', state: 'home' }
-    ];
+    $scope.aside = {
+      "title": "Title",
+      "content": "Hello Aside<br />This is a multiline message!"
+    };
+
+
 
 });
 
