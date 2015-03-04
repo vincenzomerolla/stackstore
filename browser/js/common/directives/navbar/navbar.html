@@ -1,12 +1,15 @@
-<nav class="navbar navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
-        </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<div class="navbar navbar-default" role="navigation" bs-navbar>
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Bestest Buy</a>
+  </div>
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li class="btn btn-lg btn-primary" data-animation="am-flip-x" bs-dropdown="dropdownCategories">Categories</li>
+      <li class="btn btn-lg btn-primary" data-animation="am-flip-x" bs-dropdown="dropdownGenres">Genres</li>
+      <!-- <li data-match-route="/?(navbar)?"><a href="#/">Home</a></li> -->
+      <!-- <li data-match-route="/page-one"><a href="#/page-one">Page One</a></li> -->
+      <!-- <li data-match-route="/page-two.*"><a href="#/page-two/sub-a">Page Two</a></li> -->
+    </ul>
+    <button type="button" class="fa fa-shopping-cart fa-3x pull-right" data-placement="right" data-animation="am-slide-right" template="/js/common/directives/aside/aside.html" bs-aside="aside" data-container="body">
+  </div>
+</div>
