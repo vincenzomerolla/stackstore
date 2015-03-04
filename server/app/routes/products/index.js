@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var Product = require('../../../db/models/product');
-var Category = require('../../../db/models/category');
+var Review = require('../../../db/models/review');
 
 
 router.route('/')
@@ -14,9 +14,6 @@ router.route('/')
 
   product.save(function(err, product) {
     if (err) next(err);
-
-    
-
     res.sendStatus(201);
   })
 })
@@ -47,6 +44,21 @@ router.route('/:id')
     res.sendStatus(204);
   })
 })
+
+
+
+router.route('/:id/reviews')
+.post(function(req, res, next) {
+  var review = new Review(req.body);
+
+  Product
+    .findById(req.params.id)
+    .exec()
+    .then(function(product) {
+      product.reviews.push(review);
+      res.sendStatus(201);
+    })
+});
 
 
 module.exports = router;

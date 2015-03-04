@@ -66,8 +66,7 @@ function extractFields(bestBuyProduct) {
   return newProduct;
 }
 
-var promises = [];
-
+//var promises = [];
 //categories.forEach(function(category) {
 //
 var category = categories[process.argv[2]];
@@ -75,7 +74,6 @@ console.log(category);
 
 var promise = request.getAsync({ url: createUrl(category.id, config.filters), qs: config.queryParams }).then(function(contents) {
   var body = contents[1];
-  //console.log(body)
   try {
     var b = JSON.parse(body);
     //console.log('body', b)
