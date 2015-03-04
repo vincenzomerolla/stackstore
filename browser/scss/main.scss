@@ -15,13 +15,27 @@
 	background-color: gray;
 	height: 100px;
 	width: 100px;
+	margin: auto;
 }
 
-#cart-btns {
+.cart-btns {
 	button {
+		margin: auto;
 		display: block;
 		width: 200px;
 	}
+}
+
+.cart-display {
+	height: 500px;
+}
+
+.cart-items {
+	min-height: 80%;
+	width: 95%; 
+	margin: auto;
+	border: 2px groove #d1d1d1;
+	overflow-y: auto;
 }
 
 @import 'bootswatch/main';
