@@ -10,10 +10,53 @@
   }
 }
 
-// @import 'directives/main';
-@import 'home/main';
-// @import 'about/main';
-// @import 'tutorial/main';
+
+#gravatar {
+	border-radius: 100%;
+	background-color: gray;
+	height: 100px;
+	width: 100px;
+	margin: auto;
+	padding: 0;
+}
+
+.cart-btns {
+	button {
+		margin: auto;
+		display: block;
+		width: 200px;
+	}
+}
+
+.cart-display {
+	height: 500px;
+}
+
+.cart-items {
+	// max-height: 95%;
+	height: 450px;
+	width: 95%; 
+	margin: auto;
+	border: 2px groove #d1d1d1;
+	overflow-y: auto;
+	.media {
+		width: 250px;
+	}
+	.media-body {
+		width: 100%;
+		height: 80px;
+		h4 {
+			font-size: 14px;
+			font-weight: bold;
+		}
+	}
+	.media-object {
+		height: 80px;
+		width: 60px;
+	}
+}
+
 
 
 @import 'bootswatch/main';
+@import 'home/main';
