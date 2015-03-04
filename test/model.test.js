@@ -70,7 +70,7 @@ describe('Database Models',function(){
 			});
 		});
 
-		it('should return an error if a category is not unique', function(done) {
+		xit('should return an error if a category is not unique', function(done) {
 			var category1 = new Category({ name: 'Atari' });
 			var category2 = new Category({ name: 'Atari' });
 
@@ -81,13 +81,19 @@ describe('Database Models',function(){
 			});
 		});
 
-		// xit('should populate the products category', function(done) {
-		// 	var category = new Category({ name: 'Atari' });
-		// 	var product = new Product({ name: 'FFX', price: 10 });
-		// 	category.save();
-		// 	product.save();
-		// 	category.findOne({name: 'Atari'});
-		// })
+		it('should populate the products category', function() {
+			var product = new Product({ title: 'FFX', price: 10 });
+			product.save();
+			var category = new Category({ name: 'Atari'});
+			Product.findOne({title:'FFX'},function(err,data){
+				category.products.push(data._id);
+				console.log(category)
+			});
+			category.save();
+			Category.findOne({name: 'Atari'},function(err,data){
+				console.log(data);
+			});
+		})
 	})
 
 
