@@ -1,10 +1,18 @@
-<div class="container">
-	<div id="gravatar">
-<!-- 		<img src="http://www.autreplanete.com/ap-social-media-image-maker/ressources/img/img_format/gravatar_profil_420x420.png" /> -->
-	</div>
-	<div>
-		<button type="button" class="btn btn-default"> View Past Orders </button>
-		<button type="button" class="btn btn-default"> Account Details </button>
-		<button type="button" class="btn btn-default"> ??? </button>
-	</div>
-</div>
+<div class="aside" tabindex="-1" role "dialog">
+  <div class="aside-dialog">
+    <div class="aside-content">
+      <div class="aside-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="aside-title" ng-bind="title"></h4>
+      </div>
+      <div class="aside-body">
+        <div id="gravatar">
+          <!-- 		<img src="http://www.autreplanete.com/ap-social-media-image-maker/ressources/img/img_format/gravatar_profil_420x420.png" /> -->
+        </div>
+        <div id="cart-btns">
+          <button type="button" class="btn btn-default"> View Past Orders </button>
+          <button type="button" class="btn btn-default"> Account Details </button>
+          <button type="button" class="btn btn-default"> ??? </button>
+        </div>
+      </div>
+    </div>

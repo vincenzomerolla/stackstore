@@ -12,6 +12,16 @@
 
 #gravatar {
 	border-radius: 100%;
+	background-color: gray;
+	height: 100px;
+	width: 100px;
+}
+
+#cart-btns {
+	button {
+		display: block;
+		width: 200px;
+	}
 }
 
 @import 'bootswatch/main';

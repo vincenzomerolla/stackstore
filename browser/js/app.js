@@ -48,6 +48,10 @@ app.controller('MainController', function ($scope) {
       }
     ];
 
+    $scope.aside = {
+      "title": "Cart"
+    };
+
 
 });
 
