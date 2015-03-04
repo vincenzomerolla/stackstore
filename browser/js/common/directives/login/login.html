@@ -1,0 +1,17 @@
+<div class="strategies">
+	<button>Local Login</button>
+	<button><a href="/api/auth/google">Google Login</a></button>
+	<button><a href="/api/auth/twitter">Twitter Login</a></button>
+	<button><a href="/api/auth/facebook">Facebook Login</a></button>
+</div>
+<div class="forms" ng-submit="formSubmit()">
+	<form>
+		Email: <input type="text" ng-model="userInfo.email">
+		<br />
+		Password: <input type="text" ng-model="userInfo.password">
+		<br />
+		<button type="submit">Submit</button>
+	</form>
+
+
+</div>
