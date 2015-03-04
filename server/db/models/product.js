@@ -7,8 +7,12 @@ var productSchema = new Schema({
 	description: { type: String, min: 10},
 	price: { type: Number, required: true },
 	inventory: Number,
-	brand: String,
-	photoUrls: [String],
+	manufacturer: String,
+	image: {type: String, default: 'http://placehold.it/388x500&text=No+image'},
+  releaseDate: Date,
+  platform: String,
+  esrbRating: String,
+  numberOfPlayers: String,
   categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
 	reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
 	createdAt: { type: Date, default: Date.now },
@@ -21,3 +25,4 @@ productSchema.pre('save', function (next) {
 });
 
 module.exports = mongoose.model('Product', productSchema);
+
