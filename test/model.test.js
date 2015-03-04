@@ -83,19 +83,18 @@ describe('Database Models',function(){
 			});
 		});
 
-		// not working properly
 		it('should populate the products category', function() {
 			var product = new Product({ title: 'FFX', price: 10 });
-			product.save(function(err, data) {
-				var category = new Category({ name: 'asdf', products: [product]});
-				category.save();
+			product.save();
+			var category = new Category({ name: 'Atari'});
+			Product.findOne({title:'FFX'},function(err,data){
+				category.products.push(data._id);
+				console.log(category)
 			});
-
-			Category.findOne({name: 'Atari'})
-				.populate('_id')
-				.exec(function (err, data) {
-					console.log(data);
-				})
+			category.save();
+			Category.findOne({name: 'Atari'},function(err,data){
+				console.log(data);
+			});
 		})
 	})
 
