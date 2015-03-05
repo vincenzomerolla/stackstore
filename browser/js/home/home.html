@@ -5,29 +5,19 @@
             <p>The Premier Video Game Outlet<p>
         </div>
         <div class="row">
-            <div class="col-xs-6 col-sm-3">
-                <li><img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/4603/4603004_sa.jpg"></li>
-                <h3 class="text-center">Call of Duty</h3>
-                <h4 class="text-center">Playstation 4</h4>
-                <h4 class="text-center">$59.99</h4>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <li><img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2854/2854001_sa.jpg"></li>
-                <h3 class="text-center">Call of Duty</h3>
-                <h4 class="text-center">Playstation 4</h4>
-                <h4 class="text-center">$59.99</h4>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <li><img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009136_sa.jpg"></li>
-                <h3 class="text-center">Call of Duty</h3>
-                <h4 class="text-center">Playstation 4</h4>
-                <h4 class="text-center">$59.99</h4>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <li><img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/4603/4603004_sa.jpg"></li>
-                <h3 class="text-center">Call of Duty</h3>
-                <h4 class="text-center">Playstation 4</h4>
-                <h4 class="text-center">$59.99</h4>
+            <div ng-repeat="product in products" class="col-xs-6 col-sm-3">
+                    <div class="game_photo">
+                        <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
+                    </div>
+                    <div class="game_title">
+                        <h4 class="text-center">{{product.title}}</h4>
+                    </div>
+                    <div class="game_platform">
+                        <h4 class="text-center"><strong>{{product.platform}}</strong>
+                    </div>
+                    <div class="game_price">
+                        <h5 class="text-center">{{product.price / 100}}</h5>
+                    </div>
             </div>
         </div>
     </body>
