@@ -1,9 +1,8 @@
 <div ng-if="!isAuthenticated">
 	<div class="strategies">
 		<button>Local Login</button>
-		<button><a href="/auth/google">Google Login</a></button>
-		<button><a href="/auth/twitter">Twitter Login</a></button>
-		<button><a href="/auth/facebook">Facebook Login</a></button>
+		<button ng-click="loginhref('google')">Google Login</button>
+		<button ng-click="loginhref('facebook')">Facebook Login</button>
 	</div>
 	<div class="forms" ng-submit="formSubmit()">
 		<form>
@@ -13,10 +12,5 @@
 			<br />
 			<button type="submit">Submit</button>
 		</form>
-
 	</div>
-</div>
-
-<div ng-if="isAuthenticated">
-	<p>Welcome user</p>
 </div>

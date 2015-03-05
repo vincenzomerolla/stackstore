@@ -11,12 +11,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('userCtrl', function ($scope,$http,AuthService,$state) {
-	// console.log(AuthService.logout)
-	console.log("hi")
-	AuthService.getLoggedInUser(function(data){
-		console.log(data);
-	});
+app.controller('userCtrl', function ($scope,$http,AuthService,$state,Session) {
+	var a = AuthService.getLoggedInUser();
+	console.log(a);
+	a.then(function(data){
+		$scope.user = data.user;
+	})
+	// $scope.user = Session.user;
 	$scope.isAuthenticated = AuthService.isAuthenticated();
 
 	$scope.logout = function(){
