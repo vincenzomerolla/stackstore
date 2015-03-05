@@ -26,8 +26,8 @@
 			    </div>
 			    <div class="panel-collapse" bs-collapse-target>
 			      <div class="panel-body">
-			        <ul>
-			        	<li ng-click="getProductsByFilter(item)" ng-repeat="item in panel.body">{{ item.name }}</li>
+			        <ul class="nav nav-pills nav-stacked">
+			        	<li role="presentation" class="active" ng-click="getProductsByFilter(item)" ng-repeat="item in panel.body">{{ item.name }}</li>
 		        	<ul>
 			      </div>
 			    </div>
