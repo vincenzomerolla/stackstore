@@ -1,1 +1,15 @@
-<pre>{{product | json}}</pre>
+<div class="container">
+  
+
+
+  <div class="row">
+    <div class="col-sm-3">
+      <img ng-src="{{product.image}}" alt="" class="img-responsive center-block">
+    </div>
+    <div class="col-sm-9 text-center">
+      <h3>{{product.title}}</h3>
+      <h4>{{product.platform}}</h4>
+      <h5>${{product.price/100}}</h5>
+    </div>
+  </div>
+</div>
