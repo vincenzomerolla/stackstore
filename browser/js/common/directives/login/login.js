@@ -1,5 +1,5 @@
 'use strict';
-app.directive('login',function($http){
+app.directive('login',function(AuthService, Session, AUTH_EVENTS){
 
 	return {
 		restrict : "E",
@@ -9,9 +9,14 @@ app.directive('login',function($http){
 			scope.formSubmit = function(){
 				//send a json to the local authentication
 				//post to /api/login
-				$http.post('/api/login',scope.userInfo)
-					.success(console.log('login'))
+				AuthService.login(scope.userInfo).then()
 			};
+
+			scope.isAuthenticated = AuthService.isAuthenticated();
+			scope.$on(AUTH_EVENTS.loginSuccess, function(user) {
+				scope.isAuthenticated = AuthService.isAuthenticated();
+				console.log(Session.user);
+			})
 		}
 	};
 });

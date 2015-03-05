@@ -76,14 +76,16 @@ describe('Database Models',function(){
 			});
 		});
 
-		xit('should return an error if a category is not unique', function(done) {
+		// not working properly
+		it('should return an error if a category is not unique', function(done) {
 			var category1 = new Category({ name: 'Atari' });
 			var category2 = new Category({ name: 'Atari' });
 
-			category1.save();
-			category2.save(function (err) {
-				expect(err.err).to.have.string('dup key');
-				done();
+			category1.save(function (err) {
+				category2.save(function (err) {
+					expect(err.err).to.have.string('dup key');
+					done();
+				});
 			});
 		});
 
@@ -102,5 +104,6 @@ describe('Database Models',function(){
 		})
 	})
 
+//test for hooks, custom validators, methods
 
 });
