@@ -10,7 +10,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ProductsDetailCtrl', function ($scope, $stateParams, Product) {
-  Product.get().$promise.then(function(product) {
+  Product.get($stateParams).$promise.then(function(product) {
     $scope.product = product;
   })
 });
