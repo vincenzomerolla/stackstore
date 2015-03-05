@@ -10,10 +10,14 @@ var reviewSchema = new mongoose.Schema({
 		max : 5
 	},
 	subject:{
-		type : String
+		type : String,
+    required: true,
+    min: 5
 	},
 	content:{
-		type : String
+    required: true,
+		type : String,
+    min: 10
 	},
 	user: {
 		type : Schema.Types.ObjectId,
@@ -25,4 +29,5 @@ var reviewSchema = new mongoose.Schema({
 	}
 });
 
-mongoose.model('Review', reviewSchema); 
+module.exports = mongoose.model('Review', reviewSchema); 
+

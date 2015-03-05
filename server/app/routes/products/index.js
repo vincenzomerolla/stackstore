@@ -1,22 +1,23 @@
 var router = require('express').Router();
 var Product = require('../../../db/models/product');
-var Category = require('../../../db/models/category');
+var Review = require('../../../db/models/review');
 
 
 router.route('/')
 .get(function(req, res, next) {
-  Product.find().exec().then(function(products) {
-    res.json(products);
-  });
+  Product
+    .find()
+    .populate('categories reviews')
+    .exec()
+    .then(function(products) {
+      res.json(products);
+    });
 })
 .post(function(req, res, next) {
   var product = new Product(req.body);
 
   product.save(function(err, product) {
     if (err) next(err);
-
-    
-
     res.sendStatus(201);
   })
 })
@@ -47,6 +48,31 @@ router.route('/:id')
     res.sendStatus(204);
   })
 })
+
+
+
+router.route('/:id/reviews')
+.get(function(req,res,next) {
+  Product
+    .findById(req.params.id)
+    .populate('reviews')
+    .exec()
+    .then(function(product) {
+      res.json(product.reviews);
+    })
+})
+
+.post(function(req, res, next) {
+  
+  Review.create(req.body)
+  .then(function(review) {    
+    return Product.findByIdAndAddReview(req.params.id, review).exec();
+  })
+  .then(function(product) {
+    res.sendStatus(201);
+  });
+ 
+});
 
 
 module.exports = router;
