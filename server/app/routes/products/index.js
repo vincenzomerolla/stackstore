@@ -5,13 +5,19 @@ var Review = require('../../../db/models/review');
 
 router.route('/')
 .get(function(req, res, next) {
-  Product
-    .find()
-    .populate('categories reviews')
-    .exec()
-    .then(function(products) {
-      res.json(products);
-    });
+  var promise;
+  console.log(req.query);
+
+  if (req.query.category) {
+    promise = Product.find().where('categories').in([req.query.category]).exec();
+  }
+  else {
+    promise = Product.find().populate('categories reviews').exec();
+  }
+
+  promise.then(function(products) {
+    res.json(products);
+  });
 })
 .post(function(req, res, next) {
   var product = new Product(req.body);
