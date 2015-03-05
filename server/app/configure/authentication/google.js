@@ -23,7 +23,7 @@ module.exports = function (app) {
             if (user) {
                 done(null, user);
             } else {
-                console.log(profile)
+                // console.log(profile)
                 UserModel.create({
                     google: {
                         id: profile.id
@@ -55,7 +55,7 @@ module.exports = function (app) {
     app.get('/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/login' }),
         function (req, res) {
-            res.redirect('/');
+            res.redirect('/user');
         });
 
 };

@@ -12,13 +12,16 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('userCtrl', function ($scope,$http,AuthService,$state,Session) {
+	console.log(Session);
 	var a = AuthService.getLoggedInUser();
-	console.log(a);
-	a.then(function(data){
-		$scope.user = data.user;
+
+	$http.get('/session').then(function(res){
+		$scope.user = res.data.user;
 	})
-	// $scope.user = Session.user;
+
+	$scope.user = Session.user;
 	$scope.isAuthenticated = AuthService.isAuthenticated();
+	console.log($scope.isAuthenticated);
 
 	$scope.logout = function(){
 		AuthService.logout();

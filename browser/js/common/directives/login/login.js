@@ -20,8 +20,10 @@ app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$win
 			scope.$on(AUTH_EVENTS.loginSuccess, function(user) {
 				scope.isAuthenticated = AuthService.isAuthenticated();
 				scope.user = Session.user;
-				$rootScope.$broadcast(scope.user);
+				// $rootScope.$broadcast(scope.user);
 			})
+
+			// scope.tabs.activeTab = 0;
 		}
 	};
 });

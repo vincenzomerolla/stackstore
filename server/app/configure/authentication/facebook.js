@@ -4,7 +4,7 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
-console.log(UserModel)
+// console.log(UserModel)
 
 module.exports = function (app) {
 
@@ -19,23 +19,26 @@ module.exports = function (app) {
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
 
         UserModel.findOne({ 'facebook.id': profile.id }, function (err, user) {
-            console.log(profile)
+            // console.log(profile)
 
-            // if (err) return done(err);
+            if (err) return done(err);
 
-            // if (user) {
-            //     done(null, user);
-            // } else {
-            //     UserModel.create({
-            //         facebook: {
-            //             id: profile.id,
-            //             email: "1234",
-            //             password: "1234"
-            //         }
-            //     }).then(function (user) {
-            //         done(null, user);
-            //     });
-            // }
+            if (user) {
+                done(null, user);
+            } else {
+                UserModel.create({
+                    facebook: {
+                        id: profile.id,
+                    },
+                    firstName: profile._json.first_name,
+                    lastName: profile._json.last_name,
+                    email: profile.profileUrl,
+                    password: "1234",
+                    photoUrl: 'http://graph.facebook.com/'+profile.id+'/picture'
+                }).then(function (user) {
+                    done(null, user);
+                });
+            }
 
         });
 
