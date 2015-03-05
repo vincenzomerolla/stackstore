@@ -11,6 +11,7 @@ var productSchema = new Schema({
 	image: {type: String, default: 'http://placehold.it/388x500&text=No+image'},
   releaseDate: Date,
   platform: String,
+  isAvailable: {type: Boolean, default: true},
   esrbRating: String,
   numberOfPlayers: String,
   categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
@@ -23,6 +24,10 @@ productSchema.pre('save', function (next) {
   this.updatedAt = new Date();
   next();
 });
+
+productSchema.static('findByIdAndAddReview', function(id, review) {
+  return this.findByIdAndUpdate(id, {$push: {reviews: review._id}});
+})
 
 module.exports = mongoose.model('Product', productSchema);
 

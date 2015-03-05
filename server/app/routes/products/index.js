@@ -5,9 +5,13 @@ var Review = require('../../../db/models/review');
 
 router.route('/')
 .get(function(req, res, next) {
-  Product.find().exec().then(function(products) {
-    res.json(products);
-  });
+  Product
+    .find()
+    .populate('categories reviews')
+    .exec()
+    .then(function(products) {
+      res.json(products);
+    });
 })
 .post(function(req, res, next) {
   var product = new Product(req.body);
@@ -48,16 +52,26 @@ router.route('/:id')
 
 
 router.route('/:id/reviews')
-.post(function(req, res, next) {
-  var review = new Review(req.body);
-
+.get(function(req,res,next) {
   Product
     .findById(req.params.id)
+    .populate('reviews')
     .exec()
     .then(function(product) {
-      product.reviews.push(review);
-      res.sendStatus(201);
+      res.json(product.reviews);
     })
+})
+
+.post(function(req, res, next) {
+  
+  Review.create(req.body)
+  .then(function(review) {    
+    return Product.findByIdAndAddReview(req.params.id, review).exec();
+  })
+  .then(function(product) {
+    res.sendStatus(201);
+  });
+ 
 });
 
 
