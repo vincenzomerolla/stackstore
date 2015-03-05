@@ -16,7 +16,6 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
         UserModel.findOne({ 'google.id': profile.id }, function (err, user) {
 
             if (err) return done(err);
@@ -24,10 +23,17 @@ module.exports = function (app) {
             if (user) {
                 done(null, user);
             } else {
+                // console.log(profile)
                 UserModel.create({
                     google: {
                         id: profile.id
-                    }
+                    },
+                    email: profile.emails[0].value,
+                    password : "1234",
+                    firstName : profile._json.given_name,
+                    lastName : profile._json.family_name,
+                    photoUrl : profile._json.picture
+
                 }).then(function (user) {
                     done(null, user);
                 });
@@ -49,7 +55,7 @@ module.exports = function (app) {
     app.get('/auth/google/callback',
         passport.authenticate('google', { failureRedirect: '/login' }),
         function (req, res) {
-            res.redirect('/');
+            res.redirect('/user');
         });
 
 };

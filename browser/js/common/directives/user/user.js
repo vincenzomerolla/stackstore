@@ -5,6 +5,7 @@ app.directive('user',function($http,Session){
 		restrict : "E",
 		templateUrl : "js/common/directives/user/user.html",
 		link : function(scope,element,attribute){
+			scope.user = Session.user;
 		}
 	};
 });
