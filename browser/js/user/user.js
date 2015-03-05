@@ -11,7 +11,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('userCtrl', function ($scope,$http) {
-	$http
+app.controller('userCtrl', function ($scope,$http,AuthService,$state) {
+	$scope.user = AuthService.getLoggedInUser();
 
+	$scope.logout = function(){
+		AuthService.logout;
+		$state.go('home')
+		
+	}
 });
