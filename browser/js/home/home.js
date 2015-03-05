@@ -9,6 +9,8 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('HomeCtrl', function ($scope) {
-
+app.controller('HomeCtrl', function ($scope, Product) {
+    Product.query().$promise.then(function(products) {
+        $scope.products = products.slice(4);
+    });
 });
