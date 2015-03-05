@@ -15,7 +15,8 @@ app.directive('login',function(AuthService, Session, AUTH_EVENTS){
 			scope.isAuthenticated = AuthService.isAuthenticated();
 			scope.$on(AUTH_EVENTS.loginSuccess, function(user) {
 				scope.isAuthenticated = AuthService.isAuthenticated();
-				console.log(Session.user);
+				scope.user = Session.user;
+				$rootScope.$broadcast(scope.user);
 			})
 		}
 	};
