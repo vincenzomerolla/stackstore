@@ -1,5 +1,5 @@
 'use strict';
-app.directive('login',function(AuthService, Session, AUTH_EVENTS){
+app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope){
 
 	return {
 		restrict : "E",
