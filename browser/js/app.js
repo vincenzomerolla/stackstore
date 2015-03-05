@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap']);
+var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap']);
 
 app.controller('MainController', function ($scope) {
 
