@@ -15,7 +15,7 @@ app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$win
 			scope.newUserInfo = {};
 
 			scope.signUp = function(){
-				console.log(scope.newUserInfo);
+				// console.log(scope.newUserInfo);
 				$http.post('api/users',scope.newUserInfo).then(function(data){
 					AuthService.login(scope.newUserInfo).then()
 				})

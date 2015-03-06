@@ -3,13 +3,11 @@
 <login ng-if="!isAuthenticated"></login>
 
 <div  ng-if="isAuthenticated">
-	{{user|json}}
-
 	<hr>
 	<h3>Welcome {{user.firstName}}!</h3>
 	<hr>
 	<h4>Your Profile</h4>
-	<img ng-src="{{user.photoUrl}}" >
+	<img ng-src="{{user.photoUrl}}" style="width:300px;">
 	<ul class="list-unstyled">
 		<li>Email: {{user.email}}</li>
 		<li>Name: {{user.firstName}} {{user.lastName}}</li>

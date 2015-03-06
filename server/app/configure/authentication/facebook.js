@@ -34,7 +34,7 @@ module.exports = function (app) {
                     lastName: profile._json.last_name,
                     email: profile.profileUrl,
                     password: "1234",
-                    photoUrl: 'http://graph.facebook.com/'+profile.id+'/picture'
+                    photoUrl: 'http://graph.facebook.com/'+profile.id+'/picture?width=300'
                 }).then(function (user) {
                     done(null, user);
                 });
