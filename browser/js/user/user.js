@@ -7,12 +7,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/user/user.html',
         resolve: {
           user: function(AuthService) {
-            // return AuthService.getLoggedInUser().then(function(data){
-            // 	if(data.user) return data.user;
-            // 	else return data;
-            // });
     		return AuthService.getLoggedInUser();
-
           }
         }
     });
