@@ -5,15 +5,17 @@
   height: 100%;
   overflow-y: auto;
 }
-
 .product-thumbnail {
-	.img-container{
-		height: 280px;
-  .img-responsive {
-		max-height: 300px;
-		cursor: pointer;
-		margin: auto;
+  .img-container {
+    height: 280px;
+    .img-responsive {
+      max-height: 300px;
+      cursor: pointer;
+      margin: auto;
+    }
   }
 }
-}
 
+.category-items {
+	cursor: pointer;
+}
