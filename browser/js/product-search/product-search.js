@@ -20,17 +20,35 @@ app.controller('ProductSearchCtrl', function ($scope, products, categories, Prod
 	$scope.categories = categories;
 	$scope.products = products;
 
+	// START OF Quick Fix to populate search filters
+	function getContentFromCategory(obj,objCategory) {
+		var contentArr = [];
+		if (typeof obj[0][objCategory] == 'string') {
+			obj.forEach(function (el) {
+				if (contentArr.indexOf(el[objCategory]) == -1) contentArr.push(el[objCategory]);
+			});
+		}
+		var newContentArr = contentArr.map(function(el) {
+			return {name: el};
+		})
+		return newContentArr;
+	}
+
+	$scope.allPlatforms = getContentFromCategory(products,'platform');
+	$scope.allESRBRatings = getContentFromCategory(products,'esrbRating');
+	$scope.allNumberOfPlayers = getContentFromCategory(products,'numberOfPlayers');
+	// END OF Quick Fix to populate search filters
+
 	$scope.panels = [
 		{title: 'Categories', body: $scope.categories},
-		{title: 'Platform', body: ''},
-		{title: 'ESRB Rating', body: ''},
-		{title: 'Number of Players', body: ''}
+		{title: 'Platform', body: $scope.allPlatforms},
+		{title: 'ESRB Rating', body: $scope.allESRBRatings},
+		{title: 'Number of Players', body: $scope.allNumberOfPlayers}
 	];
-	$scope.panels.activePanel = 0;
 
 	$scope.getProductsByFilter = function(item) {
-		Product.query({category: item._id}).$promise.then(function(products) {
-			console.log(products);
+		Product.query({category: item.name}).$promise.then(function(products) {
+			console.log('returned search results', products);
 			$scope.products = products;
 		});
 	}

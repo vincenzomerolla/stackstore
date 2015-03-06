@@ -3,16 +3,16 @@
     <div class="col-md-9">
       <div class="row">
         <div class="product-thumbnail col-sm-3" ng-repeat="product in products track by product._id">
-          <img ui-sref="product-detail({ _id:product._id })" class="img-responsive" ng-src="{{ product.image }}">
+          <div class="img-container">
+            <img ui-sref="product-detail({ _id:product._id })" class="img-responsive" ng-src="{{ product.image }}">
+          </div>
           <br>
           <span>Name: {{ product.title }}</span>
           <br>
           <span>Platform: {{ product.platform }}</span>
           <br>
           <span>Price: {{ product.price / 100 | currency }}
-    		</div>
     	</div>
-    </div>
     <div id="search-filters" class="col-md-3">
 
 			<div class="panel-group" ng-model="panels.activePanel" bs-collapse>
@@ -26,8 +26,8 @@
 			    </div>
 			    <div class="panel-collapse" bs-collapse-target>
 			      <div class="panel-body">
-			        <ul class="nav nav-pills nav-stacked">
-			        	<li role="presentation" class="active" ng-click="getProductsByFilter(item)" ng-repeat="item in panel.body">{{ item.name }}</li>
+			        <ul>
+			        	<li ng-click="getProductsByFilter(item)" ng-repeat="item in panel.body">{{ item.name }}</li>
 		        	<ul>
 			      </div>
 			    </div>

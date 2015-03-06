@@ -7,8 +7,13 @@
 }
 
 .product-thumbnail {
+	.img-container{
+		height: 280px;
   .img-responsive {
+		max-height: 300px;
 		cursor: pointer;
+		margin: auto;
   }
+}
 }
 
