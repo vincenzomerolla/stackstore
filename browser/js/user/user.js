@@ -18,6 +18,13 @@ app.controller('userCtrl', function ($scope,$http,AuthService,AUTH_EVENTS,$state
 	$scope.$on(AUTH_EVENTS.loginSuccess, function(user) {
 				$scope.isAuthenticated = AuthService.isAuthenticated();
 				$scope.user = Session.user;
+				// if($scope.user.facebook){
+				// 	console.log("this is a facebook login")
+				// 	$http.get('http://graph.facebook.com/'+$scope.user.facebook.id+'/picture?type=url').then(function(data){
+				// 		console.log(data);
+				// 		$scope.user.photoUrl = data;
+				// 	});
+				// }
 				// $rootScope.$broadcast(scope.user);
 	})
 
