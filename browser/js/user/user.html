@@ -1,6 +1,8 @@
-<login class="text-center"></login>
 
-<div class="container" ng-if="isAuthenticated">
+<div class="container">
+<login ng-if="!isAuthenticated"></login>
+
+<div  ng-if="isAuthenticated">
 	{{user|json}}
 
 	<hr>
@@ -74,4 +76,6 @@
 		</div>
 	</ul>
 
+</div>
+	
 </div>

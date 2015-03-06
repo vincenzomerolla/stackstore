@@ -1,5 +1,5 @@
 'use strict';
-app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$window,$location){
+app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$window,$location,$http){
 
 	return {
 		restrict : "E",
@@ -12,18 +12,23 @@ app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$win
 				AuthService.login(scope.userInfo).then()
 			};
 
+			scope.newUserInfo = {};
+
+			scope.signUp = function(){
+				console.log(scope.newUserInfo);
+				$http.post('api/users',scope.newUserInfo).then(function(data){
+					AuthService.login(scope.newUserInfo).then()
+				})
+			};
+
 			scope.loginhref = function(dir){
 				$window.location.href="/auth/"+dir;
-			}
+			};
 
 			scope.isAuthenticated = AuthService.isAuthenticated();
-			scope.$on(AUTH_EVENTS.loginSuccess, function(user) {
-				scope.isAuthenticated = AuthService.isAuthenticated();
-				scope.user = Session.user;
-				// $rootScope.$broadcast(scope.user);
-			})
 
-			// scope.tabs.activeTab = 0;
+			scope.tabs={}
+			scope.tabs.activeTab = 0;
 		}
 	};
 });
