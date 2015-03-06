@@ -5,19 +5,13 @@ var Review = require('../../../db/models/review');
 
 router.route('/')
 .get(function(req, res, next) {
-  var promise;
-  console.log(req.query);
-
-  if (req.query.category) {
-    promise = Product.find().where('categories').in([req.query.category]).exec();
-  }
-  else {
-    promise = Product.find(req.query).populate('categories reviews').exec();
-  }
-
-  promise.then(function(products) {
-    res.json(products);
-  });
+  Product
+    .find(req.query)
+    .populate('categories reviews')
+    .exec()
+    .then(function(products) {
+      res.json(products);
+    });
 })
 
 .post(function(req, res, next) {
@@ -28,8 +22,6 @@ router.route('/')
     res.sendStatus(201);
   })
 })
-
-router.route('/:id/')
 
 router.route('/:id')
 .get(function(req, res, next) {
