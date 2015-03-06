@@ -16,3 +16,12 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
 });
+
+
+app.run(function ($rootScope, AuthService) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    AuthService.getLoggedInUser().then(function(user) {
+      //console.log(user);
+    })
+  }) 
+});
