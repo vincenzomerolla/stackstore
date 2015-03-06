@@ -8,33 +8,20 @@ app.config(function ($stateProvider) {
         resolve: {
           product: function($stateParams, Product) {
             return Product.get($stateParams).$promise;
+          },
+          isLoggedIn: function(AuthService) {
+            return AuthService.isAuthenticated();
           }
         }
     });
 
 });
 
-app.controller('ProductsDetailCtrl', function ($scope, $sce, product) {
+app.controller('ProductsDetailCtrl', function ($scope, $sce, product, isLoggedIn) {
   
   $scope.product = product;
-
-
-  $scope.tabs = [
-    {
-      title: 'Description',
-      content: $sce.trustAsHtml($scope.product.description)
-    },
-    {
-      title: 'Reviews',
-      content: $sce.trustAsHtml('<h1>here go the reviews.</h1>')
-    },
-    {
-      title: 'Related Products',
-      content: $sce.trustAsHtml('<img class="img-responsive" src="//placehold.it/350x150"/>')
-    }
-  ];
-  $scope.tabs.activeTab = 0;
-
+  $scope.activeTab = 0;
+  $scope.isLoggedIn = isLoggedIn;
 
 });
 

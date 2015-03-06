@@ -57,6 +57,6 @@
 }
 
 
-
-@import 'bootswatch/main';
-@import 'product-search/main';
+@import "../../bower_components/colors/sass/colors";
+@import "vendor/main";
+@import "product-search/main";

@@ -1,7 +1,4 @@
 <div class="container">
-  
-
-
   <div class="row">
     <div class="col-sm-3">
       <img class="img-responsive center-block" ng-src="{{product.image}}" alt="" >
@@ -14,11 +11,18 @@
         <h3>{{product.title}}</h3>
         <h4>{{product.platform}}</h4>
       </div>
-      <div bs-active-pane="tabs.activeTab" bs-tabs>
-        <div ng-repeat="tab in tabs" title="{{ tab.title }}" ng-bind-html="tab.content" bs-pane></div>
+      <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
+        <div data-title="Description" ng-bind-html="product.description" bs-pane></div>
+        <div data-title="Reviews" bs-pane>
+          <div class="text-right">
+            <a ng-if="!isLoggedIn" ui-sref="user">Sign Up / Sign In to leave a review</a>
+            <a ng-if="isLoggedIn" href="#">Leave A Review</a>
+          </div>
+          <review content="r" ng-repeat="r in product.reviews track by r._id"></review> 
+        </div>
+        <div  title="Related" bs-pane> Recommendation engine results go here </div>
+
       </div>
     </div>
   </div>
-
-  <div ng-bind-html="product.description" ng-mouseover=""></div>
 </div>
