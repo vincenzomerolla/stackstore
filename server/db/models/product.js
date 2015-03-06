@@ -14,7 +14,7 @@ var productSchema = new Schema({
   isAvailable: {type: Boolean, default: true},
   esrbRating: String,
   numberOfPlayers: String,
-  categories: [{ type: String, ref: 'Category' }],
+  categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
 	reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
 	createdAt: { type: Date, default: Date.now },
 	updatedAt: { type: Date, default: Date.now }
