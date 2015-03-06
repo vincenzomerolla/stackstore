@@ -19,6 +19,7 @@ router.route('/')
     res.json(products);
   });
 })
+
 .post(function(req, res, next) {
   var product = new Product(req.body);
 
@@ -28,6 +29,7 @@ router.route('/')
   })
 })
 
+router.route('/:id/')
 
 router.route('/:id')
 .get(function(req, res, next) {
