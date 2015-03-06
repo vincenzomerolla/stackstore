@@ -12,7 +12,7 @@ router.route('/')
     promise = Product.find().where('categories').in([req.query.category]).exec();
   }
   else {
-    promise = Product.find().populate('categories reviews').exec();
+    promise = Product.find(req.query).populate('categories reviews').exec();
   }
 
   promise.then(function(products) {

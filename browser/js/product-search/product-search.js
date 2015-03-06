@@ -25,7 +25,10 @@ app.controller('ProductSearchCtrl', function ($scope, products, categories, Prod
 		var contentArr = [];
 		if (typeof obj[0][objCategory] == 'string') {
 			obj.forEach(function (el) {
-				if (contentArr.indexOf(el[objCategory]) == -1) contentArr.push(el[objCategory]);
+				if (contentArr.indexOf(el[objCategory]) == -1) {
+					if (el[objCategory] === null) contentArr.push('Other')
+					else contentArr.push(el[objCategory]);
+				}
 			});
 		}
 		var newContentArr = contentArr.map(function(el) {
@@ -40,14 +43,17 @@ app.controller('ProductSearchCtrl', function ($scope, products, categories, Prod
 	// END OF Quick Fix to populate search filters
 
 	$scope.panels = [
-		{title: 'Categories', body: $scope.categories},
-		{title: 'Platform', body: $scope.allPlatforms},
-		{title: 'ESRB Rating', body: $scope.allESRBRatings},
-		{title: 'Number of Players', body: $scope.allNumberOfPlayers}
+		{title: 'Categories', body: $scope.categories, category: 'categories'},
+		{title: 'Platform', body: $scope.allPlatforms, category: 'platform'},
+		{title: 'ESRB Rating', body: $scope.allESRBRatings, category: 'esrbRating'},
+		{title: 'Number of Players', body: $scope.allNumberOfPlayers, category: 'numberOfPlayers'}
 	];
 
-	$scope.getProductsByFilter = function(item) {
-		Product.query({category: item.name}).$promise.then(function(products) {
+	$scope.getProductsByFilter = function(item, category) {
+		var obj = {};
+		console.log(category);
+		obj[category] = item.name;
+		Product.query(obj).$promise.then(function(products) {
 			console.log('returned search results', products);
 			$scope.products = products;
 		});
