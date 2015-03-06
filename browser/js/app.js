@@ -1,10 +1,10 @@
 'use strict';
 var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ngSanitize', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap']);
 
-app.controller('MainController', function ($scope) {
+app.controller('MainController', function (AuthService) {
 
     // Given to the <navbar> directive to show the menu.
-    
+  
 
 
 });
@@ -18,10 +18,12 @@ app.config(function ($urlRouterProvider, $locationProvider) {
 });
 
 
-app.run(function ($rootScope, AuthService) {
+app.run(function ($rootScope, $state, AuthService) {
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    AuthService.getLoggedInUser().then(function(user) {
+    
+    AuthService.getLoggedInUser().then(function (user) {
       //console.log(user);
-    })
+        
+    });
   }) 
 });
