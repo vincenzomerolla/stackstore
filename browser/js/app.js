@@ -1,5 +1,5 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap']);
+var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ngSanitize', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap']);
 
 app.controller('MainController', function ($scope) {
 
@@ -15,4 +15,13 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
+});
+
+
+app.run(function ($rootScope, AuthService) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    AuthService.getLoggedInUser().then(function(user) {
+      //console.log(user);
+    })
+  }) 
 });
