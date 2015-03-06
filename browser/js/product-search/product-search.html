@@ -1,32 +1,39 @@
 <div class="search-view container-fluid">
   <div class="row">
     <div class="col-md-9">
-    	<div class="row">
-    		<div class="product-thumbnail col-sm-3" ng-repeat="product in products track by product._id">
-    			<img ui-sref="product-detail({ _id:product._id })" class="img-responsive" ng-src="{{ product.image }}"><br>
-    			<span>Name: {{ product.title }}</span><br>
-    			<span>Platform: {{ product.platform }}</span><br>
-    			<span>Price: {{ product.price / 100 | currency }}
-    		</div>
+      <div class="row">
+        <div class="product-thumbnail col-sm-3" ng-repeat="product in products track by product._id">
+          <div class="img-container">
+            <img ui-sref="product-detail({ _id:product._id })" class="img-responsive" ng-src="{{ product.image }}">
+          </div>
+          <br>
+          <span>Name: {{ product.title }}</span>
+          <br>
+          <span>Platform: {{ product.platform }}</span>
+          <br>
+          <span>Price: {{ product.price / 100 | currency }}
     	</div>
-    </div>
     <div id="search-filters" class="col-md-3">
-      <h4>Platforms</h4>
-      <ul>
-        <li ng-repeat="category in categories">{{ category.name }}</li>
-      </ul>
-      <h4>Categories</h4>
-      <ul>
-        <li>Insert ng-repeat for platform variables here</li>
-      </ul>
-      <h4>ESRB Rating</h4>
-      <ul>
-        <li>Insert ng-repeat for platform variables here</li>
-      </ul>
-      <h4>Number of Players</h4>
-      <ul>
-        <li>Insert ng-repeat for platform variables here</li>
-      </ul>
+
+			<div class="panel-group" ng-model="panels.activePanel" bs-collapse>
+			  <div class="panel panel-default" ng-repeat="panel in panels">
+			    <div class="panel-heading">
+			      <h4 class="panel-title">
+			        <a bs-collapse-toggle>
+			          {{ panel.title }}
+			        </a>
+			      </h4>
+			    </div>
+			    <div class="panel-collapse" bs-collapse-target>
+			      <div class="panel-body">
+			        <ul>
+			        	<li ng-click="getProductsByFilter(item)" ng-repeat="item in panel.body">{{ item.name }}</li>
+		        	<ul>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
     </div>
   </div>
 </div>
