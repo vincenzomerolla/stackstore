@@ -36,7 +36,7 @@
 
 			<div>
 				<ul>
-					<li ng-repeat="category in categories">{{ category.name }}</li>
+					<li ng-click="getCategoriesByFilter(category)" ng-repeat="category in categories">{{ category.name }}</li>
 				</ul>	
 			</div>
 

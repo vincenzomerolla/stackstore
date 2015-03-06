@@ -16,7 +16,7 @@ app.config(function ($stateProvider) {
 	});
 });
 
-app.controller('ProductSearchCtrl', function ($scope, products, categories, Product, Category) {
+app.controller('ProductSearchCtrl', function ($scope, products, categories, Product, Category, $http) {
 	$scope.categories = categories;
 	$scope.products = products;
 
@@ -30,7 +30,7 @@ app.controller('ProductSearchCtrl', function ($scope, products, categories, Prod
 				}
 			});
 		}
-		return contentArr;
+		return contentArr.sort();
 	}
 
 	$scope.allPlatforms = getContentFromCategory(products,'platform');
@@ -51,7 +51,26 @@ app.controller('ProductSearchCtrl', function ($scope, products, categories, Prod
 			console.log('returned search results', products);
 			$scope.products = products;
 		});
+	};
+
+	// Quick Fix for filtering by category
+	$scope.getCategoriesByFilter = function(category) {
+		var results = [];
+		$scope.products.forEach(function(el) {
+			console.log(el);
+			el.categories.forEach(function(el2) {
+				if (el2 === category.name) results.push(el);
+			})
+		})
+		$scope.products = results;
 	}
+	// This route is not sending back the right request for some reason
+	// $scope.getCategoriesByFilter = function(category) {
+	// 	$http.get('/api/categories/' + category._id + '/products/').then(function(response) {
+	// 		console.log(response);
+	// 		$scope.products = response.data;
+	// 	})
+	// };
 
 })
 
