@@ -1,4 +1,4 @@
-<div ng-if="!isAuthenticated">
+<!-- <div ng-if="!isAuthenticated">
 	<div class="strategies">
 		<button>Local Login</button>
 		<button ng-click="loginhref('google')">Google Login</button>
@@ -13,24 +13,54 @@
 			<button type="submit">Submit</button>
 		</form>
 	</div>
+</div> -->
+<div >
+<div bs-active-pane="tabs.activeTab" bs-tabs nav-class="nav-tabs nav-justified" >
+	<div title="Sign In" bs-pane>
+		<form>
+			<div class="form-group">
+			    <label>Email</label>
+			    <input type="text" class="form-control" placeholder="Enter email" ng-model="userInfo.email">
+			</div>
+			<div class="form-group">
+			    <label>Password</label>
+			    <input type="password" class="form-control" placeholder="Password" ng-model="userInfo.password">
+			</div>
+			<button type="submit" class="btn btn-default" ng-click="formSubmit()">Submit</button>
+			<button class="btn btn-default" ng-click="loginhref('facebook')"><i class="fa fa-facebook-official"></i>&nbsp; Sign in with Facebook!</button>
+			<button class="btn btn-default" ng-click="loginhref('google')"><i class="fa fa-google"></i>&nbsp; Sign in with Google!</button>
+		</form>
+	</div>
+	<div title="Sign Up" bs-pane>
+		{{newUserInfo|json}}
+		<form>
+			<label>Email</label>
+			<input type="text" class="form-control" placeholder="your email is required" ng-model="newUserInfo.email">
+			<label>Password</label>
+			<input type="text" class="form-control" placeholder="your password is required" ng-model="newUserInfo.password">
+			<label>First Name</label>
+			<input type="text" class="form-control" placeholder="optional" ng-model="newUserInfo.firstName">
+			<label>Last Name</label>
+			<input type="text" class="form-control" placeholder="optional" ng-model="newUserInfo.lastName">
+			<button type="submit" class="btn btn-default" ng-click="signUp()">Submit</button>
+		</form>
+	</div>
+
+	<!-- <div title="Facebook Login" bs-pane>
+	</div>
+
+	<div title="Google Login" bs-pane>
+	</div> -->
+</div>
 </div>
 
-<!-- <div bs-active-pane="tabs.activeTab" bs-tabs> -->
-<!--   <div ng-repeat="tab in tabs" title="{{ tab.title }}" ng-bind="tab.content" bs-pane></div> -->
-<!-- 	<div title="sign in" bs-pane>
-		<div class="forms" ng-submit="formSubmit()">
-			<form>
-				Email: <input type="text" ng-model="userInfo.email">
-				<br />
-				Password: <input type="text" ng-model="userInfo.password">
-				<br />
-				<button type="submit">Submit</button>
-			</form>
-		</div>
-	</div>
-	<div title="sign up" bs-pane>
-		Email: <input type="text" name="" id="">
-		<br>
-		Password: <input type="text">
-	</div>
-</div> -->
+
+
+
+
+
+
+
+
+
+
