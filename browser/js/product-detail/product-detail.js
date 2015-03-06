@@ -4,15 +4,25 @@ app.config(function ($stateProvider) {
     $stateProvider.state('product-detail', {
         url: '/products/:_id',
         controller: 'ProductsDetailCtrl',
-        templateUrl: 'js/product-detail/product-detail.html'
+        templateUrl: 'js/product-detail/product-detail.html',
+        resolve: {
+          product: function($stateParams, Product) {
+            return Product.get($stateParams).$promise;
+          },
+          isLoggedIn: function(AuthService) {
+            return AuthService.isAuthenticated();
+          }
+        }
     });
 
 });
 
-app.controller('ProductsDetailCtrl', function ($scope, $stateParams, Product) {
-  Product.get($stateParams).$promise.then(function(product) {
-    $scope.product = product;
-  })
+app.controller('ProductsDetailCtrl', function ($scope, $sce, product, isLoggedIn) {
+  
+  $scope.product = product;
+  $scope.activeTab = 0;
+  $scope.isLoggedIn = isLoggedIn;
+
 });
 
 
