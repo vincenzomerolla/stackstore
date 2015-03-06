@@ -3,6 +3,10 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 //change schema to userSchema here
 var userSchema = new mongoose.Schema({
+    isAdmin:{
+      type: Boolean,
+      default: false
+    },
     email: {
       type: String,
       unique: true,
