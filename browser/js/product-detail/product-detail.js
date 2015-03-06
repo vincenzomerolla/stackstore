@@ -10,7 +10,9 @@ app.config(function ($stateProvider) {
             return Product.get($stateParams).$promise;
           },
           isLoggedIn: function(AuthService) {
-            return AuthService.isAuthenticated();
+            return AuthService.getLoggedInUser().then(function(user) {
+              return !!user;
+            });
           }
         }
     });
@@ -22,6 +24,7 @@ app.controller('ProductsDetailCtrl', function ($scope, $sce, product, isLoggedIn
   $scope.product = product;
   $scope.activeTab = 0;
   $scope.isLoggedIn = isLoggedIn;
+  console.log(isLoggedIn)
 
 });
 

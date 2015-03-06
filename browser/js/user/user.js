@@ -7,7 +7,12 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/user/user.html',
         resolve: {
           user: function(AuthService) {
-            return AuthService.getLoggedInUser();
+            // return AuthService.getLoggedInUser().then(function(data){
+            // 	if(data.user) return data.user;
+            // 	else return data;
+            // });
+    		return AuthService.getLoggedInUser();
+
           }
         }
     });
@@ -17,16 +22,8 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('userCtrl', function ($scope, $state, AuthService, user) {
-	// console.log(Session);
-	// var a = AuthService.getLoggedInUser();
-
-	// $http.get('/session').then(function(res){
-	// 	$scope.user = res.data.user;
-	// })
-
 	$scope.user = user;
 	$scope.isAuthenticated = AuthService.isAuthenticated();
-	// console.log($scope.isAuthenticated);
 
 	$scope.logout = function(){
 		AuthService.logout();

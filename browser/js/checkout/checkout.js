@@ -9,5 +9,5 @@ app.config(function ($stateProvider) {
 });
 
 app.controller("checkoutCtrl",function($scope){
-	$scope.user = 
+	$scope.user = 0;
 });
