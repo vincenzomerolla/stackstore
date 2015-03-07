@@ -1,23 +1,41 @@
 <div class="container" ng-if="isAuthenticated">
-	{{user|json}}
-	<hr>
-	<h3>Welcome {{user.firstName}}!</h3>
-	<hr>
-	<h4>Your Profile</h4>
-	<img ng-src="{{user.photoUrl}}" >
-	<ul>
-		<li>Email: {{user.email}}</li>
-		<li>Name: {{user.firstName}} {{user.lastName}}</li>
-	</ul>
-	<hr>
-	<h4>
+  {{user|json}}
+  <hr>
+  <h3>Welcome {{user.firstName}}!</h3>
+  <hr>
+  <div class="row">
+    <div class="col-md-3">
+      <h4>Your Profile</h4>
+      <img ng-src="{{user.photoUrl}}">
+      <ul>
+        <li>Email: {{user.email}}</li>
+        <li>Name: {{user.firstName}} {{user.lastName}}</li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
+        <div data-title="Description" ng-bind-html="product.description" bs-pane></div>
+        <div data-title="Reviews" bs-pane>
+          <div class="text-right">
+            <a ng-if="!isLoggedIn" ui-sref="user">Sign Up / Sign In to leave a review</a>
+            <a ng-if="isLoggedIn" href="#">Leave A Review</a>
+          </div>
+          <review content="r" ng-repeat="r in product.reviews track by r._id"></review>
+        </div>
+        <div title="Related" bs-pane> Recommendation engine results go here </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <h4>
 		Past Orders
 	</h4>
-	<ul>
-		<li ng-repeat="order in user.orders">
-			<h5>Order Date: {{order.date}}</h5>
-		</li>
-	</ul>
-	
+  <ul>
+    <li ng-repeat="order in user.orders">
+      <h5>Order Date: {{order.date}}</h5>
+    </li>
+  </ul>
+
 
 </div>
