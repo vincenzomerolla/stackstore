@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var orderSchema = new mongoose.Schema({
   products: [{ type : Schema.Types.ObjectId, ref: 'Product'}],
+  total: Number,
   status: { type : String },
   createdAt: { type: Date, default: Date.now }
 });

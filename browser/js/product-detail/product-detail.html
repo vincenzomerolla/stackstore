@@ -3,7 +3,7 @@
     <div class="col-sm-3">
       <img class="img-responsive center-block" ng-src="{{product.image}}" alt="" >
       <h5 class="text-center">${{product.price/100}}</h5>
-      <button class="btn btn-success btn-block" add-to-cart><i class="fa fa-lg fa-fw fa-cart-plus"></i>&nbsp;Add to cart</button>
+      <button class="btn btn-success btn-block" product="product" add-to-cart><i class="fa fa-lg fa-fw fa-cart-plus"></i>&nbsp;Add to cart</button>
     </div>
     <div class="col-sm-9">
 
@@ -14,10 +14,14 @@
       <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
         <div data-title="Description" ng-bind-html="product.description" bs-pane></div>
         <div data-title="Reviews" bs-pane>
-          <div class="text-right">
-            <a ng-if="!isLoggedIn" ui-sref="user">Sign Up / Sign In to leave a review</a>
-            <a ng-if="isLoggedIn" href="#">Leave A Review</a>
+          <div class="product-detail__review-pane">
+            <a ng-if="!isLoggedIn" class="btn btn-primary btn-block" ui-sref="user">Sign Up / Sign In to leave a review</a>
+            
+            <button ng-if="isLoggedIn" type="button" class="btn btn-block btn-primary" data-title="Write a review of this product" data-template="js/product-detail/review-form.html" data-animation="am-fade-and-slide-top" bs-modal>
+              Leave a review
+            </button>
           </div>
+     
           <review content="r" ng-repeat="r in product.reviews track by r._id"></review> 
         </div>
         <div  title="Related" bs-pane> Recommendation engine results go here </div>

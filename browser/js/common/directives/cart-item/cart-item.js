@@ -2,14 +2,15 @@
 app.directive('cartItem', function () {
 	return {
 		restrict: 'E',
+    require: '^cart',
 		scope: {
-			item: '='
+			product: '='
 		},
 		templateUrl: 'js/common/directives/cart-item/cart-item.html',
-		controller: 'CartController'
+		link: function(scope, element, attrs, CartCtrl) {
+      console.log(CartCtrl)
+      scope.add = CartCtrl.add;
+    }
 	}
 });
 
-app.controller('CartController', function ($scope) {
-
-});

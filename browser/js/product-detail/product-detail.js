@@ -19,12 +19,35 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProductsDetailCtrl', function ($scope, $sce, product, isLoggedIn) {
+app.controller('ProductsDetailCtrl', function ($scope, $sce, product, isLoggedIn, ProductReview) {
   
   $scope.product = product;
   $scope.activeTab = 0;
   $scope.isLoggedIn = isLoggedIn;
-  console.log(isLoggedIn)
+
+  var newReview = $scope.newReview = {};
+
+  function resetReview() {
+    $scope.newReview = new ProductReview();
+    //$scope.reviewForm.$setPristine();
+    return true;
+  }
+
+  $scope.submitReview = function(review) {
+    console.log('Submitting review')
+
+    return ProductReview.save(newReview).$promise
+      .then(function(review) {
+        console.log(review);
+        return ProductReview.query().$promise;
+      })
+      .then(function(reviews) {
+        $scope.product.reviews = reviews;
+        return resetReview();
+      }); 
+  };
+
+  $scope.navigatedAway = resetReview;
 
 });
 

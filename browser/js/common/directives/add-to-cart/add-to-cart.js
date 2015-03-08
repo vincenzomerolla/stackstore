@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('addToCart', function(){
+app.directive('addToCart', function (Cart) {
   // Runs during compile
   return {
     restrict: 'A',
@@ -15,6 +15,7 @@ app.directive('addToCart', function(){
       element.on('click', function(event) {
         event.preventDefault();
         console.log('Added to cart');
+        Cart.add(scope.product);
       });
       
     }
