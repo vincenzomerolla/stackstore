@@ -1,15 +1,16 @@
 'use strict'
 app.directive('cartItem', function () {
 	return {
+    replace: true,
 		restrict: 'E',
-		scope: {
-			item: '='
-		},
+    require: '^cart',
+    scope: {
+      item: '='
+    },
 		templateUrl: 'js/common/directives/cart-item/cart-item.html',
-		controller: 'CartController'
+
+    
+  
 	}
 });
 
-app.controller('CartController', function ($scope) {
-
-});
