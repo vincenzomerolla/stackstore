@@ -1,5 +1,5 @@
 'use strict';
-app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$window,$location,$http){
+app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$window,$location,$http,$state){
 
 	return {
 		restrict : "E",
@@ -17,8 +17,11 @@ app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$win
 			scope.signUp = function(){
 				// console.log(scope.newUserInfo);
 				$http.post('api/users',scope.newUserInfo).then(function(data){
-					AuthService.login(scope.newUserInfo).then()
-				})
+					AuthService.login(scope.newUserInfo).then(function(){
+						scope.isAuthenticated = AuthService.isAuthenticated();
+						
+					});
+				});
 			};
 
 			scope.loginhref = function(dir){

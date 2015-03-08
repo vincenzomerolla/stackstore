@@ -1,18 +1,87 @@
 <div class="container">
 	<hr>
 	<h3>Your Cart</h3>
-	<h4>Total: $1000000</h4>
+	<div class="row">
+		<div class="col-lg-2">
+			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
+			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
+			<h8>Platform: Xbox One </h8>
+			<h8>Price: $29.99</h8>
+		</div>
+
+		<div class="col-lg-2">
+			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
+			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
+			<h8>Platform: Xbox One </h8>
+			<h8>Price: $29.99</h8>
+		</div>
+
+		<div class="col-lg-2">
+			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
+			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
+			<h8>Platform: Xbox One </h8>
+			<h8>Price: $29.99</h8>
+		</div>
+
+		<div class="col-lg-2">
+			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
+			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
+			<h8>Platform: Xbox One </h8>
+			<h8>Price: $29.99</h8>
+		</div>
+
+	</div>
+	<h4>Total: {{total / 100 | currency}}</h4>
 	<hr>
 	<h3>Payment Methods</h3>
-	<button class="btn btn-default">Pay with Credit Card</button>
-	<form action="" method="POST">
-	  <script
-	    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-	    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-	    data-amount="2000"
-	    data-name="Demo Site"
-	    data-description="2 widgets ($20.00)"
-	    data-image="/128x128.png">
-	  </script>
-	</form>
+
+
+	<!-- modal -->
+	<button type="button" class="btn btn-lg btn-primary" data-animation="am-fade-and-scale" data-placement="center" data-template="js/checkout/paymentForm.html" bs-modal="modal">PAY WITH CREDIT CARD
+	</button>
+
+	<div class="modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header" ng-show="title">
+	        <button type="button" class="close" ng-click="$hide()">&times;</button>
+	        <h4 class="modal-title" ng-bind-html="title"></h4>
+	      </div>
+	      <div class="modal-body" ng-show="content">
+	        <h4>Your balance is</h4>
+	        <p ng-bind-html="total">{{total | currency}}</p>
+
+	        <form action="api/stripe" method="POST" id="payment-form">
+	          <span class="payment-errors"></span>
+
+	          <div class="form-row">
+	            <label>
+	              <span>Card Number</span>
+	              <input type="text" size="20" data-stripe="number" value="4242424242424242" />
+	            </label>
+	          </div>
+
+	          <div class="form-row">
+	            <label>
+	              <span>CVC</span>
+	              <input type="text" size="4" data-stripe="cvc" value="1234" />
+	            </label>
+	          </div>
+
+	          <div class="form-row">
+	            <label>
+	              <span>Expiration (MM/YYYY)</span>
+	              <input type="text" size="2" data-stripe="exp-month" value="11" />
+	            </label>
+	            <span> / </span>
+	            <input type="text" size="4" data-stripe="exp-year" value="2016" />
+	          </div>
+
+	          <button type="submit">Submit Payment</button>
+	        </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </div>
+
