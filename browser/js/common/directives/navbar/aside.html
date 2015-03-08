@@ -15,7 +15,7 @@
         </div>
         <div class="cart-display">
           <cart>
-            <cart-item></cart-item>
+            <cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
           </cart>
           <a class="cart-checkout btn btn-primary btn-block">
             <i class="fa fa-lg fa-shopping-cart"></i> Proceed to Checkout

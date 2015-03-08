@@ -1,39 +1,67 @@
-app.factory('Cart', function(){
+app.factory('Cart', function(CartItem){
+  'use strict';
+
   var STORAGE_ID = 'cart';
 
+  var Cart = (function () {
 
-  function get() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_ID));
-  }
+    var cart;
 
-  function set(cart) {
-    sessionStorage.setItem(STORAGE_ID, JSON.stringify(cart));
-  }
-
-  function add(product) {
-    var currentCart = get() || {};
-    var qty = currentCart[product._id];
-
-    qty = (qty === undefined) ? 0:qty+1;
-    set(currentCart);
-  }
-
-
-  function remove(product) {
-    var currentCart = get();
+    function Cart(){}
     
-    if (!get()) return new Error('Cart is empty!');
+    function findProduct(product) {
+      if (!cart || _.isEmpty(cart)) return -1;
+      else return _.pluck(cart,'id').indexOf(product._id);
+    }
 
-    var qty = currentCart[product._id];
-    if (qty) return new Error('Product not in cart!')
 
-    qty = (qty === undefined) ? 0:qty+1;
-    set(currentCart);
-  }
+    function getCart() {
+      cart = JSON.parse(sessionStorage.getItem(STORAGE_ID))
+      return cart ? cart.map(CartItem.deserialize) : [];
+    }
 
-  return {
-    get: get,
-    add: add,
-    remove: remove
-  }
+    function setCart(cart) {
+      sessionStorage.setItem(STORAGE_ID, JSON.stringify(cart));
+    }
+
+    function addProduct(product) {
+      var currentCart = getCart() || [];
+      var index = findProduct(product);
+
+      if (index === -1) currentCart.push(new CartItem(product));
+      else currentCart[index].incrementQty();
+      
+      setCart(currentCart);
+      return currentCart;
+    }
+
+    function removeProduct(product) {
+      var currentCart = getCart();
+      if (!currentCart || _.isEmpty(currentCart)) return new Error('Cart is empty!');
+
+      var index = findProduct(product);
+      if (index === -1) return new Error('Product not in cart!');
+
+      currentCart.splice(index, 1);
+      setCart(currentCart);
+      return currentCart;
+    }
+
+    function emptyCart() {
+      setCart([]);
+    }
+
+
+    Cart.prototype.get = getCart;
+    Cart.prototype.addProduct = addProduct;
+    Cart.prototype.removeProduct = removeProduct;
+    Cart.prototype.empty = emptyCart;
+
+    console.log(Cart)
+
+    return Cart;    
+  })(); 
+
+
+  return new Cart();
 });
