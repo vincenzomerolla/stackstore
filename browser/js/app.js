@@ -1,5 +1,6 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap']);
+
+var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ngSanitize', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap','xeditable', 'ngAnimate']);
 
 app.controller('MainController', function (AuthService) {
 
@@ -18,7 +19,9 @@ app.config(function ($urlRouterProvider, $locationProvider) {
 });
 
 
-app.run(function ($rootScope, $state, AuthService) {
+app.run(function ($rootScope, $state, AuthService, editableOptions) {
+  editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+  
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
     
     AuthService.getLoggedInUser().then(function (user) {

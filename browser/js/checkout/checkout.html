@@ -2,11 +2,8 @@
 	<hr>
 	<h3>Your Cart</h3>
 	<cart>
-	  <cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
-	</cart>
-	
-	{{list_of_products | json}}
-
+    	<cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
+    </cart>
 	<h4>Total: {{total / 100 | currency}}</h4>
 	<hr>
 	<h3>Payment Methods</h3>

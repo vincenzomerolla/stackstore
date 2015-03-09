@@ -27,11 +27,17 @@
 			    <div class="panel-collapse" bs-collapse-target>
 			      <div class="panel-body">
 			        <ul>
-			        	<li ng-click="getProductsByFilter(item,panel.category)" ng-repeat="item in panel.body">{{ item.name }}</li>
+			        	<li ng-click="getProductsByFilter(item,panel.category)" ng-repeat="item in panel.body">{{ item }}</li>
 		        	<ul>
 			      </div>
 			    </div>
 			  </div>
+			</div>
+
+			<div>
+				<ul>
+					<li ng-click="getCategoriesByFilter(category)" ng-repeat="category in categories">{{ category.name }}</li>
+				</ul>	
 			</div>
 
     </div>

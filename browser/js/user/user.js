@@ -16,8 +16,10 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('userCtrl', function ($scope, $state, AuthService, user,$http) {
+
+app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, User) {
 	$scope.user = user;
+    // $scope.user.isAdmin = true;
 	$scope.isAuthenticated = AuthService.isAuthenticated();
     $scope.previousOrder;
 
@@ -34,4 +36,27 @@ app.controller('userCtrl', function ($scope, $state, AuthService, user,$http) {
 		console.log("logging out")
 		$state.go('home');
 	}
+
+    $scope.activeTab = 0;
+
+    $scope.checkFieldIfEmpty = function(data) {
+        if (data.length === 0) {
+            return 'This field can\'t be blank';
+        }
+    };
+
+    $scope.checkIfPasswordCorrect = function(data) {
+        
+    };
+
+    $scope.checkNewPasswordMatch = function(data) {
+
+    }; 
+
+    $scope.updateUser = function() {
+        User.update({ id: user._id }, $scope.user).$promise.then(function(userUpdated) {
+            console.log(userUpdate);
+        });
+    };
+
 });
