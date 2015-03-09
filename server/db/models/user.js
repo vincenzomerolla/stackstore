@@ -18,6 +18,10 @@ var userSchema = new mongoose.Schema({
     lastName: {
       type: String
     },
+    isAdmin: { 
+      type: Boolean, 
+      default: false
+    },
     address: {
       type: String
     },
