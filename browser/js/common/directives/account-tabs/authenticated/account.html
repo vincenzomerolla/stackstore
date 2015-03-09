@@ -1,0 +1,63 @@
+<form editable-form name="accountForm" onbeforesave="updateUser($data)" novalidate>
+  <div>
+    <span class="title">First name: </span>
+    <span editable-text="user.firstName" e-name="firstName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.firstName }}</span>
+  </div>
+  <div>
+    <span class="title">Last name: </span>
+    <span editable-text="user.lastName" e-name="lastName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.lastName }}</span>
+  </div>
+  <div>
+    <span class="title">Email: </span>
+    <span editable-text="user.email" e-name="email" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.email }}</span>
+  </div>
+  <br>
+  <div class="buttons">
+    <!-- button to show form -->
+    <button type="button" class="btn btn-default" ng-click="accountForm.$show()" ng-show="!accountForm.$visible">
+      Edit
+    </button>
+    <!-- buttons to submit / cancel form -->
+    <span ng-show="accountForm.$visible">
+      <button type="submit" class="btn btn-primary" ng-disabled="accountForm.$waiting" ng-click="updateUser()">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-disabled="accountForm.$waiting" ng-click="accountForm.$cancel()">
+        Cancel
+      </button>
+    </span>
+  </div>
+</form>
+
+<hr>
+<form editable-form name="passwordForm" onaftersave="saveUser()">
+  <span ng-show="passwordForm.$visible">
+  <div>
+    <span class="title">Current Password: </span>
+    <span editable-text="user.password" e-name="password" onbeforesave="checkIfPasswordCorrect($data)" e-required></span>
+  </div>
+  <div>
+    <span class="title">New Password: </span>
+    <span editable-text="user.password" e-name="password" onbeforesave="checkNewPasswordMatch($data)" e-required></span>
+  </div>
+  <div>
+    <span class="title">Retype new Password: </span>
+    <span editable-text="user.password" e-name="password" onbeforesave="checkNewPasswordMatch($data)" e-required></span>
+  </div>
+  </span>
+  <div class="buttons">
+    <!-- button to show form -->
+    <button type="button" class="btn btn-default" ng-click="passwordForm.$show()" ng-show="!passwordForm.$visible">
+      Change Password
+    </button>
+    <!-- buttons to submit / cancel form -->
+    <span ng-show="passwordForm.$visible">
+      <button type="submit" class="btn btn-primary" ng-disabled="passwordForm.$waiting" ng-click="updateUser()">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-disabled="passwordForm.$waiting" ng-click="passwordForm.$cancel()">
+        Cancel
+      </button>
+    </span>
+  </div>
+</form>

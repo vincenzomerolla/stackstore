@@ -35,15 +35,16 @@ app.controller('userCtrl', function ($scope, $state, AuthService, user, User) {
         }
     };
 
-    $scope.checkIfPasswordCorrect = function(data) {
+    // $scope.checkIfPasswordCorrect = function(data) {
         
-    };
+    // };
 
-    $scope.checkNewPasswordMatch = function(data) {
+    // $scope.checkNewPasswordMatch = function(data) {
 
-    }; 
+    // }; 
 
     $scope.updateUser = function() {
+        if ()
         User.update({ id: user._id }, $scope.user).$promise.then(function(userUpdated) {
             console.log(userUpdate);
         });

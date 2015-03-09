@@ -20,7 +20,7 @@
       <div class="col-md-9" ng-if="!user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
           <div data-title="Account" bs-pane>
-            <form editable-form name="accountForm" onbeforesave="updateUser($data)">
+            <form editable-form name="accountForm" onbeforesave="updateUser($data)" novalidate>
               <div>
                 <span class="title">First name: </span>
                 <span editable-text="user.firstName" e-name="firstName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.firstName }}</span>
@@ -52,25 +52,24 @@
             </form>
             <hr>
             <form editable-form name="passwordForm" onaftersave="saveUser()">
+              <span ng-show="passwordForm.$visible">
               <div>
                 <span class="title">Current Password: </span>
                 <span editable-text="user.password" e-name="password" onbeforesave="checkIfPasswordCorrect($data)" e-required></span>
               </div>
-              <span ng-show="passwordForm.$visible">
               <div>
                 <span class="title">New Password: </span>
                 <span editable-text="user.password" e-name="password" onbeforesave="checkNewPasswordMatch($data)" e-required></span>
               </div>
               <div>
-                <span class="title">Retype New Password: </span>
+                <span class="title">Retype new Password: </span>
                 <span editable-text="user.password" e-name="password" onbeforesave="checkNewPasswordMatch($data)" e-required></span>
               </div>
               </span>
-              <br>
               <div class="buttons">
                 <!-- button to show form -->
                 <button type="button" class="btn btn-default" ng-click="passwordForm.$show()" ng-show="!passwordForm.$visible">
-                  Edit
+                  Change Password
                 </button>
                 <!-- buttons to submit / cancel form -->
                 <span ng-show="passwordForm.$visible">
