@@ -16,10 +16,20 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('userCtrl', function ($scope, $state, AuthService, user, User) {
+
+app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, User) {
 	$scope.user = user;
     // $scope.user.isAdmin = true;
 	$scope.isAuthenticated = AuthService.isAuthenticated();
+    $scope.previousOrder;
+
+    if($scope.isAuthenticated){
+        $http.put('/api/orders',{orders : $scope.user.orders}).then(function(res){
+            console.log(res.data)
+            $scope.previousOrder = res.data;
+        })
+    }
+
 
 	$scope.logout = function(){
 		AuthService.logout();

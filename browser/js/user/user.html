@@ -149,57 +149,21 @@
     Past Orders
   </h4>
     <ul>
-      <div>
-        <h6>Order Date: 2013-10-01</h3>
-      <div class="products row well">
 
-        <div class="col-sm-2">
-          <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/5607/5607008_sa.jpg">
-          <h5>Assassin's Creed: Unity</h5>
-          <h6>$59.99</h6>
-      </div>
-
-      <div class="col-sm-2">
-        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-        <h6>$59.99</h6>
-      </div>
-
-      <div class="col-sm-2">
-        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-        <h6>$59.99</h6>
-      </div>
-
-      <div class="col-sm-2">
-        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-        <h6>$59.99</h6>
-      </div>
-
-      <div class="col-sm-2">
-        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-        <h6>$59.99</h6>
-      </div>
-
-      <div class="col-sm-2">
-        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-        <h6>$59.99</h6>
-      </div>
-
-      <div class="col-sm-2">
-        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-        <h6>$59.99</h6>
-      </div>
-  </div>
-
-  <br>
-  <h6>Total: $100000</h4>
-    </div>
-  </ul>
+    	<div ng-repeat="order in previousOrder">
+    		<!-- {{order | json}} -->
+    		<h6>Order Date: {{order.createdAt}}</h3>
+    			<div class="products row">
+    				<div ng-repeat="product in order.products" class="col-sm-2">
+    					<!-- {{product|json}} -->
+    					<img class="img-responsive" src="{{product.product.image}}">
+    					<h5>{{product.product.title}}</h5>
+    					<h6>{{product.purchasedPrice / 100 | currency}}</h6>
+    					<h6>Purchased Quantity: {{product.quantity}}</h6>
+    				</div>
+    			</div>
+    	</div>
+     </ul> 
 
 
 </div>
