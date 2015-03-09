@@ -23,7 +23,6 @@ app.controller("checkoutCtrl",function($scope,Cart,Session){
 	$scope.total = $scope.calculateTotal();
 
 	$scope.modal = {
-		"title":"Pay with Credit Card",
 		"content": $scope.total/100
 	}
 	//##########################################################
