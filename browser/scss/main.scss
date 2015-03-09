@@ -35,6 +35,14 @@ body{
 
 // Skeleton CSS
 #gravatar {
+	img{
+	border-radius: 100%;
+	background-color: gray;
+	height: 100px;
+	width: 100px;
+	margin: auto;
+	padding: 0;
+	}
 	border-radius: 100%;
 	background-color: gray;
 	height: 100px;

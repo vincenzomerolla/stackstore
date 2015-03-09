@@ -10,7 +10,14 @@ app.directive('navbar', function () {
     };
 });
 
-app.controller('NavbarController', function ($scope, $state) {
+app.controller('NavbarController', function ($scope, $state, Session, AuthService,$rootScope,AUTH_EVENTS) {
+    AuthService.getLoggedInUser().then(function(data){
+        $scope.user = data;
+    });
+
+    $rootScope.$on(AUTH_EVENTS.logoutSuccess,function(){
+        $scope.user = null;
+    });
 
     $scope.submitSearch = function(){
         $state.go('product-search',{search: $scope.search})
