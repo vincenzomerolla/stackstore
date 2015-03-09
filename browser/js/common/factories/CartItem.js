@@ -1,7 +1,7 @@
 app.factory('CartItem', function() {
   'use strict';
   
-  function Item(product) {
+  function CartItem(product) {
     this.id; 
     this.purchasePrice;
     this.image;
@@ -16,21 +16,21 @@ app.factory('CartItem', function() {
     }
   }
 
-  Item.prototype.incrementQty = function() {
+  CartItem.prototype.incrementQty = function() {
     this.qty++;
   };
 
-  Item.prototype.decrementQty = function() {
+  CartItem.prototype.decrementQty = function() {
     if (this.qty) this.qty--;
   };
 
-  Item.deserialize = function (obj) {
-    var item = new Item();
+  CartItem.deserialize = function (obj) {
+    var item = new CartItem();
     Object.keys(obj).forEach(function(key) {
       item[key] = obj[key];
     })
     return item;
   }
 
-  return Item;
+  return CartItem;
 })
