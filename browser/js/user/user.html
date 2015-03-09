@@ -1,96 +1,154 @@
-
 <div class="container">
-<login ng-if="!isAuthenticated"></login>
+  <login ng-if="!isAuthenticated"></login>
 
-<div class="container" ng-if="isAuthenticated">
-  {{user|json}}
-  <hr>
-  <h3>Welcome {{user.firstName}}!</h3>
-  <hr>
-  <div class="row">
-    <div class="col-md-3">
-    	<div style="word-wrap: break-word">
-      <h4>Your Profile</h4>
-      <img ng-src="{{user.photoUrl}}" class="img-responsive">
-        <p>Email: {{user.email}}</p>
-        <p>Name: {{user.firstName}} {{user.lastName}}</p>
-				<button>Edit</button>
-				<button ng-click="logout()">Logout</button>
-			</div>
-    </div>
-    <div class="col-md-9">
-      <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
-        <div data-title="Address" ng-bind-html="product.description" bs-pane></div>
-        <div data-title="Account" bs-pane>
-          <div class="text-right">
-            <a ng-if="!isLoggedIn">Sign Up / Sign In to leave a review</a>
-            <a ng-if="isLoggedIn" href="#">Leave A Review</a>
-          </div>
-          <review content="r" ng-repeat="r in product.reviews track by r._id"></review>
+  <div class="container" ng-if="isAuthenticated">
+    {{user|json}}
+    <hr>
+    <h3>Welcome {{user.firstName}} {{ user.lastName }}!</h3>
+    <hr>
+    <div class="row">
+      <div class="col-md-3">
+        <div style="word-wrap: break-word">
+          <h4>Your Profile</h4>
+          <img ng-src="{{user.photoUrl}}" class="img-responsive">
+          <button class="btn btn-primary btn-block">Change Picture</button>
+          <button class="btn btn-danger btn-block" ng-click="logout()">Logout</button>
         </div>
-        <div title="Payment" bs-pane> Recommendation engine results go here </div>
-        <div title="Location" bs-pane> Recommendation engine results go here </div>
+      </div>
+      <div class="col-md-9">
+        <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
+          <div data-title="Account" bs-pane>
+            <form editable-form name="accountForm" onaftersave="saveUser()">
+              <div>
+                <span class="title">First name: </span>
+                <span editable-text="user.firstName" e-name="firstName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.firstName }}</span>
+              </div>
+              <div>
+                <span class="title">Last name: </span>
+                <span editable-text="user.lastName" e-name="lastName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.lastName }}</span>
+              </div>
+              <div>
+                <span class="title">Email: </span>
+                <span editable-text="user.email" e-name="email" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.email }}</span>
+              </div>
+              <hr>
+              <div>
+                <span class="title">Password: </span>
+                <span editable-text="user.password" e-name="password" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.password }}</span>
+              </div>
+
+              <div class="buttons">
+                <!-- button to show form -->
+                <button type="button" class="btn btn-default" ng-click="accountForm.$show()" ng-show="!accountForm.$visible">
+                  Edit
+                </button>
+                <!-- buttons to submit / cancel form -->
+                <span ng-show="accountForm.$visible">
+        	      <button type="submit" class="btn btn-primary" ng-disabled="accountForm.$waiting">
+        	        Save
+        	      </button>
+        	      <button type="button" class="btn btn-default" ng-disabled="accountForm.$waiting" ng-click="accountForm.$cancel()">
+        	        Cancel
+        	      </button>
+        	    </span>
+              </div>
+            </form>
+          </div>
+          <div data-title="Address" bs-pane>
+	    	    <form editable-form name="accountForm" onaftersave="saveUser()">
+	    	      <div>
+	    	        <span class="title">First name: </span>
+	    	        <span editable-text="user.firstName" e-name="firstName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.firstName }}</span>
+	    	      </div>
+	    	      <div>
+	    	        <span class="title">Last name: </span>
+	    	        <span editable-text="user.lastName" e-name="lastName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.lastName }}</span>
+	    	      </div>
+	    	      <div>
+	    	        <span class="title">Email: </span>
+	    	        <span editable-text="user.email" e-name="email" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.email }}</span>
+	    	      </div>
+	    	      <hr>
+	    	      <div>
+	    	        <span class="title">Password: </span>
+	    	        <span editable-text="user.password" e-name="password" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.password }}</span>
+	    	      </div>
+	    	      <div class="buttons">
+	    	        <!-- button to show form -->
+	    	        <button type="button" class="btn btn-default" ng-click="accountForm.$show()" ng-show="!accountForm.$visible">
+	    	          Edit
+	    	        </button>
+	    	        <!-- buttons to submit / cancel form -->
+	    	        <span ng-show="accountForm.$visible">
+	    		      <button type="submit" class="btn btn-primary" ng-disabled="accountForm.$waiting">
+	    		        Save
+	    		      </button>
+	    		      <button type="button" class="btn btn-default" ng-disabled="accountForm.$waiting" ng-click="accountForm.$cancel()">
+	    		        Cancel
+	    		      </button>
+	    		    </span>
+	    	      </div>
+	    	    </form>
+          </div>
+          <div title="Payment" bs-pane></div>
+        </div>
       </div>
     </div>
-  </div>
 
-
-
-
-	<hr>
-	<h4>
+    <hr>
+    <h4>
 		Past Orders
 	</h4>
-	<ul>
-		<div>
-			<h6>Order Date: 2013-10-01</h3>
+    <ul>
+      <div>
+        <h6>Order Date: 2013-10-01</h3>
 			<div class="products row well">
 
 				<div class="col-sm-2">
 					<img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/5607/5607008_sa.jpg">
 					<h5>Assassin's Creed: Unity</h5>
 					<h6>$59.99</h6>
-				</div>
+      </div>
 
-				<div class="col-sm-2">
-					<img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-					<h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-					<h6>$59.99</h6>
-				</div>
+      <div class="col-sm-2">
+        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
+        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
+        <h6>$59.99</h6>
+      </div>
 
-				<div class="col-sm-2">
-					<img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-					<h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-					<h6>$59.99</h6>
-				</div>
+      <div class="col-sm-2">
+        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
+        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
+        <h6>$59.99</h6>
+      </div>
 
-				<div class="col-sm-2">
-					<img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-					<h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-					<h6>$59.99</h6>
-				</div>
+      <div class="col-sm-2">
+        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
+        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
+        <h6>$59.99</h6>
+      </div>
 
-				<div class="col-sm-2">
-					<img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-					<h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-					<h6>$59.99</h6>
-				</div>
+      <div class="col-sm-2">
+        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
+        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
+        <h6>$59.99</h6>
+      </div>
 
-				<div class="col-sm-2">
-					<img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-					<h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-					<h6>$59.99</h6>
-				</div>
+      <div class="col-sm-2">
+        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
+        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
+        <h6>$59.99</h6>
+      </div>
 
-				<div class="col-sm-2">
-					<img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
-					<h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
-					<h6>$59.99</h6>
-				</div>
-			</div>
-			
-			<br>
-			<h6>Total: $100000</h4>
+      <div class="col-sm-2">
+        <img class="img-responsive" src="http://img.bbystatic.com/BestBuy_US/images/products/2598/2598037_sa.jpg">
+        <h5>Dead Rising 3 - Xbox 360|Xbox One</h5>
+        <h6>$59.99</h6>
+      </div>
+  </div>
+
+  <br>
+  <h6>Total: $100000</h4>
 		</div>
 	</ul>
 

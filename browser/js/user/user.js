@@ -30,4 +30,13 @@ app.controller('userCtrl', function ($scope, $state, AuthService, user) {
 		console.log("logging out")
 		$state.go('home');
 	}
+
+    $scope.activeTab = 0;
+
+    $scope.checkFieldIfEmpty = function(data) {
+        if(data.length === 0) {
+            return 'This field can\'t be blank';
+        }
+    }
+
 });
