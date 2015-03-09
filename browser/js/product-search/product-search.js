@@ -2,12 +2,12 @@
 app.config(function ($stateProvider) {
 	
 	$stateProvider.state('product-search', {
-		url: '/products',
+		url: '/products?search',
 		controller: 'ProductSearchCtrl',
 		templateUrl: 'js/product-search/product-search.html',
 		resolve: {
-			products: function(Product) {
-				return Product.query().$promise;
+			products: function(Product,$stateParams) {
+				return Product.query($stateParams).$promise;
 			},
 			categories: function(Category) {
 				return Category.query().$promise;

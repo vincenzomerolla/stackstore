@@ -7,12 +7,14 @@
       <li data-match-route="/products"><a ui-sref="product-search">Products</a>
       </li>
     </ul>
-    <form class="navbar-form navbar-left" role="search">
+
+    <form class="navbar-form navbar-left" role="search" ng-submit="submitSearch()">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" class="form-control" placeholder="Search" ng-model="search">
       </div>
       <button type="submit" class="btn btn-default">Search</button>
     </form>
+
     <button type="button" class="pull-right" data-placement="right" data-animation="am-slide-right" template="/js/common/directives/navbar/aside.html" bs-aside="aside" data-container="body">
       <i class="fa fa-user fa-3x"></i>
       <i class="fa fa-ellipsis-v fa-2x"></i>

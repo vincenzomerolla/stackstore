@@ -11,6 +11,14 @@ app.directive('navbar', function () {
 });
 
 app.controller('NavbarController', function ($scope, $state) {
+
+    $scope.submitSearch = function(){
+        $state.go('product-search',{search: $scope.search})
+    }
+
+    $scope.search = "";
+
+
 	$scope.goTo = function(stateName) {
 		return $state.go(stateName);
 	}
