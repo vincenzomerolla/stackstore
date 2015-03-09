@@ -5,13 +5,22 @@ var Review = require('../../../db/models/review');
 
 router.route('/')
 .get(function(req, res, next) {
-  Product
-    .find(req.query)
-    .populate('categories reviews')
-    .exec()
-    .then(function(products) {
-      res.json(products);
-    });
+  var query;
+  if(req.query.search){
+    query = {title: {$regex: new RegExp(req.query.search, "ig")}};
+    // console.log(query);
+  }
+  else{
+    query = req.query;
+  }
+    Product
+      .find(query)
+      .populate('categories reviews')
+      .exec()
+      .then(function(products) {
+        // console.log(products)
+        res.json(products);
+      });
 })
 
 .post(function(req, res, next) {
