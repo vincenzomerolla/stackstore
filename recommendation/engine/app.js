@@ -15,10 +15,12 @@ var description_Logic = require('./engine_Logic/description_Logic.js');
 
 var recommend = function(products){
 
-    var reco_Array = [];
+    var reco_Object = {};
 
     //loop through all games
     for (var i = 0, len = products.length; i < len; i++) {
+
+
 
         var game_Id = products[i]._id,
             game_Title = products[i].title,
@@ -32,7 +34,7 @@ var recommend = function(products){
 
 
         //store top 3 comps per game
-        var game_top_three_Array = [game_Title];
+        var game_top_three_Array = [];
 
         //results of all comps scores
         var all_comp_Scores = [];
@@ -50,7 +52,7 @@ var recommend = function(products){
                 comp_Rating = products[x].esrbRating;
 
             //id of each game and relative score
-            var single_comp_Score = [comp_Title];
+            var single_comp_Score = [comp_Id];
             var comp_Score = 0;
 
             //Do not evaluate same game, games with no inventory, or games on non-compatible systems
@@ -78,13 +80,14 @@ var recommend = function(products){
         all_comp_Scores.sort(function(a, b) {return b[1] - a[1]});
 
         //add top 3 matches to game array
-        game_top_three_Array.push(all_comp_Scores[0], all_comp_Scores[1], all_comp_Scores[2]);
+        game_top_three_Array.push(all_comp_Scores[0][0], all_comp_Scores[1][0], all_comp_Scores[2][0]);
 
         //push original game, plus top 3 comps to final array
-        reco_Array.push(game_top_three_Array);
+        reco_Object[game_Id] = game_top_three_Array
+
     }
 
-    return reco_Array;
+    return reco_Object;
 };
 
 module.exports.recommend = recommend;

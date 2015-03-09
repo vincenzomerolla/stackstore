@@ -7,11 +7,17 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("checkoutCtrl",function($scope){
+app.controller("checkoutCtrl",function($scope,Cart,Session){
+	// console.log(Cart.getCart())
+	console.log(Session.user)
+	$scope.list_of_products = Cart.get();
 
 	$scope.calculateTotal = function(){
-		//Total should be in cents
-		return 10000
+		var total = 0;
+		$scope.list_of_products.forEach(function(product){
+			total += product.purchasePrice * product.qty;
+		})
+		return total //in cents
 	}
 
 	$scope.total = $scope.calculateTotal();
@@ -43,8 +49,11 @@ app.controller("checkoutCtrl",function($scope){
 		    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
 		    //add total amount to be paid
 		    $form.append($('<input type="hidden" name="total" />').val($scope.total));
-		    console.log($form.get(0))
-		    // and submit
+		    //append userId
+		    $form.append($('<input type="hidden" name="userId" />').val(Session.user._id));
+		    //append products being paid
+		    $form.append($('<input type="hidden" name="products" />').val(JSON.stringify($scope.list_of_products)));
+		    //submit
 		    $form.get(0).submit();
 		  }
 		};
