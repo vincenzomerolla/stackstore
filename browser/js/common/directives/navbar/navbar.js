@@ -10,68 +10,14 @@ app.directive('navbar', function () {
     };
 });
 
-app.controller('NavbarController', function ($scope) {
-	$scope.dropdownCategories = [
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "divider": true
-	  },
-	  {
-	    "text": "Separated link",
-	    "href": "#separatedLink"
-	  }
-	];
-
-	$scope.dropdownGenres = [
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "divider": true
-	  },
-	  {
-	    "text": "Separated link",
-	    "href": "#separatedLink"
-	  }
-	];
-
-	$scope.dropdownAccount = [
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  },
-	  {
-	    "text": "TO BE REPLACED",
-	    "href": "#"
-	  }
-	];
+app.controller('NavbarController', function ($scope, $state) {
+	$scope.goTo = function(stateName) {
+		return $state.go(stateName);
+	}
 	
 
 	$scope.aside = {
 	  "title": "Cart"
 	};
+
 });
