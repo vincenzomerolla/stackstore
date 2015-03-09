@@ -10,23 +10,23 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('HomeCtrl', function ($scope, Product) {
-    Product.query().$promise.then(function(products) {
+    Product.query().$promise.then(function (products) {
 
         var platform_Array = [];
         var number_run = products.length;
         var number_show = 4;
+        var platforms = ['PlayStation 3','PlayStation 4', 'Xbox 360', 'Xbox One', 'Nintendo Wii U']
+        var show_Platform = platforms[Math.floor(Math.random() * 5)];
 
         //contains random games by platform selected
         var return_Array = [];
-        var array_Check = [];
 
         //puts all xbox one games in platform_Array
         for (var i = 0; i < number_run; i++){
-            if (products[i].platform === "Xbox One") {
+            if (products[i].platform === show_Platform) {
                 platform_Array.push(products[i]);
             }
         }
-
 
         for (var i = 0; i < number_show; i++) {
 
