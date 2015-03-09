@@ -8,7 +8,11 @@ app.config(function ($stateProvider) {
         resolve: {
           user: function(AuthService) {
     		return AuthService.getLoggedInUser();
+          },
+          products: function(Product) {
+            return Product.query().$promise;
           }
+
         }
     });
 
@@ -17,9 +21,9 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, User) {
+app.controller('userCtrl', function ($scope, $state, $http, AuthService, user, User, products) {
 	$scope.user = user;
-    
+    $scope.products = products;
 	$scope.isAuthenticated = AuthService.isAuthenticated();
     $scope.previousOrder;
 
@@ -29,7 +33,6 @@ app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, Us
             $scope.previousOrder = res.data;
         })
     }
-
 
 	$scope.logout = function(){
 		AuthService.logout();
@@ -53,5 +56,70 @@ app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, Us
 
 
     //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
-    $scope.user.isAdmin = true;
+    if ($scope.user) {
+        $scope.user.isAdmin = true;
+    }
+});
+
+app.controller('EditableRowCtrl', function($scope, $filter, $http) {
+  $scope.products
+
+  $scope.statuses = [
+    {value: 1, text: 'status1'},
+    {value: 2, text: 'status2'},
+    {value: 3, text: 'status3'},
+    {value: 4, text: 'status4'}
+  ]; 
+
+  $scope.groups = [];
+  $scope.loadGroups = function() {
+    return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
+      $scope.groups = data;
+    });
+  };
+
+  $scope.showGroup = function(user) {
+    if(user.group && $scope.groups.length) {
+      var selected = $filter('filter')($scope.groups, {id: user.group});
+      return selected.length ? selected[0].text : 'Not set';
+    } else {
+      return user.groupName || 'Not set';
+    }
+  };
+
+  $scope.showStatus = function(user) {
+    var selected = [];
+    if(user.status) {
+      selected = $filter('filter')($scope.statuses, {value: user.status});
+    }
+    return selected.length ? selected[0].text : 'Not set';
+  };
+
+  $scope.checkName = function(data, id) {
+    if (id === 2 && data !== 'awesome') {
+      return "Username 2 should be `awesome`";
+    }
+  };
+
+  $scope.saveUser = function(data, id) {
+    //$scope.user not updated yet
+    angular.extend(data, {id: id});
+    return $http.post('/saveUser', data);
+  };
+
+  // remove user
+  $scope.removeUser = function(index) {
+    $scope.users.splice(index, 1);
+  };
+
+  // add user
+  $scope.addUser = function() {
+    $scope.inserted = {
+      id: $scope.users.length+1,
+      name: '',
+      status: null,
+      group: null 
+    };
+    $scope.users.push($scope.inserted);
+  };
 });
