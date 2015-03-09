@@ -88,14 +88,13 @@
     Past Orders
   </h4>
     <ul>
-
-    	<div ng-repeat="order in previousOrder">
+    	<div ng-repeat="order in previousOrder | orderBy : '-createdAt'" class="well">
     		<!-- {{order | json}} -->
-    		<h6>Order Date: {{order.createdAt}}</h3>
+    		<h6 class="text-right">Order Date: {{order.createdAt | date : "MM/dd/yyyy 'at' h:mma" }}</h3>
     			<div class="products row">
     				<div ng-repeat="product in order.products" class="col-sm-2">
     					<!-- {{product|json}} -->
-    					<img class="img-responsive" src="{{product.product.image}}">
+    					<a ui-sref="product-detail(product.product)"><img class="img-responsive" ng-src="{{product.product.image}}"></a>
     					<h5>{{product.product.title}}</h5>
     					<h6>{{product.purchasedPrice / 100 | currency}}</h6>
     					<h6>Purchased Quantity: {{product.quantity}}</h6>

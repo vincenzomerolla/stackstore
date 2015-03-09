@@ -54,6 +54,7 @@ app.controller("checkoutCtrl",function($scope,Cart,Session){
 		    //append products being paid
 		    $form.append($('<input type="hidden" name="products" />').val(JSON.stringify($scope.list_of_products)));
 		    //submit
+		    Cart.empty();
 		    $form.get(0).submit();
 		  }
 		};
