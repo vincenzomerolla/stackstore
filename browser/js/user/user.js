@@ -54,7 +54,6 @@ app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, Us
     // }; 
 
     $scope.updateUser = function() {
-        if ()
         User.update({ id: user._id }, $scope.user).$promise.then(function(userUpdated) {
             console.log(userUpdate);
         });

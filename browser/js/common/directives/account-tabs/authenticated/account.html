@@ -30,7 +30,7 @@
 </form>
 
 <hr>
-<form editable-form name="passwordForm" onaftersave="saveUser()">
+<form editable-form name="passwordForm" onaftersave="updateUser($data)">
   <span ng-show="passwordForm.$visible">
   <div>
     <span class="title">Current Password: </span>
