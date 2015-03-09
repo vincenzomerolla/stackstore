@@ -1,12 +1,21 @@
-
 <div class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-body" ng-show="content">
+      <div class="modal-body">
+
+
         <h4>Your balance is {{total / 100 | currency}}</h4>
 
         <form action="api/stripe" method="POST" id="payment-form">
           <span class="payment-errors"></span>
+
+          <div>
+            <label>
+              <span>Recipient</span>
+            </label>
+              <input type="text" />
+          </div>
+
 
           <div class="form-row">
             <label>

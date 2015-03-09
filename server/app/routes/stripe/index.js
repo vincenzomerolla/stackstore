@@ -40,9 +40,7 @@ router.route('/')
 	  		products.forEach(function(product){
 	  			var purchasedProduct = new PurchasedProduct();
 	  			purchasedProduct.product = product._id;
-	  			// console.log("this is it", purchasedproducts , _.where(purchasedproducts, {'id':product._id.toString()} ) ) ;
 	  			currentProduct = _.where(purchasedproducts, {'id':product._id.toString()} )[0]
-	  			console.log(_.where(purchasedproducts, {'id':product._id.toString()} ),currentProduct.qty,currentProduct.purchasedPrice)
 	  			purchasedProduct.quantity = currentProduct.qty;
 	  			purchasedProduct.purchasedPrice = currentProduct.purchasePrice;
 	  			purchasedProduct.save();

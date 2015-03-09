@@ -5,7 +5,11 @@
   height: 100%;
   overflow-y: auto;
 }
+
 .product-thumbnail {
+  .text-container{
+    height: 200px;
+  }
   .img-container {
     height: 280px;
     .img-responsive {

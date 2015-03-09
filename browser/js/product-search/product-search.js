@@ -39,9 +39,9 @@ app.controller('ProductSearchCtrl', function ($scope, products, categories, Prod
 	// END OF Quick Fix to populate search filters
 
 	$scope.panels = [
-		{title: 'Platform', body: $scope.allPlatforms, category: 'platform'},
-		{title: 'ESRB Rating', body: $scope.allESRBRatings, category: 'esrbRating'},
-		{title: 'Number of Players', body: $scope.allNumberOfPlayers, category: 'numberOfPlayers'}
+	{title: 'Platform', body: $scope.allPlatforms, category: 'platform'},
+	{title: 'ESRB Rating', body: $scope.allESRBRatings, category: 'esrbRating'},
+	{title: 'Number of Players', body: $scope.allNumberOfPlayers, category: 'numberOfPlayers'}
 	];
 
 	$scope.getProductsByFilter = function(item, category) {
