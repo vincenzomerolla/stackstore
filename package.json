@@ -4,7 +4,7 @@
   "description": "A ecommerce platform",
   "main": "server/start.js",
   "scripts": {
-    "start": "node server/start.js",
+    "start": "nodemon server/start.js",
     "postinstall": "./node_modules/bower/bin/bower install && gulp build",
     "test": "nodemon ./node_modules/.bin/mocha --reporter spec --timeout 500 test/*.test.js"
   },
