@@ -1,36 +1,9 @@
 <div class="container">
 	<hr>
 	<h3>Your Cart</h3>
-	<div class="row">
-		<div class="col-lg-2">
-			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
-			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
-			<h8>Platform: Xbox One </h8>
-			<h8>Price: $29.99</h8>
-		</div>
-
-		<div class="col-lg-2">
-			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
-			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
-			<h8>Platform: Xbox One </h8>
-			<h8>Price: $29.99</h8>
-		</div>
-
-		<div class="col-lg-2">
-			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
-			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
-			<h8>Platform: Xbox One </h8>
-			<h8>Price: $29.99</h8>
-		</div>
-
-		<div class="col-lg-2">
-			<img src="http://img.bbystatic.com/BestBuy_US/images/products/9009/9009109_sa.jpg" class="img-responsive" alt="">
-			<h8>Name: Call of Duty: Ghosts - Xbox One </h8>
-			<h8>Platform: Xbox One </h8>
-			<h8>Price: $29.99</h8>
-		</div>
-
-	</div>
+	<cart>
+    <cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
+  </cart>
 	<h4>Total: {{total / 100 | currency}}</h4>
 	<hr>
 	<h3>Payment Methods</h3>
