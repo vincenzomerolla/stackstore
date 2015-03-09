@@ -1,0 +1,34 @@
+<form editable-form name="paymentForm" onbeforesave="updateUser($data)" novalidate>
+  <div>
+    <span class="title">Name of Card Owner: </span>
+    <span editable-text="user.FILLMEIN" e-name="FILLMEIN" e-required>{{ user.FILLMEIN }}</span>
+  </div>
+  <div>
+    <span class="title">Card Number: </span>
+    <span editable-text="user.FILLCARD" e-name="FILLCARD" e-required>{{ user.FILLCARD }}</span>
+  </div>
+  <div>
+    <span class="title">CSV: </span>
+    <span editable-text="user.FILLCSV" e-name="FILLCSV" e-required>{{ user.FILLCSV }}</span>
+  </div>
+  <div>
+    <span class="title">Expiry Date: </span>
+    <span editable-text="user.FILLEXPIRY" e-name="FILLEXPIRY" e-required>{{ user.FILLEXPIRY }}</span>
+  </div>
+  <br>
+  <div class="buttons">
+    <!-- button to show form -->
+    <button type="button" class="btn btn-default" ng-click="paymentForm.$show()" ng-show="!paymentForm.$visible">
+      Edit
+    </button>
+    <!-- buttons to submit / cancel form -->
+    <span ng-show="paymentForm.$visible">
+      <button type="submit" class="btn btn-primary" ng-disabled="paymentForm.$waiting" ng-click="updateUser()">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-disabled="paymentForm.$waiting" ng-click="paymentForm.$cancel()">
+        Cancel
+      </button>
+    </span>
+  </div>
+</form>

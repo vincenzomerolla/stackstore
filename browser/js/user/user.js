@@ -19,7 +19,7 @@ app.config(function ($stateProvider) {
 
 app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, User) {
 	$scope.user = user;
-    // $scope.user.isAdmin = true;
+    
 	$scope.isAuthenticated = AuthService.isAuthenticated();
     $scope.previousOrder;
 
@@ -45,18 +45,13 @@ app.controller('userCtrl', function ($scope, $state, AuthService, user,$http, Us
         }
     };
 
-    // $scope.checkIfPasswordCorrect = function(data) {
-        
-    // };
-
-    // $scope.checkNewPasswordMatch = function(data) {
-
-    // }; 
-
     $scope.updateUser = function() {
-        User.update({ id: user._id }, $scope.user).$promise.then(function(userUpdated) {
+        User.update({ id: $scope.user._id }, $scope.user).$promise.then(function(userUpdated) {
             console.log(userUpdate);
         });
     };
 
+
+    //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
+    $scope.user.isAdmin = true;
 });

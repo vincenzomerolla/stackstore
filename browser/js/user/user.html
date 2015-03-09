@@ -11,6 +11,7 @@
       <div class="col-md-3">
         <div style="word-wrap: break-word">
           <h4>Your Profile</h4>
+          <i class="fa fa-user-secret fa-4x" ng-if="user.isAdmin" style="display:inline"></i>
           <img ng-src="{{user.photoUrl}}" class="img-responsive">
           <button class="btn btn-primary btn-block">Change Picture</button>
           <button class="btn btn-danger btn-block" ng-click="logout()">Logout</button>
@@ -20,13 +21,13 @@
       <div class="col-md-9" ng-if="!user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
           <div data-title="Account" bs-pane>
-            <account-auth></account-auth>
+            <ng-include src="'js/account-tabs/authenticated/account.html'"></ng-include>
           </div>
           <div data-title="Address" bs-pane>
-
+            <ng-include src="'js/account-tabs/authenticated/address.html'"></ng-include>
           </div>
-          <div title="Payment" bs-pane>
-
+          <div data-title="Payment" bs-pane>
+            <ng-include src="'js/account-tabs/authenticated/payment.html'"></ng-include>
           </div>
         </div>
       </div>
@@ -36,74 +37,51 @@
       <div class="col-md-9" ng-if="user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
           <div data-title="Account" bs-pane>
-            <form editable-form name="accountForm" onaftersave="saveUser()">
-              <div>
-                THIS IS ADMIN FIELD
-                <span class="title">First name: </span>
-                <span editable-text="user.firstName" e-name="firstName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.firstName }}</span>
-              </div>
-              <div>
-                <span class="title">Last name: </span>
-                <span editable-text="user.lastName" e-name="lastName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.lastName }}</span>
-              </div>
-              <div>
-                <span class="title">Email: </span>
-                <span editable-text="user.email" e-name="email" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.email }}</span>
-              </div>
-              <hr>
-              <div>
-                <span class="title">Password: </span>
-                <span editable-text="user.password" e-name="password" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.password }}</span>
-              </div>
-
-              <div class="buttons">
-                <!-- button to show form -->
-                <button type="button" class="btn btn-default" ng-click="accountForm.$show()" ng-show="!accountForm.$visible">
-                  Edit
-                </button>
-                <!-- buttons to submit / cancel form -->
-                <span ng-show="accountForm.$visible">
-                <button type="submit" class="btn btn-primary" ng-disabled="accountForm.$waiting" ng-click="updateUser()">
-                  Save
-                </button>
-                <button type="button" class="btn btn-default" ng-disabled="accountForm.$waiting" ng-click="accountForm.$cancel()">
-                  Cancel
-                </button>
-              </span>
-              </div>
-            </form>
+            <ng-include src="'js/account-tabs/authenticated/account.html'"></ng-include>
           </div>
-          <div data-title="Address" bs-pane>
+          <div data-title="Products" bs-pane>
 
           </div>
-          <div title="Payment" bs-pane>
+          <div data-title="Categories" bs-pane>
 
           </div>
+          <div data-title="Orders" bs-pane>
+
+          </div>
+          <div data-title="User Management" bs-pane>
+
+          </div>
+        </div>
+
+        <!-- List Pane for Admin Users -->
+        <hr>
+        <div>
+          asdf
         </div>
       </div>
     </div>
 
     <hr>
-    <h4>
-    Past Orders
-  </h4>
-    <ul>
-    	<div ng-repeat="order in previousOrder | orderBy : '-createdAt'" class="well">
-    		<!-- {{order | json}} -->
-    		<h6 class="text-right">Order Date: {{order.createdAt | date : "MM/dd/yyyy 'at' h:mma" }}</h3>
-    			<div class="products row">
-    				<div ng-repeat="product in order.products" class="col-sm-2">
-    					<!-- {{product|json}} -->
-    					<a ui-sref="product-detail(product.product)"><img class="img-responsive" ng-src="{{product.product.image}}"></a>
-    					<h5>{{product.product.title}}</h5>
-    					<h6>{{product.purchasedPrice / 100 | currency}}</h6>
-    					<h6>Purchased Quantity: {{product.quantity}}</h6>
-    				</div>
-    			</div>
-    	</div>
-     </ul> 
 
-
-</div>
-  
-</div>
+    <!-- Past Orders or Authenticated Users -->
+    <div ng-if="!user.isAdmin">
+      <h4>Past Orders</h4>
+      <ul>
+        <div ng-repeat="order in previousOrder | orderBy : '-createdAt'" class="well">
+          <!-- {{order | json}} -->
+          <h6 class="text-right">Order Date: {{order.createdAt | date : "MM/dd/yyyy 'at' h:mma" }}</h6>
+          <div class="products row">
+            <div ng-repeat="product in order.products" class="col-sm-2">
+              <!-- {{product|json}} -->
+              <a ui-sref="product-detail(product.product)"><img class="img-responsive" ng-src="{{product.product.image}}">
+              </a>
+              <h5>{{product.product.title}}</h5>
+              <h6>{{product.purchasedPrice / 100 | currency}}</h6>
+              <h6>Purchased Quantity: {{product.quantity}}</h6>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div> <!-- Close container -->

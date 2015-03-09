@@ -1,0 +1,34 @@
+<form editable-form name="addressForm" onbeforesave="updateUser($data)" novalidate>
+  <div>
+    <span class="title">Address: </span>
+    <span editable-text="user.address" e-name="address" e-required>{{ user.address }}</span>
+  </div>
+  <div>
+    <span class="title">City: </span>
+    <span editable-text="user.city" e-name="city" e-required>{{ user.city }}</span>
+  </div>
+  <div>
+    <span class="title">State: </span>
+    <span editable-text="user.state" e-name="state" e-required>{{ user.state }}</span>
+  </div>
+  <div>
+    <span class="title">Zip Code: </span>
+    <span editable-text="user.zipCode" e-name="zipCode" e-required>{{ user.zipCode }}</span>
+  </div>
+  <br>
+  <div class="buttons">
+    <!-- button to show form -->
+    <button type="button" class="btn btn-default" ng-click="addressForm.$show()" ng-show="!addressForm.$visible">
+      Edit
+    </button>
+    <!-- buttons to submit / cancel form -->
+    <span ng-show="addressForm.$visible">
+      <button type="submit" class="btn btn-primary" ng-disabled="addressForm.$waiting" ng-click="updateUser()">
+        Save
+      </button>
+      <button type="button" class="btn btn-default" ng-disabled="addressForm.$waiting" ng-click="addressForm.$cancel()">
+        Cancel
+      </button>
+    </span>
+  </div>
+</form>
