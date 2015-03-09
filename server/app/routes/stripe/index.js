@@ -16,61 +16,52 @@ router.route('/')
 	var userId = req.body.userId;
 	var purchasedproducts =JSON.parse(req.body.products);
 
+	var order = new Order();
 
-	// Product.findById("54f744379b495eb8705c4cf3",function(err,data){
-	// 	console.log("find this",err,data)
-	// })
+	var charge = stripe.charges.create({
+	  amount: total, // amount in cents, again
+	  currency: "usd",
+	  source: stripeToken,
+	  description: order._id.toString()
+	}, function(err, charge) {
+	  if (err && err.type === 'StripeCardError') {
+	    // The card has been declined
+	    res.send("card is declined");
+	  }
+	  else if(charge.status == "succeeded"){
+	  	console.log(charge)
+	  	var all_products = []
+	  	var promises = purchasedproducts.map(function(product){
+	  		return Product.findById(product.id).exec();
+	  	});
 
-	var all_products = []
-	var promises = purchasedproducts.map(function(product){
-		return Product.findById(product.id).exec();
+	  	Promise.all(promises)
+	  	.then(function(products){
+	  		products.forEach(function(product){
+	  			var purchasedProduct = new PurchasedProduct();
+	  			purchasedProduct.product = product._id;
+	  			// console.log("this is it", purchasedproducts , _.where(purchasedproducts, {'id':product._id.toString()} ) ) ;
+	  			currentProduct = _.where(purchasedproducts, {'id':product._id.toString()} )[0]
+	  			console.log(_.where(purchasedproducts, {'id':product._id.toString()} ),currentProduct.qty,currentProduct.purchasedPrice)
+	  			purchasedProduct.quantity = currentProduct.qty;
+	  			purchasedProduct.purchasedPrice = currentProduct.purchasePrice;
+	  			purchasedProduct.save();
+	  			all_products.push(purchasedProduct);
+	  		});
+	  		return User.findById(userId).exec()
+	  	})
+	  	.then(function(user){
+	  		order.products = all_products;
+	  		order.save(function(){
+	  			user.orders.push(order);
+	  			user.save();
+			  	res.redirect("/user");
+	  		})
+	  	});
+
+
+	  }
 	});
-
-	Promise.all(promises)
-	.then(function(products){
-		products.forEach(function(product){
-			var purchasedProduct = new PurchasedProduct();
-			purchasedProduct.product = product._id;
-			// console.log("this is it", purchasedproducts , _.where(purchasedproducts, {'id':product._id.toString()} ) ) ;
-			currentProduct = _.where(purchasedproducts, {'id':product._id.toString()} )[0]
-			console.log(_.where(purchasedproducts, {'id':product._id.toString()} ),currentProduct.qty,currentProduct.purchasedPrice)
-			purchasedProduct.quantity = currentProduct.qty;
-			purchasedProduct.purchasedPrice = currentProduct.purchasePrice;
-			purchasedProduct.save();
-			all_products.push(purchasedProduct);
-		});
-		return User.findById(userId).exec()
-	})
-	.then(function(user){
-		var order = new Order({products : all_products});
-		order.save(function(){
-			user.orders.push(order);
-			user.save();
-		})
-	});
-
-
-	// PurchasedProduct.find().populate('products._id').exec().then(function(data){console.log(data)})
-
-
-	res.redirect('/user')
-
-	// var charge = stripe.charges.create({
-	//   amount: total, // amount in cents, again
-	//   currency: "usd",
-	//   source: stripeToken,
-	//   description: "payinguser@example.com"
-	// }, function(err, charge) {
-	//   if (err && err.type === 'StripeCardError') {
-	//     // The card has been declined
-	//     res.send("card is declined");
-	//   }
-	//   else if(charge.status == "succeeded"){
-	//   	console.log(total +"cents is charged")
-	//   	res.send(total + "cents is received")
-	//   	// res.redirect("/user");
-	//   }
-	// });
 })
 
 module.exports = router;
