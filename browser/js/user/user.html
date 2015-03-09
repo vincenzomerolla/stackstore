@@ -11,6 +11,7 @@
       <div class="col-md-3">
         <div style="word-wrap: break-word">
           <h4>Your Profile</h4>
+          <i class="fa fa-user-secret fa-4x" ng-if="user.isAdmin" style="display:inline"></i>
           <img ng-src="{{user.photoUrl}}" class="img-responsive">
           <button class="btn btn-primary btn-block">Change Picture</button>
           <button class="btn btn-danger btn-block" ng-click="logout()">Logout</button>
@@ -20,74 +21,13 @@
       <div class="col-md-9" ng-if="!user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
           <div data-title="Account" bs-pane>
-            <form editable-form name="accountForm" onbeforesave="updateUser($data)">
-              <div>
-                <span class="title">First name: </span>
-                <span editable-text="user.firstName" e-name="firstName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.firstName }}</span>
-              </div>
-              <div>
-                <span class="title">Last name: </span>
-                <span editable-text="user.lastName" e-name="lastName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.lastName }}</span>
-              </div>
-              <div>
-                <span class="title">Email: </span>
-                <span editable-text="user.email" e-name="email" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.email }}</span>
-              </div>
-              <br>
-              <div class="buttons">
-                <!-- button to show form -->
-                <button type="button" class="btn btn-default" ng-click="accountForm.$show()" ng-show="!accountForm.$visible">
-                  Edit
-                </button>
-                <!-- buttons to submit / cancel form -->
-                <span ng-show="accountForm.$visible">
-                <button type="submit" class="btn btn-primary" ng-disabled="accountForm.$waiting" ng-click="updateUser()">
-                  Save
-                </button>
-                <button type="button" class="btn btn-default" ng-disabled="accountForm.$waiting" ng-click="accountForm.$cancel()">
-                  Cancel
-                </button>
-                </span>
-              </div>
-            </form>
-            <hr>
-            <form editable-form name="passwordForm" onaftersave="saveUser()">
-              <div>
-                <span class="title">Current Password: </span>
-                <span editable-text="user.password" e-name="password" onbeforesave="checkIfPasswordCorrect($data)" e-required></span>
-              </div>
-              <span ng-show="passwordForm.$visible">
-              <div>
-                <span class="title">New Password: </span>
-                <span editable-text="user.password" e-name="password" onbeforesave="checkNewPasswordMatch($data)" e-required></span>
-              </div>
-              <div>
-                <span class="title">Retype New Password: </span>
-                <span editable-text="user.password" e-name="password" onbeforesave="checkNewPasswordMatch($data)" e-required></span>
-              </div>
-              </span>
-              <br>
-              <div class="buttons">
-                <!-- button to show form -->
-                <button type="button" class="btn btn-default" ng-click="passwordForm.$show()" ng-show="!passwordForm.$visible">
-                  Edit
-                </button>
-                <!-- buttons to submit / cancel form -->
-                <span ng-show="passwordForm.$visible">
-                <button type="submit" class="btn btn-primary" ng-disabled="passwordForm.$waiting" ng-click="updateUser()">
-                  Save
-                </button>
-                <button type="button" class="btn btn-default" ng-disabled="passwordForm.$waiting" ng-click="passwordForm.$cancel()">
-                  Cancel
-                </button>
-                </span>
-              </div>
+            <ng-include src="'js/account-tabs/authenticated/account.html'"></ng-include>
           </div>
           <div data-title="Address" bs-pane>
-
+            <ng-include src="'js/account-tabs/authenticated/address.html'"></ng-include>
           </div>
-          <div title="Payment" bs-pane>
-
+          <div data-title="Payment" bs-pane>
+            <ng-include src="'js/account-tabs/authenticated/payment.html'"></ng-include>
           </div>
         </div>
       </div>
@@ -97,74 +37,90 @@
       <div class="col-md-9" ng-if="user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
           <div data-title="Account" bs-pane>
-            <form editable-form name="accountForm" onaftersave="saveUser()">
-              <div>
-                THIS IS ADMIN FIELD
-                <span class="title">First name: </span>
-                <span editable-text="user.firstName" e-name="firstName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.firstName }}</span>
-              </div>
-              <div>
-                <span class="title">Last name: </span>
-                <span editable-text="user.lastName" e-name="lastName" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.lastName }}</span>
-              </div>
-              <div>
-                <span class="title">Email: </span>
-                <span editable-text="user.email" e-name="email" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.email }}</span>
-              </div>
-              <hr>
-              <div>
-                <span class="title">Password: </span>
-                <span editable-text="user.password" e-name="password" onbeforesave="checkFieldIfEmpty($data)" e-required>{{ user.password }}</span>
-              </div>
-
-              <div class="buttons">
-                <!-- button to show form -->
-                <button type="button" class="btn btn-default" ng-click="accountForm.$show()" ng-show="!accountForm.$visible">
-                  Edit
-                </button>
-                <!-- buttons to submit / cancel form -->
-                <span ng-show="accountForm.$visible">
-                <button type="submit" class="btn btn-primary" ng-disabled="accountForm.$waiting" ng-click="updateUser()">
-                  Save
-                </button>
-                <button type="button" class="btn btn-default" ng-disabled="accountForm.$waiting" ng-click="accountForm.$cancel()">
-                  Cancel
-                </button>
-              </span>
-              </div>
-            </form>
+            <ng-include src="'js/account-tabs/authenticated/account.html'"></ng-include>
           </div>
-          <div data-title="Address" bs-pane>
+          <div data-title="Products" bs-pane>
 
           </div>
-          <div title="Payment" bs-pane>
+          <div data-title="Categories" bs-pane>
+
+          </div>
+          <div data-title="Orders" bs-pane>
+
+          </div>
+          <div data-title="User Management" bs-pane>
 
           </div>
         </div>
+        <hr>
       </div>
     </div>
 
     <hr>
-    <h4>
-    Past Orders
-  </h4>
-    <ul>
-    	<div ng-repeat="order in previousOrder | orderBy : '-createdAt'" class="well">
-    		<!-- {{order | json}} -->
-    		<h6 class="text-right">Order Date: {{order.createdAt | date : "MM/dd/yyyy 'at' h:mma" }}</h3>
-    			<div class="products row">
-    				<div ng-repeat="product in order.products" class="col-sm-2">
-    					<!-- {{product|json}} -->
-    					<a ui-sref="product-detail(product.product)"><img class="img-responsive" ng-src="{{product.product.image}}"></a>
-    					<h5>{{product.product.title}}</h5>
-    					<h6>{{product.purchasedPrice / 100 | currency}}</h6>
-    					<h6>Purchased Quantity: {{product.quantity}}</h6>
-    				</div>
-    			</div>
-    	</div>
-     </ul> 
+
+    <!-- List Pane for Admin Users -->
+    <div ng-controller="EditableRowCtrl">
+      <table class="table table-bordered table-hover table-condensed">
+        <tr style="font-weight: bold">
+          <td style="width:30%">Title</td>
+          <td style="width:5%">Price</td>
+          <td style="width:5%">Inventory</td>
+          <td style="width:10%">Availability</td>
+          <td style="width:25%">Categories</td>
+          <td style="width:20%">Availability</td>
+        </tr>
+        <tr ng-repeat="user in users">
+          <td>
+            <!-- editable username (text with validation) -->
+            <span editable-text="user.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, user.id)" e-required>
+              {{ user.name || 'empty' }}
+            </span>
+          </td>
+          <td>
+            <!-- editable status (select-local) -->
+            <span editable-select="user.status" e-name="status" e-form="rowform" e-ng-options="s.value as s.text for s in statuses">
+              {{ showStatus(user) }}
+            </span>
+          </td>
+          <td>
+            <!-- editable group (select-remote) -->
+            <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
+              {{ showGroup(user) }}
+            </span>
+          </td>
+          <td style="white-space: nowrap">
+            <div class="buttons" ng-show="!rowform.$visible">
+              <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+              <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+            </div>  
+          </td>
+        </tr>
+      </table>
+
+      <button class="btn btn-default" ng-click="addUser()">Add row</button>
+    </div>
 
 
-</div>
-  
-</div>
+
+    <!-- Past Orders or Authenticated Users -->
+    <div ng-if="!user.isAdmin">
+      <h4>Past Orders</h4>
+      <ul>
+        <div ng-repeat="order in previousOrder | orderBy : '-createdAt'" class="well">
+          <!-- {{order | json}} -->
+          <h6 class="text-right">Order Date: {{order.createdAt | date : "MM/dd/yyyy 'at' h:mma" }}</h6>
+          <div class="products row">
+            <div ng-repeat="product in order.products" class="col-sm-2">
+              <!-- {{product|json}} -->
+              <a ui-sref="product-detail(product.product)"><img class="img-responsive" ng-src="{{product.product.image}}">
+              </a>
+              <h5>{{product.product.title}}</h5>
+              <h6>{{product.purchasedPrice / 100 | currency}}</h6>
+              <h6>Purchased Quantity: {{product.quantity}}</h6>
+            </div>
+          </div>
+        </div>
+      </ul>
+    </div>
+  </div>
+</div> <!-- Close container -->
