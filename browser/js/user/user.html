@@ -22,8 +22,18 @@
 	<h4>
 		Past Orders
 	</h4>
-	{{previousOrder|json}}
 	<ul>
+		<div ng-repeat="order in previousOrder">
+			<!-- {{order | json}} -->
+			<h6>Order Date: {{order.createdAt}}</h3>
+				<div class="products row well">
+					<div ng-repeat="product in order.products">
+						{{product|json}}
+						<h5>{{product.product.title}}</h5>
+						
+					</div>
+				</div>
+		</div>
 		<div>
 			<h6>Order Date: 2013-10-01</h3>
 			<div class="products row well">

@@ -22,8 +22,8 @@ router.route('/')
 	// })
 
 	var all_products = []
-	var promises = products.map(function(product){
-		return Product.findById(purchasedproduct.id).exec();
+	var promises = purchasedproducts.map(function(product){
+		return Product.findById(product.id).exec();
 	});
 
 	Promise.all(promises)
@@ -31,8 +31,11 @@ router.route('/')
 		products.forEach(function(product){
 			var purchasedProduct = new PurchasedProduct();
 			purchasedProduct.product = product._id;
-			purchasedProduct.quantity = _.pluck(_.where())
-			purchasedProduct.purchasedPrice = product.purchasePrice;
+			// console.log("this is it", purchasedproducts , _.where(purchasedproducts, {'id':product._id.toString()} ) ) ;
+			currentProduct = _.where(purchasedproducts, {'id':product._id.toString()} )[0]
+			console.log(_.where(purchasedproducts, {'id':product._id.toString()} ),currentProduct.qty,currentProduct.purchasedPrice)
+			purchasedProduct.quantity = currentProduct.qty;
+			purchasedProduct.purchasedPrice = currentProduct.purchasePrice;
 			purchasedProduct.save();
 			all_products.push(purchasedProduct);
 		});
