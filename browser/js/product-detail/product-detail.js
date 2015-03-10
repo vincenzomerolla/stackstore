@@ -14,17 +14,24 @@ app.config(function ($stateProvider) {
               return user;
             });
           },
+          recommendedProducts: function($stateParams, $http) {
+            var url = '/api/recommend/' + $stateParams._id;
+            return $http.get(url).then(function(res) {
+              return res.data;
+            });
+          }
             
         }
     });
 
 });
 
-app.controller('ProductsDetailCtrl', function ($scope, $sce, $stateParams, product, user, ProductReview) {
+app.controller('ProductsDetailCtrl', function ($scope, $sce, $stateParams, product, user, recommendedProducts, ProductReview) {
   
   $scope.product = product;
   $scope.activeTab = 0;
   $scope.isLoggedIn = !!user;
+  $scope.recommendedProducts = recommendedProducts;
 
 
   function resetReview() {

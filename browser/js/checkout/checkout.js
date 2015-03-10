@@ -12,15 +12,15 @@ app.controller("checkoutCtrl",function($scope,Cart,Session){
 	console.log(Session.user)
 	$scope.list_of_products = Cart.get();
 
-	$scope.calculateTotal = function(){
+	var calculateTotal = function(){
 		var total = 0;
 		$scope.list_of_products.forEach(function(product){
 			total += product.purchasePrice * product.qty;
 		})
-		return total //in cents
+		return total; //in cents
 	}
 
-	$scope.total = $scope.calculateTotal();
+	$scope.total = calculateTotal();
 
 	$scope.modal = {
 		"content": $scope.total/100
