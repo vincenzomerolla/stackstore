@@ -31,7 +31,6 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
     $http.put('/api/orders', {
       orders: $scope.user.orders
     }).then(function(res) {
-      console.log(res.data)
       $scope.previousOrder = res.data;
     })
   }
@@ -59,12 +58,12 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   };
 
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
-  // if ($scope.user) {
-  //   $scope.user.isAdmin = true;
-  // }
+  if ($scope.user) {
+    $scope.user.isAdmin = true;
+  }
 });
 
-app.controller('EditableRowCtrl', function($scope, $filter, $http) {
+app.controller('EditableRowCtrl', function($scope, $filter, $http, Product) {
 
   $scope.statuses = [{
     value: 1,
@@ -80,6 +79,7 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http) {
     text: 'status4'
   }];
 
+  //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT 
   $scope.products[0].categories[0] = 1;
 
 
@@ -88,12 +88,6 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http) {
       return 'None';
     } else {
       return arr.toString();
-    }
-  };
-
-  $scope.checkName = function(data, id) {
-    if (id === 2 && data !== 'awesome') {
-      return "Username 2 should be `awesome`";
     }
   };
 
@@ -106,7 +100,19 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http) {
   };
 
   // remove user
-  $scope.removeUser = function(index) {
-    $scope.users.splice(index, 1);
+  $scope.updateItem = function(tableData, itemId) {
+    // Update item
+    console.log("tableData",tableData);
+    console.log(itemId);
+
+    Product.update({_id: itemId},tableData).$promise.then(function(response) {
+      console.log(response);
+      return Product.query().$promise;
+    })
+    // Retrieve all items again
+    .then(function(updatedItems) {
+      $scope.products = updatedItems;
+    })
+    return true;
   };
 });
