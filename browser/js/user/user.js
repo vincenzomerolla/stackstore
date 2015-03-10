@@ -62,7 +62,8 @@ app.controller('userCtrl', function ($scope, $state, $http, AuthService, user, U
 });
 
 app.controller('EditableRowCtrl', function($scope, $filter, $http) {
-  $scope.products
+
+  $scope.availability = ['True','False'];
 
   $scope.statuses = [
     {value: 1, text: 'status1'},
@@ -83,7 +84,7 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http) {
       var selected = $filter('filter')($scope.groups, {id: user.group});
       return selected.length ? selected[0].text : 'Not set';
     } else {
-      return user.groupName || 'Not set';
+      return user.groupName || 'N/A';
     }
   };
 
@@ -92,7 +93,7 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http) {
     if(user.status) {
       selected = $filter('filter')($scope.statuses, {value: user.status});
     }
-    return selected.length ? selected[0].text : 'Not set';
+    return selected.length ? selected[0].text : 'N/A';
   };
 
   $scope.checkName = function(data, id) {
