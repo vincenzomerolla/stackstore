@@ -1,11 +1,15 @@
 <div class="media" style="margin:0;">
   <div class="media-left">
     <a href="#">
-      <img class="media-object img-circle" src="//placehold.it/65x65" alt="...">
+      <img class="media-object img-circle" ng-src="{{'//graph.facebook.com/' + review.user.facebook.id + '/picture?width=64'}}" alt="...">
     </a>
   </div>
   <div class="media-body">
-    <rating ng-model="::review.rating" max="5" readonly="true"></rating>
+    <rating ng-model="::review.rating" max="5" readonly="true"></rating> by 
+
+
+    <span class="text-primary">{{review.user.firstName}} {{review.user.lastName}}</span> on
+    <span class="text-info">{{review.createdAt | date: 'MM/dd/yyyy'}}</span>
     <h4 class="media-heading" ng-bind="::review.subject"></h4>
     <p ng-bind="::review.content"></p>
   </div>

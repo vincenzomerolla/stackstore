@@ -10,5 +10,10 @@ var reviewSchema = new Schema({
 	createdAt : { type : Date, default : Date.now }
 });
 
+
+reviewSchema.static('populateUser', function(reviews) {
+  return this.populate(reviews, { path: 'user', select: '-salt -password' });
+})
+
 module.exports = mongoose.model('Review', reviewSchema); 
 
