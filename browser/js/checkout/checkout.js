@@ -3,14 +3,20 @@ app.config(function ($stateProvider) {
     $stateProvider.state('checkout', {
         url: '/checkout',
         controller: 'checkoutCtrl',
-        templateUrl: 'js/checkout/checkout.html'
+        templateUrl: 'js/checkout/checkout.html',
+        resolve: {
+          user: function(AuthService) {
+    		return AuthService.getLoggedInUser();
+          }
+        }
     });
 });
 
-app.controller("checkoutCtrl",function($scope,Cart,Session){
-	// console.log(Cart.getCart())
-	console.log(Session.user)
+app.controller("checkoutCtrl",function($scope,Cart,Session,user){
+
 	$scope.list_of_products = Cart.get();
+
+	$scope.user = user;
 
 	$scope.calculateTotal = function(){
 		var total = 0;

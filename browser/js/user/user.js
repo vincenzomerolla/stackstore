@@ -57,7 +57,7 @@ app.controller('userCtrl', function ($scope, $state, $http, AuthService, user, U
 
     //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
     if ($scope.user) {
-        $scope.user.isAdmin = true;
+        $scope.user.isAdmin = false;
     }
 });
 

@@ -27,6 +27,11 @@ app.controller('NavbarController', function ($scope, $state, Session, AuthServic
 
 
 	$scope.goTo = function(stateName) {
+        // if(stateName == "checkout"){
+        //     if(!AuthService.isAuthenticated()){
+        //         stateName = "user"
+        //     }
+        // }
 		return $state.go(stateName);
 	}
 	
