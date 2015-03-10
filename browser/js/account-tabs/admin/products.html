@@ -16,10 +16,38 @@
       </div>
       <div class="form-group">
         <label for="price" class="col-xs-1 control-label">Price</label>
-        <div class="col-xs-11">
-          <input type="text" class="form-control" placeholder="ex. $29.99" ng-model="newProduct.title">
+        <div class="col-xs-1">
+          <input type="text" class="form-control" placeholder="$xx.xx" ng-model="newProduct.price">
+        </div>
+        <label for="inventory" class="col-xs-1 control-label">Inventory</label>
+        <div class="col-xs-1">
+          <input type="text" class="form-control" placeholder="Number" ng-model="newProduct.inventory">
+        </div>
+        <label for="releaseDate" class="col-xs-1 control-label" style="font-size: 10.5px">Release Date</label>
+        <div class="col-xs-1">
+          <input type="text" class="form-control" placeholder="Year" ng-model="newProduct.releaseDate">
+        </div>
+        <label for="isAvailable" class="col-lg-1 control-label">Availabililty</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.isAvailable">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <label for="manufacturer" class="col-lg-1 control-label">Manufacturer</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.manufacturer" ng-options="manufacturer in manufacturers">
+          </select>
         </div>
       </div>
+      <div class="form-group">
+        <label for="platform" class="col-lg-1 control-label">Platform</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.platform" ng-options="platforms for platform in platforms">
+          </select>
+        </div>
+      </div>
+
 
       <div class="form-group">
         <div class="col-xs-11 col-lg-offset-2">

@@ -21,11 +21,25 @@ app.config(function($stateProvider) {
 
 
 app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, categories) {
+  function getContentFromCategory(obj,objCategory) {
+    var contentArr = [];
+    if (typeof obj[0][objCategory] == 'string') {
+      obj.forEach(function (el) {
+        if (contentArr.indexOf(el[objCategory]) == -1) {
+          contentArr.push(el[objCategory]);
+        }
+      });
+    }
+    return contentArr.sort();
+  }
+
   $scope.user = user;
   $scope.products = products;
   $scope.categories = categories;
   $scope.isAuthenticated = AuthService.isAuthenticated();
   $scope.previousOrder;
+  $scope.manufacturers = getContentFromCategory($scope.products,'manufacturer');
+  $scope.platforms = getContentFromCategory($scope.products,'platform');
 
   if ($scope.isAuthenticated) {
     $http.put('/api/orders', {
