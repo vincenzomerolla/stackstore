@@ -40,6 +40,10 @@ app.controller('userCtrl', function($rootScope,Session,$scope, $state, $http, Au
     })
   }
 
+  $scope.getOrders = function(){
+    
+  }
+
   $scope.logout = function() {
     AuthService.logout();
     console.log("logging out")

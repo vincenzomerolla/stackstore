@@ -5,6 +5,7 @@ var User = mongoose.model('User');
 var PurchasedProduct = mongoose.model('PurchasedProduct');
 var Order = mongoose.model('Order');
 var Product = mongoose.model('Product');
+var Address = mongoose.model('Address');
 var Promise = require('bluebird');
 var _ = require('lodash');
 
@@ -17,6 +18,8 @@ router.route('/')
 	var purchasedproducts =req.body.products;
 
 	var order = new Order();
+	
+	// console.log(address);
 
 	var charge = stripe.charges.create({
 	  amount: total, // amount in cents, again
@@ -24,11 +27,15 @@ router.route('/')
 	  source: stripeToken,
 	  description: order._id.toString()
 	}, function(err, charge) {
-	  if (err && err.type === 'StripeCardError') {
+		console.log(charge)
+		if(charge == null){
+			res.send("please add to cart")
+		}
+	  else if (err && err.type === 'StripeCardError') {
 	    // The card has been declined
 	    res.send("card is declined");
 	  }
-	  else if(charge.status == "succeeded"){
+	  else{
 	  	console.log(charge)
 	  	var all_products = []
 	  	var promises = purchasedproducts.map(function(product){
@@ -49,16 +56,18 @@ router.route('/')
 	  		return User.findById(userId).exec()
 	  	})
 	  	.then(function(user){
-	  		order.products = all_products;
-	  		order.save(function(){
-	  			user.orders.push(order);
-	  			user.save();
-			  	res.send(200);
-	  		})
+	  		Address.create(req.body.address).then(function(address){
+	  			console.log(address, "Wwwwwwwwwwwwwwwwwwwwwwwwww")
+		  		order.products = all_products;
+		  		order.shippingAddress = address;
+		  		order.save(function(){
+		  			user.orders.push(order);
+		  			user.save();
+				  	res.sendStatus(200);
+		  		})
+	  		});
+
 	  	});
-	  	else{
-	  		res.sendStatus(200);
-	  	}
 
 	  }
 	});

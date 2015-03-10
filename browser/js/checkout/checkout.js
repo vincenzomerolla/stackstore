@@ -16,7 +16,7 @@ app.config(function (stripeProvider) {
   stripeProvider.setPublishableKey('pk_test_80RLXWzoQSYUnhUNJJaKeUiN');
 });
 
-app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http){
+app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http,$state){
 
 	$scope.list_of_products = Cart.get();
 
@@ -35,6 +35,13 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http){
 	$scope.modal = {
 		"content": $scope.total/100
 	}
+
+	$scope.address={
+		street : "5 Hanover Square",
+		city : "New York",
+		state : "NY",
+		zipCode : "10004"
+	};
 
 	$scope.payment = {
 
@@ -58,12 +65,13 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http){
 	    payment.total = $scope.total;
 	    payment.userId = Session.user._id;
 	    payment.products = $scope.list_of_products;
+	    payment.address = $scope.address;
 	    return $http.post('api/stripe', payment);
 	  })
 	  .then(function (payment) {
-	  	console.log(payment.data)
 	    console.log('successfully submitted payment');
 	    Cart.empty();
+	    $state.go('user')
 	  })
 	  .catch(function (err) {
 	    if (err.type && /^Stripe/.test(err.type)) {

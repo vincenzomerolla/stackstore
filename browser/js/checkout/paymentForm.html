@@ -5,17 +5,40 @@
 
 
         <h4>Your balance is {{total / 100 | currency}}</h4>
-        <h6 class="alert alert-danger">{{error.message}}</h6>
+        <h6>{{error.message}}</h6>
         <form action="api/stripe" method="POST" id="payment-form">
-          <span class="payment-errors"></span>
-
-          <div>
+          <hr>
+          <h5>Shipping Address</h5>
+          <div class="form-row">
             <label>
-              <span>Recipient</span>
+              <span>Street</span>
             </label>
-              <input type="text" />
+              <input type="text" ng-model="address.street" />
           </div>
 
+          <div class="form-row">
+            <label>
+              <span>City</span>
+            </label>
+              <input type="text" ng-model="address.city" />
+          </div>
+
+          <div class="form-row">
+            <label>
+              <span>State</span>
+            </label>
+              <input type="text" ng-model="address.state" />
+          </div>
+
+          <div class="form-row">
+            <label>
+              <span>Zipcode</span>
+            </label>
+              <input type="text" ng-model="address.zipCode" />
+          </div>
+
+
+          <hr>
 
           <div class="form-row">
             <label>
