@@ -71,8 +71,6 @@ var recommend = function(products){
 
             //add score to individual comp array
             single_comp_Score.push(comp_Score);
-            single_comp_Score.push(comp_Title);
-            single_comp_Score.push(comp_Price);
 
             //add comp/score to all scores array
             all_comp_Scores.push(single_comp_Score);
@@ -82,14 +80,8 @@ var recommend = function(products){
         all_comp_Scores.sort(function(a, b) {return b[1] - a[1]});
 
         //add top 3 matches to game array
-        for (var w = 0; w < 4; w++){
-            var push_Array = []
-            for (var r = 0; r < 4; r++){
-                push_Array.push(all_comp_Scores[w][r])
-            }
-            game_top_three_Array.push(push_Array);
-        }
-        
+        game_top_three_Array.push(all_comp_Scores[0][0], all_comp_Scores[1][0], all_comp_Scores[2][0]);
+
         //push original game, plus top 3 comps to final array
         reco_Object[game_Id] = game_top_three_Array
 
