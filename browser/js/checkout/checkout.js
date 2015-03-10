@@ -37,7 +37,7 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http){
 	}
 
 	$scope.payment = {
-		
+
 		card : {
 			number : "4242424242424242",
 			cvc : "1234",
@@ -63,17 +63,20 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http){
 	  .then(function (payment) {
 	  	console.log(payment.data)
 	    console.log('successfully submitted payment');
-	    // Cart.empty();
+	    Cart.empty();
 	  })
 	  .catch(function (err) {
 	    if (err.type && /^Stripe/.test(err.type)) {
 	      console.log('Stripe error: ', err.message);
+	      $scope.error = err;
 	    }
 	    else {
 	      console.log('Other error occurred, possibly with your API', err.message);
+	      $scope.error = err;
 	    }
 	  });
 	};
+
 
 	//##########################################################
 

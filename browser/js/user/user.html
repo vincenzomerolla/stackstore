@@ -43,7 +43,7 @@
 
 
       <!-- Admin Users -->
-          {{products[0] | json}}
+          <!-- {{products[0] | json}} -->
       <span ng-controller="EditableRowCtrl">
       <div class="col-xs-12" ng-if="user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
@@ -78,7 +78,7 @@
 
     <!-- Past Orders or Authenticated Users -->
     <div ng-if="!user.isAdmin">
-      <h4>Past Orders</h4>
+      <h4 ng-if="order">Past Orders</h4>
       <ul>
         <div ng-repeat="order in previousOrder | orderBy : '-createdAt'" class="well">
           <!-- {{order | json}} -->

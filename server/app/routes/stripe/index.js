@@ -56,7 +56,9 @@ router.route('/')
 			  	res.send(200);
 	  		})
 	  	});
-
+	  	else{
+	  		res.sendStatus(200);
+	  	}
 
 	  }
 	});
