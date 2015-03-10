@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var Product = require('../../../db/models/product');
 var Review = require('../../../db/models/review');
-
+var Promise = require('bluebird');
 
 router.route('/')
 .get(function(req, res, next) {
@@ -25,13 +25,19 @@ router.route('/')
 
 router.route('/:id')
 .get(function(req, res, next) {
+  var product;
   Product
     .findById(req.params.id)
     .populate('categories reviews')
     .exec()
-    .then(function(product) {
-      res.json(product);
+    .then(function(p) {
+      product = p;
+      return Review.populateUser(p.reviews);
     })
+    .then(function(r) {
+      product.reviews = r;
+      res.json(product);
+    });
 })
 .put(function(req, res, next) {
   //console.log(req.body)
@@ -55,11 +61,16 @@ router.route('/:id/reviews')
 .get(function(req,res,next) {
   Product
     .findById(req.params.id)
+    .select('reviews')
     .populate('reviews')
     .exec()
-    .then(function(product) {
-      res.json(product.reviews);
+    .then(function(result) {
+      return Review.populateUser(result.reviews);
     })
+    .then(function(reviews) {
+      res.json(reviews);
+    })
+      
 })
 
 .post(function(req, res, next) {

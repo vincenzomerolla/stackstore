@@ -10,12 +10,13 @@ app.directive('navbar', function () {
     };
 });
 
-app.controller('NavbarController', function ($scope, $state) {
+app.controller('NavbarController', function ($scope, $state, Session) {
 	$scope.goTo = function(stateName) {
 		return $state.go(stateName);
 	}
 	
-
+  $scope.user = Session.user;
+  console.log(Session.user)
 	$scope.aside = {
 	  "title": "Cart"
 	};

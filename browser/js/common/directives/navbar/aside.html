@@ -6,13 +6,18 @@
         <h4 class="aside-title" ng-bind="title"></h4>
       </div>
       <div class="aside-body">
-        <div id="gravatar">
-          <!--    <img src="http://www.autreplanete.com/ap-social-media-image-maker/ressources/img/img_format/gravatar_profil_420x420.png" /> -->
+        <div ng-if="user">
+          <div id="gravatar">
+            <img class="img-responsive img-circle" ng-src="{{user.photoUrl}}">
+          </div>
+          <hr>
+          <div class="cart-btns">
+            <button type="button" class="btn btn-lg btn-primary" ui-sref="user" ng-click="goTo('user') && $hide()">My Account</button>
+          </div>
+          <hr>
         </div>
-        <hr>
-        <div class="cart-btns">
-          <button type="button" class="btn btn-lg btn-primary" data-animation="am-flip-x" ui-sref="user" ng-click="goTo('user') && $hide()">My Account</button>
-        </div>
+
+
         <div class="cart-display">
           <cart>
             <cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
