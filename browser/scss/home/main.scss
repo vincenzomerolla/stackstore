@@ -16,7 +16,7 @@ footer .footertitle{
 
 }
 
-#home_banner p{
+#home_banner h2{
 
   text-align: center;
   font-style: italic;
@@ -51,8 +51,12 @@ li {
   font-weight: 500;
 }
 
-#platform_buttons {
+#platform_Buttons{
+  margin: 10px;
   text-align: center;
-  margin: 40px;
-  padding: 40px;
+}
+
+#platform_Buttons h4{
+  margin-top: 20px;
+  text-align: center;
 }
