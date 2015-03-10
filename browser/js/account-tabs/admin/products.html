@@ -1,4 +1,4 @@
-<div ng-controller="EditableRowCtrl">
+<div>
   <table class="table table-bordered table-hover table-condensed">
     <tr style="font-weight: bold">
       <td style="width:15%">Title</td>
@@ -10,12 +10,12 @@
     </tr>
     <tr ng-repeat="product in products">
       <td>
-        <a ui-sref="product-detail({_id: product._id})" editable-text="product.title" e-name="title" e-form="rowform" onbeforesave="checkName($data, product._id)" e-required>
+        <a ui-sref="product-detail({_id: product._id})" editable-text="product.title" e-name="title" e-form="rowform" e-required>
               {{ product.title || 'empty' }}
             </a>
       </td>
       <td>
-        <span editable-text="product.price / 100 | currency" e-name="price" e-form="rowform">
+        <span editable-text="product.price / 100" e-name="price" e-form="rowform">
               {{ product.price / 100 || 'empty' | currency}}
             </span>
       </td>
@@ -37,7 +37,7 @@
 
       <td style="white-space: nowrap">
         <!-- form -->
-        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+        <form editable-form name="rowform" ng-submit="updateItem(product[$index], product._id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
             save
           </button>
@@ -47,7 +47,6 @@
         </form>
         <div class="buttons" ng-show="!rowform.$visible">
           <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-          <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
         </div>
       </td>
     </tr>
