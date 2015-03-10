@@ -20,12 +20,16 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, categories) {
+app.controller('userCtrl', function($rootScope,Session,$scope, $state, $http, AuthService, user, User, products, categories, AUTH_EVENTS) {
   $scope.user = user;
   $scope.products = products;
   $scope.categories = categories;
   $scope.isAuthenticated = AuthService.isAuthenticated();
   $scope.previousOrder;
+
+  $rootScope.$on(AUTH_EVENTS.loginSuccess,function(){
+    $scope.isAuthenticated = AuthService.isAuthenticated();
+  });
 
   if ($scope.isAuthenticated) {
     $http.put('/api/orders', {

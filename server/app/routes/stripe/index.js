@@ -14,7 +14,7 @@ router.route('/')
 	var stripeToken = req.body.stripeToken;
 	var total = req.body.total;
 	var userId = req.body.userId;
-	var purchasedproducts =JSON.parse(req.body.products);
+	var purchasedproducts =req.body.products;
 
 	var order = new Order();
 
@@ -53,7 +53,7 @@ router.route('/')
 	  		order.save(function(){
 	  			user.orders.push(order);
 	  			user.save();
-			  	res.redirect("/user");
+			  	res.send(200);
 	  		})
 	  	});
 

@@ -7,22 +7,25 @@
       </div>
       <div class="aside-body">
         <div id="gravatar">
-         <img class="img-responsive" ng-src="{{user.photoUrl}}" />
-       </div>
-       <hr>
-       <div class="cart-btns">
-        <button type="button" class="btn btn-lg btn-primary" data-animation="am-flip-x" ui-sref="user" ng-click="goTo('user') && $hide()">My Account</button>
-      </div>
-      <div class="cart-display">
-        <cart>
-          <cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
-        </cart>
-        <a class="cart-checkout btn btn-primary btn-block" ng-click="goTo('checkout') && $hide()">
-          <i class="fa fa-lg fa-shopping-cart"></i> Proceed to Checkout
-        </a>
-      </div>
+             <img class="img-responsive" ng-src="{{user.photoUrl}}" />
+        </div>
+        <hr>
+        <div class="cart-btns">
+          <!-- <button type="button" class="btn btn-lg btn-primary" data-animation="am-flip-x" ui-sref="user" ng-click="goTo('user') && $hide()">My Account</button> -->
 
+        </div>
+
+
+        <div class="cart-display">
+          <cart>
+            <cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
+          </cart>
+          <a class="cart-checkout btn btn-primary btn-block" ng-click="goTo('checkout') && $hide()">
+            <i class="fa fa-lg fa-shopping-cart"></i> Proceed to Checkout
+          </a>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
 </div>

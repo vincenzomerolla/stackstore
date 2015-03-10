@@ -12,7 +12,11 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller("checkoutCtrl",function($scope,Cart,Session,user){
+app.config(function (stripeProvider) {
+  stripeProvider.setPublishableKey('pk_test_80RLXWzoQSYUnhUNJJaKeUiN');
+});
+
+app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http){
 
 	$scope.list_of_products = Cart.get();
 
@@ -32,53 +36,79 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user){
 		"content": $scope.total/100
 	}
 
-	//##########################################################
-	//Stripe codes
-	$scope.handleStripe = function(status, response){
-	       if(response.error) {
-	         // there was an error. Fix it.
-	       } 
-	       else {
-	         // got stripe token, now charge it or smt
-	         token = response.id
-	       }
-	}
-
-	//##########################################################
-
-	//##########################################################
-	//Stripe codes
-	Stripe.setPublishableKey('pk_test_80RLXWzoQSYUnhUNJJaKeUiN');
-
-	$scope.submitPayment = function(){
-	    var $form = $('#payment-form');
-	    Stripe.card.createToken($form, stripeResponseHandler);
-
-		function stripeResponseHandler(status, response) {
-		  var $form = $('#payment-form');
-
-		  if (response.error) {
-		    // Show the errors on the form
-		    $form.find('.payment-errors').text(response.error.message);
-		    $form.find('button').prop('disabled', false);
-		  } else {
-		    // response contains id and card, which contains additional card details
-		    var token = response.id;
-		    // Insert the token into the form so it gets submitted to the server
-		    //add stripeToken
-		    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-		    //add total amount to be paid
-		    $form.append($('<input type="hidden" name="total" />').val($scope.total));
-		    //append userId
-		    $form.append($('<input type="hidden" name="userId" />').val(Session.user._id));
-		    //append products being paid
-		    $form.append($('<input type="hidden" name="products" />').val(JSON.stringify($scope.list_of_products)));
-		    //submit
-		    Cart.empty();
-		    $form.get(0).submit();
-		  }
-		};
+	$scope.payment = {
+		
+		card : {
+			number : "4242424242424242",
+			cvc : "1234",
+			exp_month : "11",
+			exp_year : "2016"
+		}
 	};
+
+	//##########################################################
+	//Stripe codes in angular 
+	$scope.charge = function () {
+	return stripe.card.createToken($scope.payment.card)
+	  .then(function (token) {
+	    console.log('token created for card ending in ', token.card.last4);
+	    var payment = angular.copy($scope.payment);
+	    payment.card = void 0;
+	    payment.stripeToken = token.id;
+	    payment.total = $scope.total;
+	    payment.userId = Session.user._id;
+	    payment.products = $scope.list_of_products;
+	    return $http.post('api/stripe', payment);
+	  })
+	  .then(function (payment) {
+	  	console.log(payment.data)
+	    console.log('successfully submitted payment');
+	    // Cart.empty();
+	  })
+	  .catch(function (err) {
+	    if (err.type && /^Stripe/.test(err.type)) {
+	      console.log('Stripe error: ', err.message);
+	    }
+	    else {
+	      console.log('Other error occurred, possibly with your API', err.message);
+	    }
+	  });
+	};
+
+	//##########################################################
+
+	//##########################################################
+	//Stripe codes
+
+	// $scope.submitPayment = function(){
+	//     var $form = $('#payment-form');
+	//     Stripe.card.createToken($form, stripeResponseHandler);
+
+	// 	function stripeResponseHandler(status, response) {
+	// 	  var $form = $('#payment-form');
+
+	// 	  if (response.error) {
+	// 	    // Show the errors on the form
+	// 	    $form.find('.payment-errors').text(response.error.message);
+	// 	    $form.find('button').prop('disabled', false);
+	// 	  } else {
+	// 	    // response contains id and card, which contains additional card details
+	// 	    var token = response.id;
+	// 	    // Insert the token into the form so it gets submitted to the server
+	// 	    //add stripeToken
+	// 	    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+	// 	    //add total amount to be paid
+	// 	    $form.append($('<input type="hidden" name="total" />').val($scope.total));
+	// 	    //append userId
+	// 	    $form.append($('<input type="hidden" name="userId" />').val(Session.user._id));
+	// 	    //append products being paid
+	// 	    $form.append($('<input type="hidden" name="products" />').val(JSON.stringify($scope.list_of_products)));
+	// 	    //submit
+	// 	    Cart.empty();
+	// 	    $form.get(0).submit();
+	// 	  }
+	// 	};
+	// };
 
 	//#########################################################
 });
