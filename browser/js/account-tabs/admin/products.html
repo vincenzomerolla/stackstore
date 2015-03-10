@@ -36,18 +36,42 @@
         </div>
         <label for="manufacturer" class="col-lg-1 control-label">Manufacturer</label>
         <div class="col-lg-2">
-          <select class="form-control" ng-model="newProduct.manufacturer" ng-options="manufacturer in manufacturers">
+          <select class="form-control" ng-model="newProduct.manufacturer" ng-options="manufacturer as manufacturer for manufacturer in manufacturers">
           </select>
         </div>
       </div>
       <div class="form-group">
         <label for="platform" class="col-lg-1 control-label">Platform</label>
         <div class="col-lg-2">
-          <select class="form-control" ng-model="newProduct.platform" ng-options="platforms for platform in platforms">
+          <select class="form-control" ng-model="newProduct.platform" ng-options="platform as platform for platform in platforms">
           </select>
         </div>
+        <label for="esrbRatings" class="col-lg-1 control-label" style="font-size: 10.5px">ESRB Rating</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.esrbRating" ng-options="esrb as esrb for esrb in esrbRatings">
+          </select>
+        </div>
+        <label for="image" class="col-xs-1 control-label">Image Url</label>
+        <div class="col-xs-5">
+          <input type="text" class="form-control" ng-model="newProduct.image">
+        </div>
       </div>
-
+      <div class="form-group">
+        <label for="categories" class="col-xs-1 control-label">Categories</label>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label ng-repeat="category in categoriesArr">
+            <input
+              type="checkbox"
+              value="{{category}}"
+              ng-checked="categoriesArr.indexOf(category) > -1"
+              ng-click="toggleSelection(category)"
+              ng-model="newProduct.categories"
+            > {{category}}
+          </label>
+        </div>
+      </div>
 
       <div class="form-group">
         <div class="col-xs-11 col-lg-offset-2">

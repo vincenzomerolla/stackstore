@@ -40,6 +40,11 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   $scope.previousOrder;
   $scope.manufacturers = getContentFromCategory($scope.products,'manufacturer');
   $scope.platforms = getContentFromCategory($scope.products,'platform');
+  $scope.esrbRatings = getContentFromCategory($scope.products,'esrbRating');
+  $scope.numberOfPlayers = getContentFromCategory($scope.products,'numberOfPlayers');
+  $scope.categoriesArr = categories.map(function(el) {
+    return el.name;
+  });
 
   if ($scope.isAuthenticated) {
     $http.put('/api/orders', {
@@ -67,7 +72,7 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
     User.update({
       id: $scope.user._id
     }, $scope.user).$promise.then(function(userUpdated) {
-      console.log(userUpdate);
+      console.log(userUpdated);
     });
   };
 
@@ -79,20 +84,6 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
 
 app.controller('EditableRowCtrl', function($scope, $filter, $http, Product) {
 
-  $scope.statuses = [{
-    value: 1,
-    text: 'status1'
-  }, {
-    value: 2,
-    text: 'status2'
-  }, {
-    value: 3,
-    text: 'status3'
-  }, {
-    value: 4,
-    text: 'status4'
-  }];
-
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT 
   $scope.products[0].categories[0] = 1;
 
@@ -103,14 +94,6 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, Product) {
     } else {
       return arr.toString();
     }
-  };
-
-  $scope.saveUser = function(data, id) {
-    //$scope.user not updated yet
-    angular.extend(data, {
-      id: id
-    });
-    return $http.post('/saveUser', data);
   };
 
   // remove user
@@ -129,4 +112,5 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, Product) {
     })
     return true;
   };
+
 });
