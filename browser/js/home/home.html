@@ -2,22 +2,97 @@
     <body>
         <div id="home_banner">
             <img  src="http://2.bp.blogspot.com/-WRcWrfVKmYk/TwfHk5SYoiI/AAAAAAAAAmA/7dMyrvIvYy4/s1600/bb+Mark+Widhalm+original.jpg" >
-            <p>The Premier Video Game Outlet<p>
+            <h2>The Premier Video Game Outlet</h2>
         </div>
-        <div class="row">
-            <div ng-repeat="product in products" class="col-xs-6 col-sm-3">
-                    <div class="game_photo">
-                        <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
-                    </div>
-                    <div class="game_title">
-                        <h4 class="text-center">{{product.title}}</h4>
-                    </div>
-                    <div class="game_platform">
-                        <h4 class="text-center"><strong>{{product.platform}}</strong>
-                    </div>
-                    <div class="game_price">
-                        <h5 class="text-center">{{product.price / 100 | currency}}</h5>
-                    </div>
+        <div id="platform_Buttons">
+            <h4>Select Your Console</h4>
+            <button class="btn btn-inline-block btn-primary" ng-click="setPlatform('PlayStation 3')">PlayStation 3</button>
+            <button class="btn btn-inline-block btn-primary" ng-click="setPlatform('PlayStation 4')">PlayStation 4</button>
+            <button class="btn btn-inline-block btn-primary" ng-click="setPlatform('Xbox 360')">Xbox 360</button>
+            <button class="btn btn-inline-block btn-primary" ng-click="setPlatform('Xbox One')">Xbox One</button>
+            <button class="btn btn-inline-block btn-primary" ng-click="setPlatform('Nintendo Wii U')">Nintendo Wii U</button>
+        </div>
+        <div class="row" ng-show="platform == 'PlayStation 3'">
+            <div ng-repeat="product in ps3" class="col-xs-6 col-sm-3">
+                <div class="game_photo">
+                    <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
+                </div>
+                <div class="game_title">
+                    <h4 class="text-center">{{product.title}}</h4>
+                </div>
+                <div class="game_platform">
+                    <h4 class="text-center"><strong>{{product.platform}}</strong>
+                </div>
+                <div class="game_price">
+                    <h5 class="text-center">{{product.price / 100 | currency}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="platform == 'PlayStation 4'">
+            <div ng-repeat="product in ps4" class="col-xs-6 col-sm-3">
+                <div class="game_photo">
+                    <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
+                </div>
+                <div class="game_title">
+                    <h4 class="text-center">{{product.title}}</h4>
+                </div>
+                <div class="game_platform">
+                    <h4 class="text-center"><strong>{{product.platform}}</strong>
+                </div>
+                <div class="game_price">
+                    <h5 class="text-center">{{product.price / 100 | currency}}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="platform == 'Xbox 360'">
+            <div ng-repeat="product in xbox360" class="col-xs-6 col-sm-3">
+                <div class="game_photo">
+                    <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
+                </div>
+                <div class="game_title">
+                    <h4 class="text-center">{{product.title}}</h4>
+                </div>
+                <div class="game_platform">
+                    <h4 class="text-center"><strong>{{product.platform}}</strong>
+                </div>
+                <div class="game_price">
+                    <h5 class="text-center">{{product.price / 100 | currency}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="platform == 'Xbox One'">
+            <div ng-repeat="product in xbox1" class="col-xs-6 col-sm-3">
+                <div class="game_photo">
+                    <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
+                </div>
+                <div class="game_title">
+                    <h4 class="text-center">{{product.title}}</h4>
+                </div>
+                <div class="game_platform">
+                    <h4 class="text-center"><strong>{{product.platform}}</strong>
+                </div>
+                <div class="game_price">
+                    <h5 class="text-center">{{product.price / 100 | currency}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="platform == 'Nintendo Wii U'">
+            <div ng-repeat="product in nintendo" class="col-xs-6 col-sm-3">
+                <div class="game_photo">
+                    <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
+                </div>
+                <div class="game_title">
+                    <h4 class="text-center">{{product.title}}</h4>
+                </div>
+                <div class="game_platform">
+                    <h4 class="text-center"><strong>{{product.platform}}</strong>
+                </div>
+                <div class="game_price">
+                    <h5 class="text-center">{{product.price / 100 | currency}}</h5>
+                </div>
             </div>
         </div>
     </body>

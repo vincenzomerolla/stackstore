@@ -4,42 +4,54 @@
 
   <div class="container" ng-if="isAuthenticated">
     <!-- {{user | json}} -->
+    <div class="row" ng-if="user.isAdmin">
+      <div class="col-xs-9" style="word-wrap: break-word">
+        <h3>Welcome {{user.firstName}} {{ user.lastName }}!</h3>
+        <!-- <img ng-src="{{user.photoUrl}}" class="img-responsive" style=""> -->
+      </div>
+      <div class="col-xs-3">
+        <button class="btn btn-danger btn-block" ng-click="logout()">Logout</button>
+      </div>
     <hr>
-    <h3>Welcome {{user.firstName}} {{ user.lastName }}!</h3>
-    <hr>
+    </div>
     <div class="row">
-      <div class="col-md-3">
-        <div style="word-wrap: break-word">
-          <h4>Your Profile</h4>
-          <i class="fa fa-user-secret fa-4x" ng-if="user.isAdmin" style="display:inline"></i>
-          <img ng-src="{{user.photoUrl}}" class="img-responsive">
-          <button class="btn btn-primary btn-block">Change Picture</button>
-          <button class="btn btn-danger btn-block" ng-click="logout()">Logout</button>
-        </div>
-      </div>
       <!-- Authenticated Users -->
-      <div class="col-md-9" ng-if="!user.isAdmin">
-        <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
-          <div data-title="Account" bs-pane>
-            <ng-include src="'js/account-tabs/authenticated/account.html'"></ng-include>
-          </div>
-          <div data-title="Address" bs-pane>
-            <ng-include src="'js/account-tabs/authenticated/address.html'"></ng-include>
-          </div>
-          <div data-title="Payment" bs-pane>
-            <ng-include src="'js/account-tabs/authenticated/payment.html'"></ng-include>
+      <span ng-if="!user.isAdmin">
+        <h3>Welcome {{user.firstName}} {{ user.lastName }}!</h3>
+        <hr>
+        <div class="col-md-3">
+          <div style="word-wrap: break-word">
+            <h4>Your Profile</h4>
+            <img ng-src="{{user.photoUrl}}" class="img-responsive">
+            <button class="btn btn-danger btn-block" ng-click="logout()">Logout</button>
           </div>
         </div>
-      </div>
+        <div class="col-md-9">
+          <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
+            <div data-title="Account" bs-pane>
+              <ng-include src="'js/account-tabs/authenticated/account.html'"></ng-include>
+            </div>
+            <div data-title="Address" bs-pane>
+              <ng-include src="'js/account-tabs/authenticated/address.html'"></ng-include>
+            </div>
+            <div data-title="Payment" bs-pane>
+              <ng-include src="'js/account-tabs/authenticated/payment.html'"></ng-include>
+            </div>
+          </div>
+        </div>
+      </span>
 
 
       <!-- Admin Users -->
-      <div class="col-md-9" ng-if="user.isAdmin">
+          {{products[0] | json}}
+      <span ng-controller="EditableRowCtrl">
+      <div class="col-xs-12" ng-if="user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
           <div data-title="Account" bs-pane>
             <ng-include src="'js/account-tabs/authenticated/account.html'"></ng-include>
           </div>
           <div data-title="Products" bs-pane>
+            <ng-include src="'js/account-tabs/admin/products.html'"></ng-include>
 
           </div>
           <div data-title="Categories" bs-pane>
@@ -54,51 +66,13 @@
         </div>
         <hr>
       </div>
+      </span>
     </div>
 
     <hr>
 
     <!-- List Pane for Admin Users -->
-    <div ng-controller="EditableRowCtrl">
-      <table class="table table-bordered table-hover table-condensed">
-        <tr style="font-weight: bold">
-          <td style="width:30%">Title</td>
-          <td style="width:5%">Price</td>
-          <td style="width:5%">Inventory</td>
-          <td style="width:10%">Availability</td>
-          <td style="width:25%">Categories</td>
-          <td style="width:20%">Availability</td>
-        </tr>
-        <tr ng-repeat="user in users">
-          <td>
-            <!-- editable username (text with validation) -->
-            <span editable-text="user.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, user.id)" e-required>
-              {{ user.name || 'empty' }}
-            </span>
-          </td>
-          <td>
-            <!-- editable status (select-local) -->
-            <span editable-select="user.status" e-name="status" e-form="rowform" e-ng-options="s.value as s.text for s in statuses">
-              {{ showStatus(user) }}
-            </span>
-          </td>
-          <td>
-            <!-- editable group (select-remote) -->
-            <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
-              {{ showGroup(user) }}
-            </span>
-          </td>
-          <td style="white-space: nowrap">
-            <div class="buttons" ng-show="!rowform.$visible">
-              <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-              <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
-            </div>  
-          </td>
-        </tr>
-      </table>
-
-      <button class="btn btn-default" ng-click="addUser()">Add row</button>
-    </div>
+    <!-- Products Tab -->
 
 
 
@@ -123,4 +97,5 @@
       </ul>
     </div>
   </div>
-</div> <!-- Close container -->
+</div>
+<!-- Close container -->

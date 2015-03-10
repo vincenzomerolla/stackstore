@@ -31,6 +31,21 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user){
 	$scope.modal = {
 		"content": $scope.total/100
 	}
+
+	//##########################################################
+	//Stripe codes
+	$scope.handleStripe = function(status, response){
+	       if(response.error) {
+	         // there was an error. Fix it.
+	       } 
+	       else {
+	         // got stripe token, now charge it or smt
+	         token = response.id
+	       }
+	}
+
+	//##########################################################
+
 	//##########################################################
 	//Stripe codes
 	Stripe.setPublishableKey('pk_test_80RLXWzoQSYUnhUNJJaKeUiN');
