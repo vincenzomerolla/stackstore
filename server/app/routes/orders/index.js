@@ -8,7 +8,7 @@ router.route('/')
 .put(function(req, res, next) {
 	Order.find({"_id" : { $in: req.body.orders}})
 		.lean()
-		.populate({path : 'products'})
+		.populate('products shippingAddress')
 		.exec(function(err,data){
 			var options = {
 				path: 'products.product',
