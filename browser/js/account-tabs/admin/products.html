@@ -1,4 +1,37 @@
 <div>
+  {{ newProduct | json }}
+  <h2> Add New Product </h2>
+  <form class="form-horizontal well">
+      <div class="form-group">
+        <label for="title" class="col-xs-1 control-label">Title</label>
+        <div class="col-xs-11">
+          <input type="text" class="form-control" ng-model="newProduct.title">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="textArea" class="col-xs-1 control-label">Description</label>
+        <div class="col-xs-11">
+          <textarea id="add-product-desc" class="form-control" rows="3" ng-model="newProduct.description"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price" class="col-xs-1 control-label">Price</label>
+        <div class="col-xs-11">
+          <input type="text" class="form-control" placeholder="ex. $29.99" ng-model="newProduct.title">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-xs-11 col-lg-offset-2">
+          <button type="reset" class="btn btn-default">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+  </form>
+</div>
+<hr>
+<div>
+  <h2> Existing Products </h2>
   <table class="table table-bordered table-hover table-condensed">
     <tr style="font-weight: bold">
       <td style="width:15%">Title</td>
