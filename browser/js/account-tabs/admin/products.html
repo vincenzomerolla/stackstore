@@ -1,0 +1,55 @@
+<div ng-controller="EditableRowCtrl">
+  <table class="table table-bordered table-hover table-condensed">
+    <tr style="font-weight: bold">
+      <td style="width:15%">Title</td>
+      <td style="width:3%">Price</td>
+      <td style="width:3%">Inventory</td>
+      <td style="width:3%">Available?</td>
+      <td style="width:25%">Categories</td>
+      <td style="width:3%">Edit</td>
+    </tr>
+    <tr ng-repeat="product in products">
+      <td>
+        <a ui-sref="product-detail({_id: product._id})" editable-text="product.title" e-name="title" e-form="rowform" onbeforesave="checkName($data, product._id)" e-required>
+              {{ product.title || 'empty' }}
+            </a>
+      </td>
+      <td>
+        <span editable-text="product.price / 100 | currency" e-name="price" e-form="rowform">
+              {{ product.price / 100 || 'empty' | currency}}
+            </span>
+      </td>
+      <td>
+        <span editable-text="product.inventory" e-name="inventory" e-form="rowform">
+              {{ product.inventory || 'empty' }}
+            </span>
+      </td>
+      <td>
+        <span editable-checkbox="product.isAvailable" e-name="availability" e-form="rowform" e-title="">
+              {{ product.isAvailable && 'Yes' || 'No' }}
+            </span>
+      </td>
+      <td>
+        <span editable-checklist="product.categories" e-name="categories" e-form="rowform" e-ng-options="category._id as category.name for category in categories">
+              {{ showDataFromArr(product.categories) }}
+            </span>
+      </td>
+
+      <td style="white-space: nowrap">
+        <!-- form -->
+        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            save
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            cancel
+          </button>
+        </form>
+        <div class="buttons" ng-show="!rowform.$visible">
+          <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+          <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
