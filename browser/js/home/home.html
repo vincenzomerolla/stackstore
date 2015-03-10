@@ -1,7 +1,7 @@
 <section class="container" id="home">
     <body>
         <div id="home_banner">
-            <img  src="http://2.bp.blogspot.com/-WRcWrfVKmYk/TwfHk5SYoiI/AAAAAAAAAmA/7dMyrvIvYy4/s1600/bb+Mark+Widhalm+original.jpg" >
+            <img  src="js/home/logo.png">
             <h2>The Premier Video Game Outlet</h2>
         </div>
         <div id="platform_Buttons">
@@ -17,12 +17,15 @@
                 <div class="game_photo">
                     <a href="products/{{product._id}}"> <img class="img-responsive"  ng-src="{{product.image}}"> </a>
                 </div>
+                <br>
                 <div class="game_title">
                     <h4 class="text-center">{{product.title}}</h4>
                 </div>
+                <br>
                 <div class="game_platform">
-                    <h4 class="text-center"><strong>{{product.platform}}</strong>
+                    <h4 class="text-center"><strong>{{product.platform}}</strong></h4>
                 </div>
+                <br>
                 <div class="game_price">
                     <h5 class="text-center">{{product.price / 100 | currency}}</h5>
                 </div>
