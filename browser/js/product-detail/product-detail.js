@@ -9,9 +9,9 @@ app.config(function ($stateProvider) {
           product: function($stateParams, Product) {
             return Product.get($stateParams).$promise;
           },
-          isLoggedIn: function(AuthService) {
+          user: function(AuthService) {
             return AuthService.getLoggedInUser().then(function(user) {
-              return !!user;
+              return user;
             });
           },
             
@@ -20,27 +20,30 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProductsDetailCtrl', function ($scope, $sce, product, isLoggedIn, ProductReview) {
+app.controller('ProductsDetailCtrl', function ($scope, $sce, $stateParams, product, user, ProductReview) {
   
   $scope.product = product;
   $scope.activeTab = 0;
-  $scope.isLoggedIn = isLoggedIn;
+  $scope.isLoggedIn = !!user;
 
-  var newReview = $scope.newReview = {};
 
   function resetReview() {
     $scope.newReview = new ProductReview();
+    if ($scope.isLoggedIn) $scope.newReview.user = user._id;
+    console.log($scope.newReview);
     //$scope.reviewForm.$setPristine();
     return true;
   }
 
+  resetReview();
+
   $scope.submitReview = function(review) {
     console.log('Submitting review')
 
-    return ProductReview.save(newReview).$promise
+    return $scope.newReview.$save($stateParams)
       .then(function(review) {
         console.log(review);
-        return ProductReview.query().$promise;
+        return ProductReview.query($stateParams).$promise;
       })
       .then(function(reviews) {
         $scope.product.reviews = reviews;
