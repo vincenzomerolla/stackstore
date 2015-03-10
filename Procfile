@@ -1,1 +1,1 @@
-web: node server/start.js
+web: node server/start.js && node server/seed && node recommendation/bin/www
