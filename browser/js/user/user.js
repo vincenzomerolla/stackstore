@@ -111,10 +111,10 @@ app.controller('userCtrl', function($rootScope, Session, $scope, $state, $http, 
 
 
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
-  console.log("Current User Information",$scope.user)
-  if ($scope.user) {
-    $scope.user.isAdmin = true;
-  }
+  // console.log("Current User Information",$scope.user)
+  // if ($scope.user) {
+  //   $scope.user.isAdmin = true;
+  // }
 });
 
 app.controller('EditableRowCtrl', function($state, $scope, $filter, $http, Product, Category, User) {
