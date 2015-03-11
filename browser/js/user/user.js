@@ -132,6 +132,10 @@ app.controller('EditableRowCtrl', function($state, $scope, $filter, $http, Produ
     // Update item
     console.log("tableData",tableData);
     console.log(itemId);
+    if (tableData.isAvailable) {
+      var temp = tableData.isAvailable;
+      tableData.isAvailable = /true/g.test(temp);
+    }
 
     return Product.update({_id: itemId},tableData).$promise.then(function(response) {
       console.log(response);
@@ -140,7 +144,7 @@ app.controller('EditableRowCtrl', function($state, $scope, $filter, $http, Produ
     // Retrieve all items again
     .then(function(updatedItems) {
       $scope.products = updatedItems;
-      return true
+      return true;
     })
   };
 
