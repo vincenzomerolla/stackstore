@@ -22,8 +22,8 @@ app.config(function($stateProvider) {
   });
 });
 
+app.controller('userCtrl', function($rootScope, Session, $scope, $state, $http, AuthService, user, User, products, Product, categories, AUTH_EVENTS, allUsers) {
 
-app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, Product, categories, allUsers) {
   function getContentFromCategory(obj,objCategory) {
     var contentArr = [];
     if (typeof obj[0][objCategory] == 'string') {
@@ -70,12 +70,20 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   };
 
   //Authentication
+  $rootScope.$on(AUTH_EVENTS.loginSuccess,function(){
+    $scope.isAuthenticated = AuthService.isAuthenticated();
+  });
+
   if ($scope.isAuthenticated) {
     $http.put('/api/orders', {
       orders: $scope.user.orders
     }).then(function(res) {
       $scope.previousOrder = res.data;
     })
+  }
+
+  $scope.getOrders = function(){
+    
   }
 
   $scope.logout = function() {
@@ -100,11 +108,12 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
     });
   };
 
+
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
   console.log("Current User Information",$scope.user)
-  // if ($scope.user) {
-  //   $scope.user.isAdmin = true;
-  // }
+  if ($scope.user) {
+    $scope.user.isAdmin = true;
+  }
 });
 
 app.controller('EditableRowCtrl', function($state, $scope, $filter, $http, Product, Category, User) {
