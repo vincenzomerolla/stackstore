@@ -1,4 +1,81 @@
 <div>
+  <h3 style="text-align:center"> Add New Product </h3>
+  <form name="product-form" class="form-horizontal well" ng-submit="createProduct(newProduct)">
+      <div class="form-group">
+        <label for="title" class="col-xs-1 control-label">Title</label>
+        <div class="col-xs-11">
+          <input type="text" class="form-control" ng-model="newProduct.title">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="textArea" class="col-xs-1 control-label">Description</label>
+        <div class="col-xs-11">
+          <textarea id="add-product-desc" class="form-control" rows="3" ng-model="newProduct.description"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price" class="col-xs-1 control-label">Price</label>
+        <div class="col-xs-1">
+          <input type="text" class="form-control" placeholder="xx.xx" ng-model="newProduct.price">
+        </div>
+        <label for="inventory" class="col-xs-1 control-label">Inventory</label>
+        <div class="col-xs-1">  
+          <input type="text" class="form-control" placeholder="Number" ng-model="newProduct.inventory">
+        </div>
+        <label for="releaseDate" class="col-xs-1 control-label" style="font-size: 10.5px">Release Date</label>
+        <div class="col-xs-1">
+          <input type="text" class="form-control" placeholder="Year" ng-model="newProduct.releaseDate">
+        </div>
+        <label for="isAvailable" class="col-lg-1 control-label">Availabililty</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.isAvailable">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+          </select>
+        </div>
+        <label for="manufacturer" class="col-lg-1 control-label">Manufacturer</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.manufacturer" ng-options="manufacturer as manufacturer for manufacturer in manufacturers">
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="platform" class="col-lg-1 control-label">Platform</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.platform" ng-options="platform as platform for platform in platforms">
+          </select>
+        </div>
+        <label for="esrbRatings" class="col-lg-1 control-label" style="font-size: 10.5px">ESRB Rating</label>
+        <div class="col-lg-2">
+          <select class="form-control" ng-model="newProduct.esrbRating" ng-options="esrb as esrb for esrb in esrbRatings">
+          </select>
+        </div>
+        <label for="image" class="col-xs-1 control-label">Image Url</label>
+        <div class="col-xs-5">
+          <input type="text" class="form-control" ng-model="newProduct.image">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="categories" class="col-xs-1 control-label">Categories</label>
+      </div>
+      <div class="form-group">
+        <div class="col-xs-12">
+          <label ng-repeat="category in categories">
+            <input type="checkbox" checklist-model="newProduct.categories" checklist-value="category._id"> {{ category.name }}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-xs-11 col-lg-offset-10">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+  </form>
+</div>
+<hr>
+<div>
+  <h3 style="text-align: center"> Existing Products </h3>
   <table class="table table-bordered table-hover table-condensed">
     <tr style="font-weight: bold">
       <td style="width:15%">Title</td>
@@ -15,7 +92,7 @@
             </a>
       </td>
       <td>
-        <span editable-text="product.price / 100" e-name="price" e-form="rowform">
+        <span editable-text="product.price" e-name="price" e-form="rowform">
               {{ product.price / 100 || 'empty' | currency}}
             </span>
       </td>
@@ -25,7 +102,7 @@
             </span>
       </td>
       <td>
-        <span editable-checkbox="product.isAvailable" e-name="availability" e-form="rowform" e-title="">
+        <span editable-checkbox="product.isAvailable" e-name="isAvailable" e-form="rowform" e-title="">
               {{ product.isAvailable && 'Yes' || 'No' }}
             </span>
       </td>
@@ -37,7 +114,7 @@
 
       <td style="white-space: nowrap">
         <!-- form -->
-        <form editable-form name="rowform" ng-submit="updateItem(product[$index], product._id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+        <form editable-form name="rowform" onbeforesave="updateItem($data, product._id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
             save
           </button>

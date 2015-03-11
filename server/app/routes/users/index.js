@@ -10,6 +10,14 @@ router.route('/')
 		if(err) next(err);
 		res.sendStatus(200);
 	})
+})
+.get(function(req,res,next) {
+	User
+		.find()
+		.exec()
+		.then(function(users) {
+			res.json(users);
+		})
 });
 
 router.route('/:id')

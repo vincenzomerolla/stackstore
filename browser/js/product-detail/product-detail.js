@@ -39,6 +39,7 @@ app.controller('ProductsDetailCtrl', function ($scope, $sce, $stateParams, produ
 
   $scope.submitReview = function(review) {
     console.log('Submitting review')
+    console.log($scope.newReview);
 
     return $scope.newReview.$save($stateParams)
       .then(function(review) {

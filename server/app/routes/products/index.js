@@ -22,7 +22,6 @@ router.route('/')
         res.json(products);
       });
 })
-
 .post(function(req, res, next) {
   var product = new Product(req.body);
 
@@ -48,6 +47,15 @@ router.route('/:id')
       res.json(product);
     });
 })
+// .post(function(req, res, next) {
+//   console.log(req.body);
+//   Product
+//     .create(req.body)
+//     .exec()
+//     .then(function(product) {
+//       res.sendStatus(201);
+//     };
+// })
 .put(function(req, res, next) {
   //console.log(req.body)
   Product

@@ -52,12 +52,13 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http,$st
 			exp_year : "2016"
 		}
 	};
-
+	$scope.loading = false;
 	//##########################################################
 	//Stripe codes in angular 
 	$scope.charge = function () {
 	return stripe.card.createToken($scope.payment.card)
 	  .then(function (token) {
+	  	$scope.loading = true;
 	    console.log('token created for card ending in ', token.card.last4);
 	    var payment = angular.copy($scope.payment);
 	    payment.card = void 0;
@@ -77,10 +78,12 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http,$st
 	    if (err.type && /^Stripe/.test(err.type)) {
 	      console.log('Stripe error: ', err.message);
 	      $scope.error = err;
+	      $scope.loading = false;
 	    }
 	    else {
 	      console.log('Other error occurred, possibly with your API', err.message);
 	      $scope.error = err;
+	      $scope.loading = false;
 	    }
 	  });
 	};

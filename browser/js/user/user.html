@@ -3,21 +3,19 @@
   <login ng-if="!isAuthenticated"></login>
 
   <div class="container" ng-if="isAuthenticated">
-    <!-- {{user | json}} -->
     <div class="row" ng-if="user.isAdmin">
       <div class="col-xs-9" style="word-wrap: break-word">
         <h3>Welcome {{user.firstName}} {{ user.lastName }}!</h3>
-        <!-- <img ng-src="{{user.photoUrl}}" class="img-responsive" style=""> -->
       </div>
       <div class="col-xs-3">
         <button class="btn btn-danger btn-block" ng-click="logout()">Logout</button>
       </div>
-    <hr>
+      <hr>
     </div>
     <div class="row">
       <!-- Authenticated Users -->
       <span ng-if="!user.isAdmin">
-        <h3>Welcome {{user.firstName}} {{ user.lastName }}!</h3>
+        <h2>Welcome {{user.firstName}} {{ user.lastName }}!</h2>
         <hr>
         <div class="col-md-3">
           <div style="word-wrap: break-word">
@@ -43,7 +41,6 @@
 
 
       <!-- Admin Users -->
-          <!-- {{previousOrder | json}} -->
       <span ng-controller="EditableRowCtrl">
       <div class="col-xs-12" ng-if="user.isAdmin">
         <div bs-active-pane="activeTab" bs-tabs nav-class="nav-tabs nav-justified">
@@ -52,27 +49,21 @@
           </div>
           <div data-title="Products" bs-pane>
             <ng-include src="'js/account-tabs/admin/products.html'"></ng-include>
-
           </div>
           <div data-title="Categories" bs-pane>
-
+            <ng-include src="'js/account-tabs/admin/categories.html'"></ng-include>
           </div>
           <div data-title="Orders" bs-pane>
-
+            <ng-include src="'js/account-tabs/admin/orders.html'"></ng-include>
           </div>
           <div data-title="User Management" bs-pane>
-
+            <ng-include src="'js/account-tabs/admin/user-management.html'"></ng-include>
           </div>
         </div>
-        <hr>
       </div>
       </span>
     </div>
-
     <hr>
-
-    <!-- List Pane for Admin Users -->
-    <!-- Products Tab -->
 
 
 

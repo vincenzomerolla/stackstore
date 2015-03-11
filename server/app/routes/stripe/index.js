@@ -1,5 +1,6 @@
 var router = require('express').Router();
-var stripe = require("stripe")("sk_test_CqEJo0MVuOCRmKQwuwgX1oAM");
+var stripeSecret = require("../../../env/production.js").STRIPE.secret;
+var stripe = require("stripe")(stripeSecret);
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var PurchasedProduct = mongoose.model('PurchasedProduct');
