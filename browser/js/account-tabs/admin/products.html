@@ -1,7 +1,6 @@
 <div>
-  {{ newProduct | json }}
   <h3 style="text-align:center"> Add New Product </h3>
-  <form name="product-form" class="form-horizontal well" ng-submit="createProduct()">
+  <form name="product-form" class="form-horizontal well" ng-submit="createProduct(newProduct)">
       <div class="form-group">
         <label for="title" class="col-xs-1 control-label">Title</label>
         <div class="col-xs-11">
@@ -93,7 +92,7 @@
             </a>
       </td>
       <td>
-        <span editable-text="product.price / 100" e-name="price" e-form="rowform">
+        <span editable-text="product.price" e-name="price" e-form="rowform">
               {{ product.price / 100 || 'empty' | currency}}
             </span>
       </td>
@@ -115,7 +114,7 @@
 
       <td style="white-space: nowrap">
         <!-- form -->
-        <form editable-form name="rowform" ng-submit="updateItem(product[$index], product._id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+        <form editable-form name="rowform" onbeforesave="updateItem($data, product._id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
           <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
             save
           </button>

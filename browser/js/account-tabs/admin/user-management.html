@@ -6,39 +6,37 @@
       <td style="width:15%">Admin?</td>
       <td style="width:10%">Edit</td>
     </tr>
-    <tr ng-repeat="user in users">
+    <tr ng-repeat="user in allUsers">
       <td>
-        <span editable-text="user.firstName" e-name="name" e-form="rowform" e-required>
+        <span editable-text="user.firstName" e-name="firstName" e-form="userForm" e-required>
           {{ user.firstName || 'empty' }}
         </span>
       </td>
       <td>
-        <span editable-text="user.lastName" e-name="name" e-form="rowform" e-required>
+        <span editable-text="user.lastName" e-name="lastName" e-form="userForm" e-required>
           {{ user.lastName || 'empty' }}
         </span>
       </td>
       <td>
-        <span editable-text="user.isAdmin" e-name="name" e-form="rowform" e-required>
-          {{ user.isAdmin || 'empty' }}
+        <span editable-text="user.isAdmin" e-name="isAdmin" e-form="userForm" e-required>
+          {{ user.isAdmin }}
         </span>
       </td>
       <td style="white-space: nowrap">
         <!-- form -->
-        <form editable-form name="rowform" onbeforesave="createCategory($data)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
-          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+        <form editable-form name="userForm" onbeforesave="updateUser($data,$index)" ng-show="userForm.$visible" class="form-buttons form-inline" shown="inserted == user">
+          <button type="submit" ng-disabled="userForm.$waiting" class="btn btn-primary">
             save
           </button>
-          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+          <button type="button" ng-disabled="userForm.$waiting" ng-click="userForm.$cancel()" class="btn btn-default">
             cancel
           </button>
         </form>
-        <div class="buttons" ng-show="!rowform.$visible">
-          <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+        <div class="buttons" ng-show="!userForm.$visible">
+          <button class="btn btn-primary" ng-click="userForm.$show()">edit</button>
           <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
         </div>  
       </td>
     </tr>
   </table>
-
-  <button class="btn btn-default" ng-click="addUser()">Add row</button>
 </div>

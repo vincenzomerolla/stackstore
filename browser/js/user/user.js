@@ -14,16 +14,16 @@ app.config(function($stateProvider) {
       },
       categories: function(Category) {
         return Category.query().$promise;
+      },
+      allUsers: function(User) {
+        return User.query().$promise;
       }
-      // allUsers: function(User) {
-      //   return User.query().$promise;
-      // }
     }
   });
 });
 
 
-app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, Product, categories) {
+app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, Product, categories, allUsers) {
   function getContentFromCategory(obj,objCategory) {
     var contentArr = [];
     if (typeof obj[0][objCategory] == 'string') {
@@ -37,8 +37,7 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   }
 
   $scope.user = user;
-  // $scope.allUsers = allUsers;
-  console.log($scope.allUsers);
+  $scope.allUsers = allUsers;
   $scope.products = products;
   $scope.categories = categories;
   $scope.isAuthenticated = AuthService.isAuthenticated();
@@ -54,13 +53,14 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   $scope.activeTab = 0;
 
   // Making new Product
-  // $scope.newProduct = new Product();
+  $scope.newProduct = new Product();
 
-  $scope.createProduct = function () {
+  $scope.createProduct = function (newProduct) {
     console.log('Creating new product')
-    console.log($scope.newProduct);
+    console.log(newProduct);
 
-    return Product.save({},$scope.newProduct)
+    return $scope.newProduct.$save()
+      .$promise
       .then(function(product) {
         return Product.query().$promise;
       })
@@ -101,16 +101,14 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   };
 
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
-  if ($scope.user) {
-    $scope.user.isAdmin = true;
-  }
+  console.log("Current User Information",$scope.user)
+  // if ($scope.user) {
+  //   $scope.user.isAdmin = true;
+  // }
 });
 
-app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Category, User) {
-
-  //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT 
-  $scope.products[0].categories[0] = 1;
-
+app.controller('EditableRowCtrl', function($state, $scope, $filter, $http, Product, Category, User) {
+  
 
   $scope.showDataFromArr = function(arr) {
     if (!arr.length) {
@@ -126,15 +124,15 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Cate
     console.log("tableData",tableData);
     console.log(itemId);
 
-    Product.update({_id: itemId},tableData).$promise.then(function(response) {
+    return Product.update({_id: itemId},tableData).$promise.then(function(response) {
       console.log(response);
       return Product.query().$promise;
     })
     // Retrieve all items again
     .then(function(updatedItems) {
       $scope.products = updatedItems;
+      return true
     })
-    return true;
   };
 
   $scope.loadGroups = function() {
@@ -161,20 +159,28 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Cate
     //   $scope.categories = categories;
     // })
     
-    // return $http.post('/categories').$promise.then(function(category) {
-    //   console.log('posted new category',category);
-    //   return $http.get('/categories').$promise;
-    // })
-    // .then(function(categories) {
-    //   $scope.categories = categories;
-    // })
+    return $http.post('/categories', data).$promise.then(function(category) {
+      console.log('posted new category',category);
+      return $http.get('/categories').$promise;
+    })
+    .then(function(categories) {
+      $scope.categories = categories;
+    })
+
     angular.extend(data, {id: id});
     return $http.post('/saveUser', data);
   };
 
   // remove user
-  $scope.removeUser = function(index) {
-    $scope.users.splice(index, 1);
+  $scope.removeCategory = function(index,data) {
+    console.log(data)
+    $scope.categories.splice(index, 1);
+    Category.delete({_id: data._id}).$promise.then(function(response) {
+      return Category.query().$promise;
+    })
+    .then(function(categories) {
+      $scope.categories = categories;
+    })
   };
 
   // add user
@@ -187,4 +193,22 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Cate
 
 //////////// Users
 
+  $scope.updateUser = function(data,index) {
+    console.log("user data",data);
+    console.log("index",index);
+    console.log(/true/g.test(data.isAdmin))
+    $scope.allUsers[index].firstName = data.firstName;
+    $scope.allUsers[index].lastName = data.lastName;
+    $scope.allUsers[index].isAdmin = /true/g.test(data.isAdmin);
+
+    User.update({
+      id: $scope.allUsers[index]._id
+    }, $scope.allUsers[index]).$promise.then(function(serverUpdatedUser) {
+      console.log("serverUpdatedUser",serverUpdatedUser);
+      return User.query().$promise;
+    })
+    .then(function(allUsers) {
+      $scope.users = allUsers;
+    })
+  }
 });

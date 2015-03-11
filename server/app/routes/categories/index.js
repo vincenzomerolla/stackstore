@@ -19,4 +19,14 @@ router.route('/')
 		})
 })
 
+router.route('/:id')
+.delete(function(req, res, next) {
+	Category
+		.findByIdAndRemove(req.params.id)
+		.exec()
+		.then(function(category) {
+			res.sendStatus(204);
+		})
+})
+
 module.exports = router;
