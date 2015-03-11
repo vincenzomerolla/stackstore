@@ -9,24 +9,14 @@ router.route('/')
     res.json(categories);
   });
 })
-
-// router.route('/:id/products') 
-// .get(function(req, res, next) {
-  // Category
-	 //  .findById(req.params.id)
-	 //  .exec()
-	 //  .then(function(category) {
-	 //  	console.log(category)
-	 //    return Product
-		//     .find({})
-		//     .populate('categories')
-		//     .where('categories')
-		//     .in([category._id])
-		//     .exec() 
-	 //  })
-	 //  .then(function(response) {
-		// 	    	res.json(response);
-		//     	})
-// })
+.post(function(req, res, next) {
+	Category
+		.create(req.body)
+		.exec()
+		.then(function(category) {
+			console.log(category);
+			res.json(category);
+		})
+})
 
 module.exports = router;

@@ -20,7 +20,7 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, categories) {
+app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, Product, categories) {
   function getContentFromCategory(obj,objCategory) {
     var contentArr = [];
     if (typeof obj[0][objCategory] == 'string') {
@@ -46,6 +46,25 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
     return el.name;
   });
 
+  $scope.activeTab = 0;
+
+  // Making new Product
+  // $scope.newProduct = new Product();
+
+  $scope.createProduct = function () {
+    console.log('Creating new product')
+    console.log($scope.newProduct);
+
+    return Product.save({},$scope.newProduct)
+      .then(function(product) {
+        return Product.query().$promise;
+      })
+      .then(function(products) {
+        $scope.products = products;
+      })
+  };
+
+  //Authentication
   if ($scope.isAuthenticated) {
     $http.put('/api/orders', {
       orders: $scope.user.orders
@@ -60,7 +79,7 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
     $state.go('home');
   }
 
-  $scope.activeTab = 0;
+  
 
   $scope.checkFieldIfEmpty = function(data) {
     if (data.length === 0) {
@@ -82,7 +101,7 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   }
 });
 
-app.controller('EditableRowCtrl', function($scope, $filter, $http, Product) {
+app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Category) {
 
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT 
   $scope.products[0].categories[0] = 1;
@@ -112,5 +131,59 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, Product) {
     })
     return true;
   };
+
+  $scope.loadGroups = function() {
+      return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
+        $scope.groups = data;
+      });
+    };
+
+    $scope.showGroup = function(user) {
+      if(user.group && $scope.groups.length) {
+        var selected = $filter('filter')($scope.groups, {id: user.group});
+        return selected.length ? selected[0].text : 'Not set';
+      } else {
+        return user.groupName || 'Not set';
+      }
+    };
+
+////////////// Categories
+    $scope.showStatus = function(user) {
+      var selected = [];
+      if(user.status) {
+        selected = $filter('filter')($scope.statuses, {value: user.status});
+      }
+      return selected.length ? selected[0].text : 'Not set';
+    };
+
+    $scope.createCategory = function(data) {
+      // return Category.$save({},data).$promise.then(function(category) {
+      //   return Category.query().$promise;
+      // })
+      // .then(function(categories) {
+      //   $scope.categories = categories;
+      // })
+      
+      return $http.post('/categories').$promise.then(function(category) {
+        console.log('posted new category',category);
+        return $http.get('/categories').$promise;
+      })
+      .then(function(categories) {
+        $scope.categories = categories;
+      })
+    };
+
+    // remove user
+    $scope.removeUser = function(index) {
+      $scope.users.splice(index, 1);
+    };
+
+    // add user
+    $scope.addUser = function() {
+      $scope.newCategory = new Category();
+      console.log($scope.newCategory);
+      $scope.newCategory.name = 'INSERT NEW NAME';
+      $scope.categories.push($scope.newCategory);
+    };
 
 });
