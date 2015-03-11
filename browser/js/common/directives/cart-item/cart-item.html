@@ -6,6 +6,7 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">{{ item.title}}</h4>
+    <a href="#" class="" ng-click="removeProduct(item)">Remove from cart</a><br>
     <span class="text-muted">{{item.purchasePrice / 100 | currency}}</span>
     Quantity: <span class="text-primary">{{ item.qty}}</span>
   </div>

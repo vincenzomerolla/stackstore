@@ -1,7 +1,7 @@
 'use strict';
 
 app
-.directive('cart', function(Cart) {
+.directive('cart', function (Cart, Product) {
   return {
     replace: true,
     restrict: 'E',
@@ -15,13 +15,17 @@ app
       };
       scope.cart = cart;
 
+
       transclude(scope, function(clone, scope) {
         element.append(clone);
       });
+      
     }
   }
 })
 .controller('CartController', function($scope, Cart) {
-  
+  this.getItems = function() {
+    $scope.cart.items = Cart.get();
+  }
 
 })
