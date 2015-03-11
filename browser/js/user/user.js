@@ -15,6 +15,9 @@ app.config(function($stateProvider) {
       categories: function(Category) {
         return Category.query().$promise;
       }
+      // allUsers: function(User) {
+      //   return User.query().$promise;
+      // }
     }
   });
 });
@@ -34,6 +37,8 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   }
 
   $scope.user = user;
+  // $scope.allUsers = allUsers;
+  console.log($scope.allUsers);
   $scope.products = products;
   $scope.categories = categories;
   $scope.isAuthenticated = AuthService.isAuthenticated();
@@ -101,7 +106,7 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
   }
 });
 
-app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Category) {
+app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Category, User) {
 
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT 
   $scope.products[0].categories[0] = 1;
@@ -148,42 +153,38 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, Product, Cate
     };
 
 ////////////// Categories
-    $scope.showStatus = function(user) {
-      var selected = [];
-      if(user.status) {
-        selected = $filter('filter')($scope.statuses, {value: user.status});
-      }
-      return selected.length ? selected[0].text : 'Not set';
-    };
+  $scope.createCategory = function(data) {
+    // return Category.$save({},data).$promise.then(function(category) {
+    //   return Category.query().$promise;
+    // })
+    // .then(function(categories) {
+    //   $scope.categories = categories;
+    // })
+    
+    // return $http.post('/categories').$promise.then(function(category) {
+    //   console.log('posted new category',category);
+    //   return $http.get('/categories').$promise;
+    // })
+    // .then(function(categories) {
+    //   $scope.categories = categories;
+    // })
+    angular.extend(data, {id: id});
+    return $http.post('/saveUser', data);
+  };
 
-    $scope.createCategory = function(data) {
-      // return Category.$save({},data).$promise.then(function(category) {
-      //   return Category.query().$promise;
-      // })
-      // .then(function(categories) {
-      //   $scope.categories = categories;
-      // })
-      
-      return $http.post('/categories').$promise.then(function(category) {
-        console.log('posted new category',category);
-        return $http.get('/categories').$promise;
-      })
-      .then(function(categories) {
-        $scope.categories = categories;
-      })
-    };
+  // remove user
+  $scope.removeUser = function(index) {
+    $scope.users.splice(index, 1);
+  };
 
-    // remove user
-    $scope.removeUser = function(index) {
-      $scope.users.splice(index, 1);
-    };
+  // add user
+  $scope.addUser = function() {
+    $scope.newCategory = new Category();
+    console.log($scope.newCategory);
+    $scope.newCategory.name = 'INSERT NEW NAME';
+    $scope.categories.push($scope.newCategory);
+  };
 
-    // add user
-    $scope.addUser = function() {
-      $scope.newCategory = new Category();
-      console.log($scope.newCategory);
-      $scope.newCategory.name = 'INSERT NEW NAME';
-      $scope.categories.push($scope.newCategory);
-    };
+//////////// Users
 
 });
