@@ -1,16 +1,19 @@
 <div class="container">
+
 	<hr>
 	<h3>Your Cart</h3>
 	<cart>
     	<cart-item item="item" ng-repeat="item in cart.items track by $index"></cart-item>  
     </cart>
 	<h4>Total: {{total / 100 | currency}}</h4>
-	<hr>
-	<h3>Payment Methods</h3>
+	<hr ng-if="user">
+	<h3 ng-if="user">Payment Methods</h3>
 
 
 	<!-- modal -->
-	<button type="button" class="btn btn-lg btn-primary" data-placement="center" data-template="js/checkout/paymentForm.html" bs-modal="modal">PAY WITH CREDIT CARD
+	<button ng-if="!user" class="btn btn-lg btn-primary" ui-sref="user">Go to Sign In</button>
+
+	<button ng-if="user" type="button" class="btn btn-lg btn-primary" data-placement="center" data-template="js/checkout/paymentForm.html" bs-modal="modal">PAY WITH CREDIT CARD
 	</button>
 </div>
 

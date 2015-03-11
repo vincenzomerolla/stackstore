@@ -26,14 +26,14 @@ app.controller('NavbarController', function ($scope, $state, Session, AuthServic
 
   $scope.search = "";
 
-	$scope.goTo = function(stateName) {
-		return $state.go(stateName);
-	}
-	
+  $scope.goTo = function(stateName) {
+    return $state.go(stateName);
+  }
+  
   $scope.user = Session.user;
   console.log(Session.user)
-	$scope.aside = {
-	  "title": "Cart"
-	};
+  $scope.aside = {
+    "title": "Cart"
+  };
 
 });

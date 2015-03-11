@@ -1,6 +1,32 @@
 'use strict';
-app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$window,$location,$http,$state){
+app.directive('showValidation', [function() {
+	return {
+		restrict: "A",
+		link: function(scope, element, attrs, ctrl) {
 
+			if (element.get(0).nodeName.toLowerCase() === 'form') {
+				element.find('.form-group').each(function(i, formGroup) {
+					showValidation(angular.element(formGroup));
+				});
+			} else {
+				showValidation(element);
+			}
+
+			function showValidation(formGroupEl) {
+				var input = formGroupEl.find('input[ng-model],textarea[ng-model]');
+				if (input.length > 0) {
+					scope.$watch(function() {
+						return input.hasClass('ng-invalid');
+					}, function(isInvalid) {
+						formGroupEl.toggleClass('has-error', isInvalid);
+					});
+				}
+			}
+		}
+	};
+}]);
+
+app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$window,$location,$http,$state){
 	return {
 		restrict : "E",
 		templateUrl : "js/common/directives/login/login.html",
@@ -15,11 +41,12 @@ app.directive('login',function(AuthService, Session, AUTH_EVENTS,$rootScope,$win
 			scope.newUserInfo = {};
 
 			scope.signUp = function(){
-				// console.log(scope.newUserInfo);
+				console.log(scope.newUserInfo);
 				$http.post('api/users',scope.newUserInfo).then(function(data){
 					AuthService.login(scope.newUserInfo).then(function(){
 						scope.isAuthenticated = AuthService.isAuthenticated();
-						
+						console.log(scope.isAuthenticated);
+						$state.go('user');
 					});
 				});
 			};
