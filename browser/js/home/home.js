@@ -59,6 +59,21 @@ app.controller('HomeCtrl', function ($scope, Product) {
         $scope.setPlatform = function(platform_Name){
             $scope.platform = platform_Name;
         }
+
+        $scope.getPlatform = function(){
+            if ($scope.platform === 'Nintendo Wii U') {
+                return nintendo
+            }
+        }
+
+        $scope.object = {
+            'PlayStation 3': $scope.ps3,
+            'PlayStation 4': $scope.ps4,
+            'Xbox 360': $scope.xbox360,
+            'Xbox One': $scope.xbox1,
+            'Nintendo Wii U': $scope.nintendo
+        }
+
     });
 });
 

@@ -11,8 +11,8 @@ footer .footertitle{
 
   display:block;
   margin:auto;
-  height: 15%;
-  width: 15%;
+  height: 25%;
+  width: 25%;
 
 }
 
@@ -33,12 +33,11 @@ li {
 }
 
 .game_title{
-  margin-top: 25px;
+  margin-top: 35px;
   height: 70px;
 }
 
 .game_platform{
-
   height: 30px;
 }
 
@@ -54,9 +53,14 @@ li {
 #platform_Buttons{
   margin: 10px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 #platform_Buttons h4{
   margin-top: 20px;
+  text-align: center;
+}
+
+#copy {
   text-align: center;
 }

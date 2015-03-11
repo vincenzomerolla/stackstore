@@ -67,7 +67,8 @@ function extractFields(bestBuyProduct) {
 
 var genrePromise = request.getAsync({ url: 'http://www.giantbomb.com/api/genres/', qs: { api_key: '316473f6dd8998d32e8ea7ea99b0ac5ae2e5c185', format: 'json'} });
 
-//var genres = ['Action', 'Adventure', 'Sports', 'Role-Playing', 'Driving/Racing'];
+var genres;
+
 
 Promise.all( [ Category.remove({}).exec(), Product.remove({}).exec() ])
   .then(function() {
@@ -80,9 +81,10 @@ Promise.all( [ Category.remove({}).exec(), Product.remove({}).exec() ])
     })
     return Promise.all(promises);
   })
-  .then(function() {
+  .then(function(categories) {
     console.log('Categories created!');
-
+    genres = categories;
+    
     var platformPromises = platforms.map(function(platform) {
       return request.getAsync({ url: createUrl(platform.id, config.filters), qs: config.queryParams })
     })
