@@ -20,7 +20,8 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('userCtrl', function($scope, $state, $http, AuthService, user, User, products, categories) {
+
+app.controller('userCtrl', function($rootScope,Session,$scope, $state, $http, AuthService, user, User, products, categories, AUTH_EVENTS) {
   function getContentFromCategory(obj,objCategory) {
     var contentArr = [];
     if (typeof obj[0][objCategory] == 'string') {
@@ -46,12 +47,20 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
     return el.name;
   });
 
+  $rootScope.$on(AUTH_EVENTS.loginSuccess,function(){
+    $scope.isAuthenticated = AuthService.isAuthenticated();
+  });
+
   if ($scope.isAuthenticated) {
     $http.put('/api/orders', {
       orders: $scope.user.orders
     }).then(function(res) {
       $scope.previousOrder = res.data;
     })
+  }
+
+  $scope.getOrders = function(){
+    
   }
 
   $scope.logout = function() {
@@ -75,6 +84,7 @@ app.controller('userCtrl', function($scope, $state, $http, AuthService, user, Us
       console.log(userUpdated);
     });
   };
+
 
   //DEVELOPMENT PURPOSES - REMOVE UPON DEPLOYMENT
   if ($scope.user) {

@@ -29,6 +29,7 @@
     "colors": "~2.2.0",
     "angular-xeditable": "~0.1.8",
     "bootstrap-sweetalert": "~0.4.3",
-    "checklist-model": "~0.2.4"
+    "checklist-model": "~0.2.4",
+    "angular-stripe": "~4.1.0"
   }
 }

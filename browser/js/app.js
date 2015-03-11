@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ngSanitize', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap','xeditable', 'ngAnimate', 'checklist-model']);
+var app = angular.module('FullstackGeneratedApp', ['ngResource', 'ngSanitize', 'ui.router', 'fsaPreBuilt', 'mgcrea.ngStrap','xeditable', 'ngAnimate','angular-stripe', 'checklist-model']);
 
 app.controller('MainController', function (AuthService) {
 
