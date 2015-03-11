@@ -7,7 +7,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var promise = request.getAsync({ url: 'http://localhost:1337/api/products'});
+    var url;
+    if (process.env.NODE_ENV = 'production') {
+      url = 'http://nameless-ocean-4509.herokuapp.com';
+    } else {
+      url = 'http://localhost:1337';
+    }
+
+
+    var promise = request.getAsync({ url: url + '/api/products'});
     promise.then(function(contents) {
         var body = JSON.parse(contents[1]);
 

@@ -16,27 +16,18 @@ app.config(function (stripeProvider) {
   stripeProvider.setPublishableKey('pk_test_80RLXWzoQSYUnhUNJJaKeUiN');
 });
 
-app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http,$state){
+app.controller("checkoutCtrl", function ($scope, $state, Cart, Session, user, stripe) {
 
-	$scope.list_of_products = Cart.get();
 
 	$scope.user = user;
 
-	$scope.calculateTotal = function(){
-		var total = 0;
-		$scope.list_of_products.forEach(function(product){
-			total += product.purchasePrice * product.qty;
-		})
-		return total; //in cents
-	}
-
-	$scope.total = calculateTotal();
+	$scope.total = Cart.calculateTotal();
 
 	$scope.modal = {
 		"content": $scope.total/100
 	}
 
-	$scope.address={
+	$scope.address = {
 		street : "5 Hanover Square",
 		city : "New York",
 		state : "NY",
@@ -44,7 +35,6 @@ app.controller("checkoutCtrl",function($scope,Cart,Session,user,stripe,$http,$st
 	};
 
 	$scope.payment = {
-
 		card : {
 			number : "4242424242424242",
 			cvc : "1234",

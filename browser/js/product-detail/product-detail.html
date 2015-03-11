@@ -32,7 +32,7 @@
             <div class="product-detail__pane">
               <div class="col-xs-4 text-left" ng-repeat="recommendedProduct in recommendedProducts">
                 
-                <img class="img-responsive center-block" ui-sref="product-detail({ _id:product._id })" ng-src="{{recommendedProduct.image}}" alt="" >
+                <img class="img-responsive center-block" ui-sref="product-detail({ _id:recommendedProduct._id })" ng-src="{{recommendedProduct.image}}" alt="" >
                 <h4 class="">{{recommendedProduct.price/100 | currency}}</h4>
                 <h5>{{recommendedProduct.title}}</h5>
               </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 app
-.directive('cart', function (Cart) {
+.directive('cart', function (Cart, Product) {
   return {
     replace: true,
     restrict: 'E',
@@ -16,23 +16,16 @@ app
       scope.cart = cart;
 
 
-      // var calculateTotal = function(){
-      //   var total = 0;
-      //   cartItems.forEach(function(product){
-      //     total += product.purchasePrice * product.qty;
-      //   })
-      //   return total //in cents
-      // };
-
-      // scope.total = calculateTotal();
-
       transclude(scope, function(clone, scope) {
         element.append(clone);
       });
+      
     }
   }
 })
 .controller('CartController', function($scope, Cart) {
-  
+  this.getItems = function() {
+    $scope.cart.items = Cart.get();
+  }
 
 })

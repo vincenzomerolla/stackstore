@@ -7,11 +7,16 @@ app.factory('Cart', function(CartItem){
   function Cart(){}
   
   function findProductIndex(product) {
-    if (!cart || _.isEmpty(cart)) return -1;
+    if (isEmptyCart(cart)) return -1;
     else { 
       var id = product._id || product.id;
       return _.pluck(cart,'id').indexOf(id)
     }
+  }
+
+  function isEmptyCart(c) {
+    if (!c || _.isEmpty(c)) return true;
+    else return false;
   }
 
   function getCart() {
@@ -51,10 +56,23 @@ app.factory('Cart', function(CartItem){
   }
 
 
+  function calculateTotal(){
+    var total = 0;
+
+    if (!isEmptyCart(cart)) { 
+      cart.forEach(function(product){
+        total += product.purchasePrice * product.qty;
+      })
+    }
+    return total; //in cents
+  }
+
+
   Cart.prototype.get = getCart;
   Cart.prototype.addProduct = addProduct;
   Cart.prototype.removeProduct = removeProduct;
   Cart.prototype.empty = emptyCart;
+  Cart.prototype.calculateTotal = calculateTotal;
 
 
   return new Cart();
