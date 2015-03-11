@@ -72,6 +72,7 @@ app.controller('userCtrl', function($rootScope, Session, $scope, $state, $http, 
   //Authentication
   $rootScope.$on(AUTH_EVENTS.loginSuccess,function(){
     $scope.isAuthenticated = AuthService.isAuthenticated();
+    $scope.user = Session.user;
   });
 
   if ($scope.isAuthenticated) {
